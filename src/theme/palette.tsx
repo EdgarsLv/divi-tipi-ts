@@ -1,10 +1,10 @@
 import { PaletteOptions, PaletteColorOptions } from '@mui/material/styles';
-import { green } from '@mui/material/colors';
+import { pink, teal } from '@mui/material/colors';
 
 const PRIMARY: PaletteColorOptions = {
-  light: green[200],
-  main: green[500],
-  dark: green[800],
+  light: pink[200],
+  main: pink[600],
+  dark: pink[900],
 };
 const SECONDARY: PaletteColorOptions = {
   light: '#84A9FF',
@@ -46,7 +46,7 @@ const palette = {
     ...COMMON_LIGHT,
     mode: 'light',
     text: { primary: '#212B36', secondary: '#637381' },
-    background: { paper: '#dadfde', default: '#dadfde' },
+    background: { paper: teal[100], default: teal[50] },
     action: { active: '#637381' },
   } as PaletteOptions,
 

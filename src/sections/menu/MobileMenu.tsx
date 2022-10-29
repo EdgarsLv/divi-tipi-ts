@@ -119,13 +119,7 @@ function DotIcon({ active }: { active: boolean }) {
   const activeStyle: SxProps<Theme> = { color: 'primary.main', width: '10px' };
   const inactiveStyle: SxProps<Theme> = { width: '8px' };
   return (
-    <ListItemIcon
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
+    <ListItemIcon sx={{ pl: 1 }}>
       {active ? <CircleIcon sx={activeStyle} /> : <CircleTwoToneIcon sx={inactiveStyle} />}
     </ListItemIcon>
   );

@@ -21,41 +21,31 @@ export type Navigation = {
 
 export const navConfig: Navigation[] = [
   {
-    subheader: 'Admin',
+    subheader: 'Main',
     items: [
-      { title: 'Page 1', path: '/', Icon: HomeTwoTone },
-      { title: 'Page 2', path: 'page2', Icon: InboxIcon },
-      { title: 'Page 3', path: 'page3', Icon: Send },
+      { title: 'Meklēt', path: '/', Icon: HomeTwoTone },
+      { title: 'Vēstules', path: 'messages', Icon: InboxIcon },
+      { title: 'Statistika', path: 'statistics', Icon: Send },
 
       {
-        title: 'Expand 1',
+        title: 'Socionika',
         path: '',
         Icon: Menu,
         children: [
-          { title: 'Page 1', path: '/' },
-          { title: 'Page 2', path: 'page2' },
-          { title: 'Page 3', path: 'page3' },
+          { title: 'Tests', path: '/personalities/test' },
+          { title: 'Sociotipi', path: 'personalities' },
+          { title: 'Saderības', path: 'relationships' },
         ],
       },
-      { title: 'Page 1', path: '/', Icon: HomeTwoTone },
+      { title: 'Diskusijas', path: 'discussions', Icon: HomeTwoTone },
     ],
   },
 
   {
-    subheader: 'User',
+    subheader: 'Secondary',
     items: [
-      { title: 'Page 1', path: '/', Icon: HomeTwoTone },
-      { title: 'Page 2', path: 'page2', Icon: SettingsTwoToneIcon },
-      {
-        title: 'expand 2',
-        path: '',
-        Icon: Menu,
-        children: [
-          { title: 'Page 1', path: '/' },
-          { title: 'Page 2', path: 'page2' },
-          { title: 'Page 3', path: 'page3' },
-        ],
-      },
+      { title: 'Izklaide', path: '/', Icon: HomeTwoTone },
+      { title: 'Atsauksmes', path: 'page2', Icon: SettingsTwoToneIcon },
     ],
   },
 ];

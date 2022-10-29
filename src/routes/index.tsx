@@ -15,15 +15,28 @@ const Loadable = (Component: ComponentType) => (props: AnyProps) => {
   );
 };
 
+// LAYOUT
 const MainLayout = Loadable(lazy(() => import('../layout')));
 
-const Page1 = Loadable(lazy(() => import('../pages/page1')));
-const Page2 = Loadable(lazy(() => import('../pages/page2')));
-const Page3 = Loadable(lazy(() => import('../pages/page3')));
+// MAIN
+const Search = Loadable(lazy(() => import('../pages/search')));
+const Messages = Loadable(lazy(() => import('../pages/messages')));
+const Statistics = Loadable(lazy(() => import('../pages/statistics')));
+const Discussions = Loadable(lazy(() => import('../pages/discussions')));
+const Discussion = Loadable(lazy(() => import('../pages/discussion')));
 
+// 16 PERSONALITIES
+const PersonalityTest = Loadable(lazy(() => import('../pages/personalityTest')));
+const Personalities = Loadable(lazy(() => import('../pages/personalities')));
+const Personality = Loadable(lazy(() => import('../pages/personality')));
+const Relationships = Loadable(lazy(() => import('../pages/relationships')));
+const Relation = Loadable(lazy(() => import('../pages/relation')));
+
+// AUTH
 const Login = Loadable(lazy(() => import('../auth/login')));
 const Register = Loadable(lazy(() => import('../auth/register')));
 
+// REDIRECTS
 const NotFound = Loadable(lazy(() => import('../pages/notFound')));
 
 export const router = createBrowserRouter([
@@ -35,14 +48,36 @@ export const router = createBrowserRouter([
       </AuthGuard>
     ),
     children: [
-      { element: <Page1 />, index: true },
+      { element: <Search />, index: true },
       {
-        path: 'page2',
-        element: <Page2 />,
+        path: 'messages',
+        element: <Messages />,
       },
       {
-        path: 'page3',
-        element: <Page3 />,
+        path: 'statistics',
+        element: <Statistics />,
+      },
+      {
+        path: 'personalities',
+        children: [
+          { element: <Personalities />, index: true },
+          { path: ':name', element: <Personality /> },
+          { path: 'test', element: <PersonalityTest /> },
+        ],
+      },
+      {
+        path: 'relationships',
+        children: [
+          { element: <Relationships />, index: true },
+          { path: ':name', element: <Relation /> },
+        ],
+      },
+      {
+        path: 'discussions',
+        children: [
+          { element: <Discussions />, index: true },
+          { path: ':name', element: <Discussion /> },
+        ],
       },
     ],
   },

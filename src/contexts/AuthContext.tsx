@@ -1,25 +1,12 @@
-import { createContext, useEffect, useReducer, useState, useContext, ReactNode } from 'react';
-
-interface RootState {
-  isAuthenticated: boolean;
-  isInitialized?: boolean;
-  user: any;
-  login?: () => void;
-  register?: () => void;
-  logout?: () => void;
-}
-type ActionType = { type: 'INITIALISE'; payload: RootState };
+import { createContext, useEffect, useReducer, useState, useContext } from 'react';
 
 const initialState = {
   isAuthenticated: false,
   isInitialized: false,
   user: null,
-  login: () => Promise.resolve(),
-  register: () => Promise.resolve(),
-  logout: () => Promise.resolve(),
 };
 
-const reducer = (state: RootState, action: ActionType): RootState => {
+const reducer = (state: any, action: any) => {
   if (action.type === 'INITIALISE') {
     const { isAuthenticated, user } = action.payload;
     return {
@@ -33,13 +20,14 @@ const reducer = (state: RootState, action: ActionType): RootState => {
   return state;
 };
 
-type AuthContextType = ReturnType<typeof reducer>;
-
-const AuthContext = createContext<AuthContextType>({
+const AuthContext = createContext({
   ...initialState,
+  login: () => Promise.resolve(),
+  register: () => Promise.resolve(),
+  logout: () => Promise.resolve(),
 });
 
-function AuthProvider({ children }: { children: ReactNode }) {
+function AuthProvider({ children }: any) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [session, setSession] = useState<any>(null);
@@ -58,13 +46,13 @@ function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [session]);
 
-  const login = async () => {
+  const login = () => {
     setSession(true);
   };
-  const register = async () => {
+  const register = () => {
     setSession(true);
   };
-  const logout = async () => {
+  const logout = () => {
     setSession(null);
   };
 

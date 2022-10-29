@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
+import logo from '../../assets/logo.png';
 
 export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
@@ -37,7 +38,7 @@ export default function Header(): ReactElement {
 
   return (
     <Box>
-      <AppBar elevation={1} color='default' position='fixed'>
+      <AppBar elevation={1} color='inherit' position='fixed'>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <IconButton
             onClick={handleOpen}
@@ -49,7 +50,9 @@ export default function Header(): ReactElement {
           >
             <MenuIcon />
           </IconButton>
-
+          <Box>
+            <img style={{ width: '50px' }} src={logo} alt='logo' />
+          </Box>
           <Box>
             <Tooltip title='Theme' arrow>
               <IconButton onClick={toggleTheme} color='primary' size='large'>
