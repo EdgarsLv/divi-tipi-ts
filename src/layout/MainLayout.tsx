@@ -15,6 +15,8 @@ function MainLayout(): ReactElement {
       <Offset />
 
       <Outlet />
+
+      <Offset />
     </Box>
   );
 }

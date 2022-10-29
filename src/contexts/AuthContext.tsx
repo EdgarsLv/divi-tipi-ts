@@ -1,3 +1,4 @@
+import { supabase } from '@/service';
 import { createContext, useEffect, useReducer, useState, useContext } from 'react';
 
 const initialState = {
@@ -22,7 +23,7 @@ const reducer = (state: any, action: any) => {
 
 const AuthContext = createContext({
   ...initialState,
-  login: () => Promise.resolve(),
+  login: (_email: string, _password: string) => Promise.resolve(),
   register: () => Promise.resolve(),
   logout: () => Promise.resolve(),
 });
@@ -33,10 +34,20 @@ function AuthProvider({ children }: any) {
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+  }, []);
+
+  useEffect(() => {
     if (session) {
       dispatch({
         type: 'INITIALISE',
-        payload: { isAuthenticated: true, user: session },
+        payload: { isAuthenticated: true, user: session.user },
       });
     } else {
       dispatch({
@@ -46,14 +57,16 @@ function AuthProvider({ children }: any) {
     }
   }, [session]);
 
-  const login = () => {
-    setSession(true);
+  const login = async (email: string, password: string) => {
+    await supabase.auth.signInWithPassword({ email, password });
   };
-  const register = () => {
-    setSession(true);
+
+  const register = async (email: string, password: string) => {
+    await supabase.auth.signUp({ email, password });
   };
-  const logout = () => {
-    setSession(null);
+
+  const logout = async () => {
+    await supabase.auth.signOut();
   };
 
   return (

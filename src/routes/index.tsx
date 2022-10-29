@@ -2,6 +2,7 @@ import { Suspense, lazy, ComponentType } from 'react';
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 import { AuthGuard, GuestGuard } from '../guards';
 import { Spinner } from '../components';
+import { personalityLoader } from '@/pages/personalities/Personalities';
 
 type AnyProps = {
   [key: string]: any;
@@ -61,7 +62,14 @@ export const router = createBrowserRouter([
         path: 'personalities',
         children: [
           { element: <Personalities />, index: true },
-          { path: ':name', element: <Personality /> },
+          {
+            path: ':name',
+            element: <Personality />,
+            loader: ({ params }) => {
+              return personalityLoader(params.name);
+            },
+            errorElement: <div>here is error</div>,
+          },
           { path: 'test', element: <PersonalityTest /> },
         ],
       },
