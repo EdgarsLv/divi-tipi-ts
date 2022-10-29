@@ -6,15 +6,12 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
-import ExpandLess from '@mui/icons-material/ExpandLess';
-import ExpandMore from '@mui/icons-material/ExpandMore';
-import CircleTwoToneIcon from '@mui/icons-material/CircleTwoTone';
-import CircleIcon from '@mui/icons-material/Circle';
 import { Children, Items, navConfig } from './NavConfig';
 import { useAppDispatch } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
 import useGetActiveLink from '../../hooks/useGetActiveLink';
 import { SxProps, Theme } from '@mui/material/styles';
+import { Iconify } from '@/components';
 
 export default function MobileMenu() {
   return (
@@ -35,7 +32,7 @@ export default function MobileMenu() {
 }
 
 function NavItemRoot({ item }: { item: Items }) {
-  const { title, path, children, Icon } = item;
+  const { title, path, children, icon } = item;
   const dispatch = useAppDispatch();
 
   const active = useGetActiveLink(path);
@@ -52,7 +49,7 @@ function NavItemRoot({ item }: { item: Items }) {
   const renderContent = (
     <>
       <ListItemIcon sx={{ color: active ? (theme) => theme.palette.primary.main : 'inherit' }}>
-        <Icon />
+        <Iconify sx={{ width: 20, height: 20 }} icon={icon} />
       </ListItemIcon>
       <ListItemText sx={{ textTransform: 'capitalize' }} primary={title} />
       {children && <ExpandIcon open={open} />}
@@ -76,9 +73,7 @@ function NavItemRoot({ item }: { item: Items }) {
 
   return (
     <ListItemButton
-      sx={{
-        '&.active': { color: (theme) => theme.palette.primary.main },
-      }}
+      sx={{ '&.active': { color: (theme) => theme.palette.primary.main } }}
       onClick={handleMenu}
       component={RouterLink}
       to={path}
@@ -112,15 +107,19 @@ function ListSubItem({ title, path }: Children) {
 }
 
 function ExpandIcon({ open }: { open: boolean }) {
-  return open ? <ExpandLess /> : <ExpandMore />;
+  return open ? <Iconify icon='ic:sharp-expand-less' /> : <Iconify icon='ic:sharp-expand-more' />;
 }
 
 function DotIcon({ active }: { active: boolean }) {
   const activeStyle: SxProps<Theme> = { color: 'primary.main', width: '10px' };
   const inactiveStyle: SxProps<Theme> = { width: '8px' };
   return (
-    <ListItemIcon sx={{ pl: 1 }}>
-      {active ? <CircleIcon sx={activeStyle} /> : <CircleTwoToneIcon sx={inactiveStyle} />}
+    <ListItemIcon sx={{ pl: 0.5 }}>
+      {active ? (
+        <Iconify icon='akar-icons:circle-fill' sx={activeStyle} />
+      ) : (
+        <Iconify icon='akar-icons:circle' sx={inactiveStyle} />
+      )}
     </ListItemIcon>
   );
 }

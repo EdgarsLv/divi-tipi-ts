@@ -1,8 +1,6 @@
 import React, { ReactElement } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import InvertColorsIcon from '@mui/icons-material/InvertColors';
-import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
@@ -12,6 +10,7 @@ import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
 import logo from '../../assets/logo.png';
+import { Iconify } from '@/components';
 
 export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
@@ -48,15 +47,15 @@ export default function Header(): ReactElement {
             aria-label='menu'
             sx={{ mr: 2 }}
           >
-            <MenuIcon />
+            <Iconify icon='bx:menu' />
           </IconButton>
           <Box>
             <img style={{ width: '50px' }} src={logo} alt='logo' />
           </Box>
           <Box>
             <Tooltip title='Theme' arrow>
-              <IconButton onClick={toggleTheme} color='primary' size='large'>
-                <InvertColorsIcon />
+              <IconButton onClick={toggleTheme} color='primary'>
+                <Iconify icon='ic:baseline-invert-colors' />
               </IconButton>
             </Tooltip>
 

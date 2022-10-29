@@ -1,9 +1,3 @@
-import { ComponentType } from 'react';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
-import { Menu, Send, HomeTwoTone } from '@mui/icons-material';
-import { SvgIconProps } from '@mui/material';
-
 export type Children = {
   title: string;
   path: string;
@@ -11,7 +5,7 @@ export type Children = {
 export type Items = {
   title: string;
   path: string;
-  Icon: ComponentType<SvgIconProps>;
+  icon: string;
   children?: Children[];
 };
 export type Navigation = {
@@ -23,29 +17,29 @@ export const navConfig: Navigation[] = [
   {
     subheader: 'Main',
     items: [
-      { title: 'Meklēt', path: '/', Icon: HomeTwoTone },
-      { title: 'Vēstules', path: 'messages', Icon: InboxIcon },
-      { title: 'Statistika', path: 'statistics', Icon: Send },
+      { title: 'Meklēt', path: '/', icon: 'ic:baseline-people-outline' },
+      { title: 'Vēstules', path: 'messages', icon: 'fluent:mail-28-regular' },
+      { title: 'Statistika', path: 'statistics', icon: 'eva:eye-outline' },
 
       {
         title: 'Socionika',
         path: '',
-        Icon: Menu,
+        icon: 'icon-park-outline:weixin-people-nearby',
         children: [
           { title: 'Tests', path: '/personalities/test' },
           { title: 'Sociotipi', path: 'personalities' },
           { title: 'Saderības', path: 'relationships' },
         ],
       },
-      { title: 'Diskusijas', path: 'discussions', Icon: HomeTwoTone },
+      { title: 'Diskusijas', path: 'discussions', icon: 'bx:bx-chat' },
     ],
   },
 
   {
     subheader: 'Secondary',
     items: [
-      { title: 'Izklaide', path: '/', Icon: HomeTwoTone },
-      { title: 'Atsauksmes', path: 'page2', Icon: SettingsTwoToneIcon },
+      { title: 'Izklaide', path: '/', icon: 'fe:smile-alt' },
+      { title: 'Atsauksmes', path: 'page2', icon: 'uil:feedback' },
     ],
   },
 ];
