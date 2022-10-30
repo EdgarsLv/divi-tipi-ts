@@ -15,7 +15,7 @@ import robespjers from './robespjers.svg';
 import stirlics from './stirlics.svg';
 import zukovs from './zukovs.svg';
 
-type Personalities = {
+export type Personalities = {
   tipsImg: string;
   name: string;
   short: string;

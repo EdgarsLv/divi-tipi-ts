@@ -53,7 +53,7 @@ const palette = {
   dark: {
     // ...COMMON_LIGHT,
     mode: 'dark',
-    text: { primary: '#f4bd46', secondary: '#f8cd72' },
+    text: { primary: '#f4bd46', secondary: '#f8d68e' },
     background: { paper: ' #343744', default: '#2C2F3C' },
     action: { active: '#919EAB' },
   } as PaletteOptions,

@@ -4,6 +4,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Header } from '../sections/header';
 import { Sidebar } from '../sections/sidebar';
+import { ScrollToTop } from '@/components';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -17,6 +18,8 @@ function MainLayout(): ReactElement {
       <Outlet />
 
       <Offset />
+
+      <ScrollToTop />
     </Box>
   );
 }

@@ -3,6 +3,7 @@ import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 import { AuthGuard, GuestGuard } from '../guards';
 import { Spinner } from '../components';
 import { personalityLoader } from '@/pages/personalities/Personalities';
+import { relationLoader } from '@/pages/relationships/Relationships';
 
 type AnyProps = {
   [key: string]: any;
@@ -77,7 +78,13 @@ export const router = createBrowserRouter([
         path: 'relationships',
         children: [
           { element: <Relationships />, index: true },
-          { path: ':name', element: <Relation /> },
+          {
+            path: ':name',
+            element: <Relation />,
+            loader: ({ params }) => {
+              return relationLoader(params.name);
+            },
+          },
         ],
       },
       {

@@ -1,21 +1,22 @@
 import { Page } from '@/components';
-import { Typography, Link, Stack } from '@mui/material';
+import { Typography, Container, Grid } from '@mui/material';
 import { supabase } from '@/service';
 import { PERSONALITIES } from '@/assets/personalities/sociotypes';
+import { PersonalityCard } from './components';
 
 function Personalities() {
   return (
     <Page title='Personalities'>
-      <Typography>Personalities</Typography>
-      <Stack>
-        {PERSONALITIES.map((x) => {
-          return (
-            <Link key={x.name} href={`/personalities/${x.name}`}>
-              {x.name}
-            </Link>
-          );
-        })}
-      </Stack>
+      <Container maxWidth='lg'>
+        <Typography variant='h3' sx={{ my: 2 }}>
+          Personalities
+        </Typography>
+        <Grid container spacing={3}>
+          {PERSONALITIES.map((x) => (
+            <PersonalityCard key={x.name} personality={x} />
+          ))}
+        </Grid>
+      </Container>
     </Page>
   );
 }

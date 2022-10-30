@@ -1,13 +1,26 @@
 import { Page } from '@/components';
-import { Typography } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { RenderTextArray } from '@/components/RenderTextArray';
+import { Card, Container, Typography } from '@mui/material';
+import { useLoaderData } from 'react-router-dom';
+
+export type Data = {
+  id: string;
+  description: string[] | null;
+};
 
 function Relation() {
-  const { name } = useParams();
+  const { description, id } = useLoaderData() as Data;
   return (
-    <Page title='Relation'>
-      <Typography>Relation</Typography>
-      <Typography>{name}</Typography>
+    <Page title={id.toUpperCase()}>
+      <Container maxWidth='lg'>
+        <Typography variant='h3' sx={{ textTransform: 'uppercase', my: 2 }}>
+          {id}
+        </Typography>
+
+        <Card sx={{ p: 3 }}>
+          <RenderTextArray items={description} />
+        </Card>
+      </Container>
     </Page>
   );
 }

@@ -2,6 +2,7 @@ import { pxToRem } from '../utils/pxToRem';
 import { TypographyVariantsOptions } from '@mui/material/styles';
 
 const FONT_PRIMARY = 'Rokkitt, serif';
+const FONT_SECONDARY = 'Cinzel, serif';
 
 const typography: TypographyVariantsOptions = {
   fontFamily: FONT_PRIMARY,
@@ -9,17 +10,20 @@ const typography: TypographyVariantsOptions = {
   fontWeightMedium: 600,
   fontWeightBold: 700,
   h1: {
+    fontFamily: FONT_SECONDARY,
     fontWeight: 700,
     lineHeight: 80 / 64,
     fontSize: pxToRem(40),
     letterSpacing: 2,
   },
   h2: {
+    fontFamily: FONT_SECONDARY,
     fontWeight: 700,
     lineHeight: 64 / 48,
     fontSize: pxToRem(32),
   },
   h3: {
+    fontFamily: FONT_SECONDARY,
     fontWeight: 700,
     lineHeight: 1.5,
     fontSize: pxToRem(24),

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
-import { Link, Typography, Button, TextField, Stack, Divider, Container } from '@mui/material';
+import { Link, Typography, Button, TextField, Stack, Container } from '@mui/material';
 import { Page } from '../../components';
 
 function Login() {
