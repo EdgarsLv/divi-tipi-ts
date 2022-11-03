@@ -1,5 +1,5 @@
 import { Personalities } from '@/assets/personalities/sociotypes';
-import { Label } from '@/components';
+import { Image, Label } from '@/components';
 import { Box, Card, Grid, Stack, Typography, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
@@ -21,7 +21,7 @@ function PersonalityCard({ personality }: { personality: Personalities }) {
           <StyledBox>
             <Label label={34} icon='akar-icons:eye-open' />
           </StyledBox>
-          <img loading='lazy' style={{ marginTop: '8px' }} alt={name} src={tipsImg} />
+          <Image sx={{ mt: 1 }} alt={name} src={tipsImg} ratio='1/1' />
           <Stack sx={{ p: 2 }}>
             <StyledText color='text.primary' variant='h6' noWrap>
               {name}

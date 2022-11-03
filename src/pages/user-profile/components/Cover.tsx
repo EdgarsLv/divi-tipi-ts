@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Box, IconButton, Stack, Typography, Link, Avatar } from '@mui/material';
-import { Iconify } from '@/components';
+import { Iconify, Image } from '@/components';
 
 export default function ProfileCover() {
   return (
@@ -20,7 +20,7 @@ export default function ProfileCover() {
         <IconButton>
           <Iconify
             icon='akar-icons:arrow-back-thick'
-            sx={{ color: 'common.white', width: 24, height: 24 }}
+            sx={{ color: 'primary.main', width: 24, height: 24 }}
           />
         </IconButton>
       </Stack>
@@ -61,10 +61,10 @@ export default function ProfileCover() {
         </Box>
       </InfoStyle>
 
-      <img
+      <Image
         alt='profile cover'
         src='https://www.pixelstalk.net/wp-content/uploads/2016/06/Abstract-Backgrounds-HD.jpg'
-        style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       />
     </RootStyle>
   );

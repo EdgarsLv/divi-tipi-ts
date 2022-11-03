@@ -1,3 +1,4 @@
+import { Image } from '@/components';
 import { Box, Card, LinearProgress, Typography } from '@mui/material';
 
 const IMAGES: string[] = [
@@ -53,7 +54,7 @@ export default function Gallery() {
 function GalleryItem({ image }: { image: string }) {
   return (
     <Card sx={{ cursor: 'pointer', position: 'relative' }}>
-      <img alt='' src={image} />
+      <Image ratio='1/1' src={image} />
     </Card>
   );
 }

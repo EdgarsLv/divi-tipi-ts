@@ -5,3 +5,4 @@ export { default as ScrollToTop } from './ScrollToTop';
 export { default as Label } from './Label';
 export { default as Logo } from './Logo';
 export { default as LogoWithText } from './LogoWithText';
+export { default as Image } from './Image';

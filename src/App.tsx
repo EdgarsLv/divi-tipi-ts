@@ -6,6 +6,8 @@ import { ThemeProvider } from './theme';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './redux/store';
 
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 function App() {
   return (
     <ReduxProvider store={store}>
