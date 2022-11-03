@@ -13,7 +13,7 @@ function Relation() {
   return (
     <Page title={id.toUpperCase()}>
       <Container maxWidth='lg'>
-        <Typography variant='h3' sx={{ textTransform: 'uppercase', my: 2 }}>
+        <Typography variant='h3' sx={{ my: 2 }}>
           {id}
         </Typography>
 

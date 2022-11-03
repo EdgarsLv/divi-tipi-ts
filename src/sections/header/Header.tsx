@@ -9,8 +9,7 @@ import { useAppDispatch } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
-import logo from '../../assets/logo.png';
-import { Iconify } from '@/components';
+import { Iconify, Logo } from '@/components';
 
 export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
@@ -49,9 +48,8 @@ export default function Header(): ReactElement {
           >
             <Iconify icon='bx:menu' />
           </IconButton>
-          <Box>
-            <img style={{ width: '50px' }} src={logo} alt='logo' />
-          </Box>
+          <Logo sx={{ width: 30 }} />
+
           <Box>
             <Tooltip title='Theme' arrow>
               <IconButton onClick={toggleTheme} color='primary'>

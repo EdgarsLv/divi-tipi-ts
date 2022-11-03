@@ -145,3 +145,87 @@ export const TEST_QUESTIONS = [
     ],
   },
 ];
+
+export const INTERESTS = [
+  {
+    icon: 'simple-icons:yourtraveldottv',
+    name: 'ceļošana',
+  },
+  {
+    icon: 'ls:cookpad',
+    name: 'gatavošana',
+  },
+  {
+    icon: 'la:tv',
+    name: 'filmas, tv',
+  },
+  {
+    icon: 'mdi:dance-ballroom',
+    name: 'dejot',
+  },
+
+  {
+    icon: 'ic:outline-sports-esports',
+    name: 'spēles',
+  },
+  {
+    icon: 'ion:car-sport-outline',
+    name: 'auto',
+  },
+  {
+    icon: 'map:fishing-pier',
+    name: 'makšķerēt',
+  },
+  {
+    icon: 'jam:shopify-square',
+    name: 'iepirkties',
+  },
+  {
+    icon: 'wpf:books',
+    name: 'lasīt',
+  },
+  {
+    icon: 'icon-park-outline:replay-music',
+    name: 'mūzika',
+  },
+  {
+    icon: 'fluent:animal-cat-28-regular',
+    name: 'kaķi',
+  },
+  {
+    icon: 'fluent:animal-dog-24-regular',
+    name: 'suņi',
+  },
+  {
+    icon: 'fontisto:holiday-village',
+    name: 'atpūta',
+  },
+  {
+    icon: 'icon-park-outline:sport',
+    name: 'skriešana',
+  },
+  {
+    icon: 'iconoir:cycling',
+    name: 'riteņbraukšana',
+  },
+  {
+    icon: 'mdi:ski',
+    name: 'slēpošana',
+  },
+  {
+    icon: 'ic:sharp-fitness-center',
+    name: 'fitness',
+  },
+  {
+    icon: 'emojione-monotone:ice-hockey',
+    name: 'hokejs',
+  },
+  {
+    icon: 'fluent:sport-24-regular',
+    name: 'sports',
+  },
+  {
+    icon: 'carbon:drop-photo',
+    name: 'fotogrāfēt',
+  },
+];
