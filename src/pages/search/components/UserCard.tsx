@@ -1,94 +1,41 @@
-import { Grid, Card, Box, Stack, Typography, CardContent, Link } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { Image } from '@/components';
+import { useUserImages } from '@/hooks/useUserImages';
+import { User } from '@/types';
+import { Box, Card, Grid, Link, Typography } from '@mui/material';
 
-function UserCard({ id }: { id: number }) {
+function UserCardV2({ user }: { user: User }) {
+  const { name, age, sociotype, id } = user;
+
+  const { avatar } = useUserImages(user);
+
   return (
     <Grid sx={{ position: 'relative' }} item xs={10} sm={5} md={4}>
-      <InfoBoxStyle>
-        <Link sx={{ mr: '10px', ml: '2px' }}>draizers</Link>
-        <Link>D</Link>
-      </InfoBoxStyle>
-      <Link href={`/profile/${id}`}>
-        <CardStyle>
-          <CardMediaStyle sx={{ pt: 'calc(100% * 4 / 3.5)' }}>
-            <CoverImgStyle
-              alt='cover'
-              src='https://www.buzzwebzine.fr/wp-content/uploads/2021/12/photo-portrait-femme-pose-naturelle-1024x649.jpg'
-            />
-          </CardMediaStyle>
+      <Card sx={{ transition: 'ease .2s', '&:hover': { backgroundColor: 'action.hover' } }}>
+        <Link sx={{ textDecoration: 'none' }} href={`/profile/${id}`}>
+          <Image ratio='1/1' src={avatar} />
+        </Link>
+        <Box sx={{ py: 0.5, px: 1 }}>
+          <Box>
+            <Typography mr={1} variant='subtitle1' component='span'>
+              {name}
+            </Typography>
 
-          <CardContent
-            sx={{
-              p: 1,
-              pt: 5,
-              bottom: '-20px',
-
-              width: '100%',
-              position: 'absolute',
-              background: 'linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,.5), black)',
-            }}
-          >
-            <TitleStyle direction='row'>
-              <Typography variant='h5' noWrap component='span'>
-                Edgars
-              </Typography>
-              <Typography component='span' variant='h5'>
-                ,
-              </Typography>
-              <Typography variant='h5'>40</Typography>
-            </TitleStyle>
-          </CardContent>
-        </CardStyle>
-      </Link>
+            <Typography variant='subtitle1' component='span'>
+              {age}
+            </Typography>
+          </Box>
+          <Box>
+            <Link mr={1} variant='body2' href={`/personalities/${sociotype}`}>
+              {sociotype}
+            </Link>
+            <Link px={1} variant='body2' href='/'>
+              D
+            </Link>
+          </Box>
+        </Box>
+      </Card>
     </Grid>
   );
 }
 
-export default UserCard;
-
-// STYLES ----------------------------------------------------------------------
-const CardStyle = styled(Card)(({ theme }) => ({
-  boxShadow: theme.shadows[2],
-}));
-
-const CardMediaStyle = styled(Box)({
-  position: 'relative',
-  paddingTop: 'calc(100% * 3 / 4)',
-});
-
-const TitleStyle = styled(Stack)(({ theme }) => ({
-  color: theme.palette.common.white,
-  overflow: 'hidden',
-  textDecoration: 'none',
-  marginRight: '10px',
-  padding: '0 0 20px',
-}));
-
-const CoverImgStyle = styled('img')({
-  top: 0,
-  width: '100%',
-  height: '100%',
-  objectFit: 'cover',
-  position: 'absolute',
-});
-
-const InfoBoxStyle = styled(Box)(() => ({
-  display: 'flex',
-  justifyContent: 'flex-start',
-  position: 'absolute',
-  bottom: 0,
-  padding: '5px 0',
-  marginLeft: '5px',
-  zIndex: 1,
-}));
-
-// const IQStyle = styled(Box)(() => ({
-//   display: 'inline-flex',
-//   justifyContent: 'flex-start',
-//   position: 'absolute',
-//   top: 24,
-//   padding: '0 5px',
-//   margin: '5px 10px',
-//   zIndex: 1,
-//   mixBlendMode: 'difference',
-// }));
+export default UserCardV2;

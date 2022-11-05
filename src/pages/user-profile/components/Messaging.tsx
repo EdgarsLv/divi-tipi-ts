@@ -3,7 +3,7 @@ import { Box, Typography, Card, TextField, Button } from '@mui/material';
 function Messaging() {
   return (
     <Box>
-      <Typography variant='h3' sx={{ mt: 2, mb: 1 }}>
+      <Typography variant='h3' sx={{ mb: 1 }}>
         Messaging
       </Typography>
 

@@ -21,6 +21,9 @@ export const RELATIONS = [
   { key: 'ra', name: 'radniecīgo', description: 'Nesaderigas attiecības' },
 ];
 
+export const STORAGE_PATH_TO_USER_IMAGES =
+  'https://mlkrjdijcbzgeukhwlgu.supabase.co/storage/v1/object/public/user-images';
+
 export const TEST_QUESTIONS = [
   {
     question: 'q1',

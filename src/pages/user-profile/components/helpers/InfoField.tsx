@@ -1,12 +1,13 @@
 import { Stack, Typography } from '@mui/material';
 
 type Props = {
-  attribute: string;
+  attribute?: string | number;
   id: string;
 };
 
 export default function InfoField({ attribute, id }: Props) {
-  const isValid = attribute && attribute.length > 0;
+  const isValid = attribute && `${attribute}`.length > 0;
+
   return (
     <>
       {isValid && (

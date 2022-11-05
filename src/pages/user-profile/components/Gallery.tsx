@@ -1,5 +1,7 @@
 import { Image } from '@/components';
+import { User } from '@/types';
 import { Box, Card, LinearProgress, Typography } from '@mui/material';
+import { useLoaderData } from 'react-router-dom';
 
 const IMAGES: string[] = [
   'https://eit.europa.eu/sites/default/files/cristina_aleixendri_portrait_-_vertical_0.jpg',
@@ -7,10 +9,12 @@ const IMAGES: string[] = [
 ];
 
 export default function Gallery() {
+  const user = useLoaderData() as User;
+  console.log(user);
   const loading = false;
   return (
     <Box>
-      <Typography variant='h3' sx={{ mt: 2, mb: 1 }}>
+      <Typography variant='h3' sx={{ mb: 1 }}>
         Galerija
       </Typography>
 

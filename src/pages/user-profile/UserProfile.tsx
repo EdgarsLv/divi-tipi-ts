@@ -3,6 +3,7 @@ import { Iconify, Page } from '@/components';
 import { styled } from '@mui/material/styles';
 import { Tab, Box, Card, Tabs, Container } from '@mui/material';
 import { Cover, Gallery, General, Interests, Messaging } from './components';
+import { supabase } from '@/service';
 
 function UserProfile() {
   const [currentTab, setCurrentTab] = useState('Anketa');
@@ -71,6 +72,20 @@ function UserProfile() {
 }
 
 export default UserProfile;
+
+export async function profileLoader(id?: string) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*, user_images(images)')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error) {
+    throw error;
+  }
+
+  return data;
+}
 
 const TabsWrapperStyle = styled('div')(({ theme }) => ({
   zIndex: 9,

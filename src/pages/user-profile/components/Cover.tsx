@@ -1,8 +1,14 @@
 import { styled } from '@mui/material/styles';
 import { Box, IconButton, Stack, Typography, Link, Avatar } from '@mui/material';
 import { Iconify, Image } from '@/components';
+import { useLoaderData, useNavigate } from 'react-router-dom';
+import { User } from '@/types';
+import { useUserImages } from '@/hooks/useUserImages';
 
 export default function ProfileCover() {
+  const user = useLoaderData() as User;
+  const navigate = useNavigate();
+  const { cover, avatar } = useUserImages(user);
   return (
     <RootStyle>
       <Stack
@@ -17,7 +23,7 @@ export default function ProfileCover() {
           padding: '20px 16px',
         }}
       >
-        <IconButton>
+        <IconButton onClick={() => navigate(-1)}>
           <Iconify
             icon='akar-icons:arrow-back-thick'
             sx={{ color: 'primary.main', width: 24, height: 24 }}
@@ -27,11 +33,12 @@ export default function ProfileCover() {
       <InfoStyle>
         <Avatar
           variant='rounded'
+          src={avatar}
           sx={{
             mx: 'auto',
             borderWidth: 1.5,
             borderStyle: 'solid',
-            borderColor: 'common.white',
+            borderColor: 'primary.main',
             width: { xs: 90, md: 128 },
             height: { xs: 90, md: 128 },
           }}
@@ -45,12 +52,12 @@ export default function ProfileCover() {
           }}
         >
           <Stack direction='row'>
-            <Typography variant='h4'>Edgars</Typography>
-            <Typography variant='h4'> 40</Typography>
+            <Typography variant='h4'>{user.name}</Typography>
+            <Typography variant='h4'> {user.age}</Typography>
           </Stack>
           <Typography sx={{ opacity: 0.9 }}>
             <Link href='/' sx={{ textTransform: 'capitalize' }}>
-              draizers
+              {user.sociotype}
             </Link>
             <Link href='/'>D</Link>
           </Typography>
@@ -63,7 +70,7 @@ export default function ProfileCover() {
 
       <Image
         alt='profile cover'
-        src='https://www.pixelstalk.net/wp-content/uploads/2016/06/Abstract-Backgrounds-HD.jpg'
+        src={cover}
         sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       />
     </RootStyle>

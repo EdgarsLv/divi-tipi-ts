@@ -1,16 +1,21 @@
 import { Iconify } from '@/components';
 import { INTERESTS } from '@/constants';
+import { User } from '@/types';
 import { Box, Grid, Card, Typography } from '@mui/material';
+import { useLoaderData } from 'react-router-dom';
 
 export default function Interests() {
+  const user = useLoaderData() as User;
+
+  const userInterests = INTERESTS.filter((x) => user?.interests?.includes(x.name));
   return (
     <Box>
-      <Typography variant='h3' sx={{ mt: 2, mb: 1 }}>
+      <Typography variant='h3' sx={{ mb: 1 }}>
         Intereses
       </Typography>
 
       <Grid container spacing={3}>
-        {INTERESTS.map((doc, i) => (
+        {userInterests?.map((doc, i) => (
           <Grid key={i} item xs={6} md={3}>
             <InterestCard interest={doc} />
           </Grid>

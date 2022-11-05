@@ -4,6 +4,7 @@ import { AuthGuard, GuestGuard } from '../guards';
 import { Spinner } from '../components';
 import { personalityLoader } from '@/pages/personalities/Personalities';
 import { relationLoader } from '@/pages/relationships/Relationships';
+import { profileLoader } from '@/pages/user-profile/UserProfile';
 
 type AnyProps = {
   [key: string]: any;
@@ -63,7 +64,16 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        children: [{ path: ':id', element: <UserProfile />, index: true }],
+        children: [
+          {
+            path: ':id',
+            element: <UserProfile />,
+            index: true,
+            loader: ({ params }) => {
+              return profileLoader(params.id);
+            },
+          },
+        ],
       },
       {
         path: 'personalities',

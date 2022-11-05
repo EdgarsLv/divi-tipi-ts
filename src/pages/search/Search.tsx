@@ -1,8 +1,18 @@
+import { fetchInitialUsers, selectUsers } from '@/redux/slices/usersSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Box, Button, Container, Grid, Pagination, Stack } from '@mui/material';
+import { useEffect } from 'react';
 import { Page } from '../../components';
 import { UserCard } from './components';
 
 function Search() {
+  const users = useAppSelector(selectUsers);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchInitialUsers());
+  }, [dispatch]);
+
   return (
     <Page title='Search'>
       <Container>
@@ -27,8 +37,8 @@ function Search() {
         </Stack>
 
         <Grid container columns={20} spacing={3}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 1, 2].map((_x, i) => (
-            <UserCard id={i} key={i} />
+          {users?.map((user, i) => (
+            <UserCard user={user} key={i} />
           ))}
         </Grid>
         <Box mt={5} sx={{ display: 'flex', justifyContent: 'flex-end' }}>

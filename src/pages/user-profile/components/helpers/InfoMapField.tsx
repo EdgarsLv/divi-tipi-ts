@@ -9,7 +9,7 @@ const BoxStyle = styled(Box)(() => ({
   textTransform: 'capitalize',
 }));
 
-const checkValid = (attribute: string[]) => {
+const checkValid = (attribute?: string[]) => {
   if (!attribute) {
     return false;
   }
@@ -21,7 +21,7 @@ const checkValid = (attribute: string[]) => {
 };
 
 type Props = {
-  attribute: string[];
+  attribute?: string[];
   id: string;
 };
 export default function InfoMapField({ attribute, id }: Props) {
