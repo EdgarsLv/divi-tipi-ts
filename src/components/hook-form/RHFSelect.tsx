@@ -1,12 +1,15 @@
+import { ReactNode } from 'react';
+import { useFormContext, Controller, Path } from 'react-hook-form';
 import { TextField, TextFieldProps } from '@mui/material';
-import { Controller, useFormContext, Path } from 'react-hook-form';
 
 type IFormInputProps<TFormValues> = {
   name: Path<TFormValues>;
+  children: ReactNode;
 } & TextFieldProps;
 
-const RHFTextField = <TFormValues extends Record<string, unknown>>({
+const RHFSelect = <TFormValues extends Record<string, unknown>>({
   name,
+  children,
   ...other
 }: IFormInputProps<TFormValues>) => {
   const {
@@ -16,19 +19,23 @@ const RHFTextField = <TFormValues extends Record<string, unknown>>({
 
   return (
     <Controller
-      control={control}
       name={name}
+      control={control}
       render={({ field }) => (
         <TextField
-          {...other}
           {...field}
+          select
           fullWidth
+          SelectProps={{ native: true }}
           error={!!errors[name]}
           helperText={errors[name] ? (errors[name]?.message as string) : ''}
-        />
+          {...other}
+        >
+          {children}
+        </TextField>
       )}
     />
   );
 };
 
-export default RHFTextField;
+export default RHFSelect;

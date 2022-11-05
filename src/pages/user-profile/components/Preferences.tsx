@@ -8,7 +8,7 @@ function Preferences({ user }: { user: User }) {
     <Grid item xs={12} md={6}>
       <Stack spacing={3}>
         <Card sx={{ p: { xs: 0, md: 2 } }}>
-          <Typography variant='h5' sx={{ m: 2 }}>
+          <Typography variant='h6' sx={{ m: 2 }}>
             Prasības otrai pusītei
           </Typography>
 
@@ -52,5 +52,6 @@ const PreStyle = styled(Typography)(({ theme }) => ({
   fontSize: '14px',
   margin: '16px',
   whiteSpace: 'pre-wrap',
+  textAlign: 'justify',
   color: theme.palette.text.secondary,
 }));

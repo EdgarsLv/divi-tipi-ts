@@ -28,7 +28,7 @@ function Information({ user }: { user: User }) {
           {Boolean(user?.user?.about) && (
             <Box>
               <Divider />
-              <Typography sx={{ mt: 1, ml: 2 }} variant='h5'>
+              <Typography sx={{ mt: 1, ml: 2 }} variant='h6'>
                 Saviem vārdiem
               </Typography>
               {user?.user?.about.split('\n').map((txt, i) => (
@@ -48,5 +48,6 @@ const PreStyle = styled(Typography)(({ theme }) => ({
   fontSize: '14px',
   margin: '16px',
   whiteSpace: 'pre-wrap',
+  textAlign: 'justify',
   color: theme.palette.text.secondary,
 }));

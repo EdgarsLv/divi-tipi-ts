@@ -9,7 +9,7 @@ import Collapse from '@mui/material/Collapse';
 import { Children, Items, navConfig } from './NavConfig';
 import { useAppDispatch } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
-import useGetActiveLink from '../../hooks/useGetActiveLink';
+import { useGetActiveLink } from '@/hooks';
 import { SxProps, Theme } from '@mui/material/styles';
 import { Iconify } from '@/components';
 

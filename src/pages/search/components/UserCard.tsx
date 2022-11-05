@@ -1,5 +1,5 @@
 import { Image } from '@/components';
-import { useUserImages } from '@/hooks/useUserImages';
+import { useUserImages } from '@/hooks';
 import { User } from '@/types';
 import { Box, Card, Grid, Link, Typography } from '@mui/material';
 

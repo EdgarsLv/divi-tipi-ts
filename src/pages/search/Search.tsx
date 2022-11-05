@@ -1,9 +1,9 @@
 import { fetchInitialUsers, selectUsers } from '@/redux/slices/usersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { Box, Button, Container, Grid, Pagination, Stack } from '@mui/material';
+import { Box, Container, Grid, Pagination, Stack } from '@mui/material';
 import { useEffect } from 'react';
 import { Page } from '../../components';
-import { UserCard } from './components';
+import { FilterSidebar, UserCard } from './components';
 
 function Search() {
   const users = useAppSelector(selectUsers);
@@ -30,9 +30,7 @@ function Search() {
             // flexShrink={0}
           >
             <Box />
-            <Button size='small' variant='contained'>
-              filter
-            </Button>
+            <FilterSidebar />
           </Stack>
         </Stack>
 

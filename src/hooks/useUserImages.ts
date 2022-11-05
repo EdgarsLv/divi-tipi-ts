@@ -2,7 +2,7 @@ const storageUrl = import.meta.env.VITE_SUPABASE_STORAGE_URL;
 import femaleAvatar from '../assets/images/womenavatar.jpg';
 import maleAvatar from '../assets/images/manavatar.jpg';
 import fakeCover from '../assets/images/abstract.jpg';
-import { User } from '@/redux/slices/usersSlice';
+import { User } from '@/types';
 
 function getFakeAvatar(user: User) {
   if (user?.gender === 'vīrietis') {
@@ -11,7 +11,7 @@ function getFakeAvatar(user: User) {
   return femaleAvatar;
 }
 
-export const useUserImages = (user: User) => {
+export default function useUserImages(user: User) {
   const fake = getFakeAvatar(user);
 
   let avatar: string | null = null;
@@ -36,4 +36,4 @@ export const useUserImages = (user: User) => {
   }
 
   return { avatar, cover };
-};
+}

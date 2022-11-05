@@ -3,7 +3,7 @@ import { Box, IconButton, Stack, Typography, Link, Avatar } from '@mui/material'
 import { Iconify, Image } from '@/components';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { User } from '@/types';
-import { useUserImages } from '@/hooks/useUserImages';
+import { useUserImages } from '@/hooks';
 
 export default function ProfileCover() {
   const user = useLoaderData() as User;

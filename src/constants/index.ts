@@ -232,3 +232,21 @@ export const INTERESTS = [
     name: 'fotogrāfēt',
   },
 ];
+export const PERSONALITIES = [
+  'draizers',
+  'hamlets',
+  'džeks',
+  'donkihots',
+  'dimā',
+  'igo',
+  'robespjērs',
+  'maksims',
+  'žukovs',
+  'jeseņins',
+  'napoleons',
+  'balzaks',
+  'štirlics',
+  'dostojevskis',
+  'hakslijs',
+  'gabēns',
+];
