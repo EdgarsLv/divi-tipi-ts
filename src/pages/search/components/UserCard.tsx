@@ -1,9 +1,9 @@
-import { Image } from '@/components';
+import { Image, LinkToPersonality, LinkToRelations } from '@/components';
 import { useUserImages } from '@/hooks';
 import { User } from '@/types';
 import { Box, Card, Grid, Link, Typography } from '@mui/material';
 
-function UserCardV2({ user }: { user: User }) {
+function UserCard({ user }: { user: User }) {
   const { name, age, sociotype, id } = user;
 
   const { avatar } = useUserImages(user);
@@ -25,12 +25,8 @@ function UserCardV2({ user }: { user: User }) {
             </Typography>
           </Box>
           <Box>
-            <Link mr={1} variant='body2' href={`/personalities/${sociotype}`}>
-              {sociotype}
-            </Link>
-            <Link px={1} variant='body2' href='/'>
-              D
-            </Link>
+            <LinkToPersonality personality={sociotype} />
+            <LinkToRelations personality={sociotype} />
           </Box>
         </Box>
       </Card>
@@ -38,4 +34,4 @@ function UserCardV2({ user }: { user: User }) {
   );
 }
 
-export default UserCardV2;
+export default UserCard;

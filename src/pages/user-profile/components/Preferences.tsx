@@ -8,7 +8,7 @@ function Preferences({ user }: { user: User }) {
     <Grid item xs={12} md={6}>
       <Stack spacing={3}>
         <Card sx={{ p: { xs: 0, md: 2 } }}>
-          <Typography variant='h6' sx={{ m: 2 }}>
+          <Typography variant='h5' sx={{ m: 2 }}>
             Prasības otrai pusītei
           </Typography>
 
@@ -32,7 +32,7 @@ function Preferences({ user }: { user: User }) {
           {Boolean(user?.search?.about) && (
             <Box>
               <Divider />
-              <Typography sx={{ mt: 1, ml: 2 }} variant='h5'>
+              <Typography sx={{ mt: 1, ml: 2 }} variant='h6'>
                 Saviem vārdiem
               </Typography>
               {user?.search?.about.split('\n').map((txt, i) => (

@@ -6,3 +6,5 @@ export { default as Label } from './Label';
 export { default as Logo } from './Logo';
 export { default as LogoWithText } from './LogoWithText';
 export { default as Image } from './Image';
+export { default as LinkToPersonality } from './LinkToPersonality';
+export { default as LinkToRelations } from './LinkToRelations';

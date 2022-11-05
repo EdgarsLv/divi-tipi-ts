@@ -1,6 +1,6 @@
 import { styled } from '@mui/material/styles';
-import { Box, IconButton, Stack, Typography, Link, Avatar } from '@mui/material';
-import { Iconify, Image } from '@/components';
+import { Box, IconButton, Stack, Typography, Avatar } from '@mui/material';
+import { Iconify, Image, LinkToPersonality, LinkToRelations } from '@/components';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { User } from '@/types';
 import { useUserImages } from '@/hooks';
@@ -52,15 +52,15 @@ export default function ProfileCover() {
           }}
         >
           <Stack direction='row'>
-            <Typography variant='h4'>{user.name}</Typography>
+            <Typography mr={1} variant='h4'>
+              {user.name}
+            </Typography>
             <Typography variant='h4'> {user.age}</Typography>
           </Stack>
-          <Typography sx={{ opacity: 0.9 }}>
-            <Link href='/' sx={{ textTransform: 'capitalize' }}>
-              {user.sociotype}
-            </Link>
-            <Link href='/'>D</Link>
-          </Typography>
+          <Box sx={{ opacity: 0.9 }}>
+            <LinkToPersonality personality={user.sociotype} />
+            <LinkToRelations personality={user.sociotype} />
+          </Box>
 
           <Typography variant='caption' sx={{ opacity: 0.82, fontSize: '10px' }}>
             Online: 2022.12.18

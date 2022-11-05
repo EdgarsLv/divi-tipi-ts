@@ -1,10 +1,10 @@
 import { PaletteOptions, PaletteColorOptions } from '@mui/material/styles';
-import { teal } from '@mui/material/colors';
+import { amber, grey } from '@mui/material/colors';
 
 const PRIMARY: PaletteColorOptions = {
-  light: teal[200],
-  main: teal[600],
-  dark: teal[900],
+  light: amber[200],
+  main: amber[600],
+  dark: amber[900],
 };
 const SECONDARY: PaletteColorOptions = {
   light: '#84A9FF',
@@ -45,15 +45,15 @@ const palette = {
   light: {
     ...COMMON_LIGHT,
     mode: 'light',
-    text: { primary: teal[900], secondary: teal[800] },
-    background: { paper: teal[50], default: teal[200] },
-    action: { active: '#637381', hover: teal[100] },
+    text: { primary: grey[800], secondary: grey[600] },
+    background: { paper: amber[100], default: amber[300] },
+    action: { active: '#637381', hover: amber[200] },
   } as PaletteOptions,
 
   dark: {
     ...COMMON_LIGHT,
     mode: 'dark',
-    text: { primary: teal[400], secondary: teal[600] },
+    text: { primary: amber[400], secondary: amber[300] },
     background: { paper: ' #343744', default: '#2C2F3C' },
     action: { active: '#919EAB' },
   } as PaletteOptions,

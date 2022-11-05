@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useFormContext, Controller } from 'react-hook-form';
-import { Radio, RadioGroup, FormHelperText, FormControlLabel, Divider } from '@mui/material';
+import { Radio, RadioGroup, FormControlLabel, Divider } from '@mui/material';
 
-export default function RHFRadioGroup({ name, options, getOptionLabel, ...other }) {
+export default function RHFRadioGroup({ name, options, label, ...other }) {
   const { control } = useFormContext();
 
   return (
@@ -16,17 +16,12 @@ export default function RHFRadioGroup({ name, options, getOptionLabel, ...other 
               <FormControlLabel
                 key={option}
                 value={option}
-                control={<Radio />}
-                label={getOptionLabel?.length ? getOptionLabel[index] : option}
+                control={<Radio sx={{ color: !!error && 'red' }} />}
+                label={label?.length ? label[index] : option}
               />
             ))}
           </RadioGroup>
 
-          {!!error && (
-            <FormHelperText error sx={{ px: 2 }}>
-              {error.message}
-            </FormHelperText>
-          )}
           <Divider />
         </div>
       )}
