@@ -27,7 +27,6 @@ const Messages = Loadable(lazy(() => import('../pages/messages')));
 const Statistics = Loadable(lazy(() => import('../pages/statistics')));
 const Discussions = Loadable(lazy(() => import('../pages/discussions')));
 const Discussion = Loadable(lazy(() => import('../pages/discussion')));
-
 const UserProfile = Loadable(lazy(() => import('../pages/user-profile')));
 
 // 16 PERSONALITIES
@@ -36,6 +35,9 @@ const Personalities = Loadable(lazy(() => import('../pages/personalities')));
 const Personality = Loadable(lazy(() => import('../pages/personality')));
 const Relationships = Loadable(lazy(() => import('../pages/relationships')));
 const Relation = Loadable(lazy(() => import('../pages/relation')));
+
+// ACCOUNT
+const Settings = Loadable(lazy(() => import('../pages/settings')));
 
 // AUTH
 const Login = Loadable(lazy(() => import('../auth/login')));
@@ -63,7 +65,11 @@ export const router = createBrowserRouter([
         element: <Statistics />,
       },
       {
-        path: 'profile',
+        path: 'settings',
+        element: <Settings />,
+      },
+      {
+        path: 'user',
         children: [
           {
             path: ':id',
@@ -107,7 +113,7 @@ export const router = createBrowserRouter([
         path: 'discussions',
         children: [
           { element: <Discussions />, index: true },
-          { path: ':name', element: <Discussion /> },
+          { path: ':id', element: <Discussion /> },
         ],
       },
     ],

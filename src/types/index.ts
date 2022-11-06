@@ -50,3 +50,21 @@ export type User = {
   has_avatar: boolean;
   user_images?: string[];
 };
+
+export type Discussion = {
+  author?: {
+    name: string;
+    age: string;
+    avatar: string;
+  };
+  author_id: string | null;
+  comments_count: number | null;
+  created_at: string | null;
+  id: number;
+  last_comment: string | null;
+  subtitle: string | null;
+  title: string | null;
+  updated_at: string | null;
+  users_count: number | null;
+  views_count: number | null;
+};

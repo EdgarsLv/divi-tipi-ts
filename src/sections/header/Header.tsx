@@ -3,13 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
 import { Menu, MenuItem, Avatar } from '@mui/material';
 import { useAppDispatch } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
-import { Iconify, Logo } from '@/components';
+import { Iconify } from '@/components';
+import { NavLink as RouterLink } from 'react-router-dom';
 
 export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
@@ -48,37 +48,24 @@ export default function Header(): ReactElement {
           >
             <Iconify icon='bx:menu' />
           </IconButton>
-          <Logo sx={{ width: 30 }} />
 
           <Box>
-            <Tooltip title='Theme' arrow>
-              <IconButton onClick={toggleTheme} color='primary'>
-                <Iconify icon='ic:baseline-invert-colors' />
-              </IconButton>
-            </Tooltip>
+            <IconButton onClick={toggleTheme} color='primary'>
+              <Iconify icon='ic:baseline-invert-colors' />
+            </IconButton>
 
-            <Tooltip title='Profile' arrow>
-              <IconButton
-                id='demo-positioned-button'
-                aria-controls={open ? 'demo-positioned-menu' : undefined}
-                aria-haspopup='true'
-                size='large'
-                aria-expanded={open ? 'true' : undefined}
-                onClick={handleClick}
+            <IconButton id='demo-positioned-button' size='large' onClick={handleClick}>
+              <Avatar
+                variant='rounded'
+                sx={{ width: 30, height: 30, bgcolor: (theme) => theme.palette.primary.main }}
               >
-                <Avatar
-                  variant='rounded'
-                  sx={{ width: 30, height: 30, bgcolor: (theme) => theme.palette.primary.main }}
-                >
-                  E
-                </Avatar>
-              </IconButton>
-            </Tooltip>
+                E
+              </Avatar>
+            </IconButton>
           </Box>
 
           <Menu
             id='demo-positioned-menu'
-            aria-labelledby='demo-positioned-button'
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
@@ -91,8 +78,12 @@ export default function Header(): ReactElement {
               horizontal: 'left',
             }}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem to='/account' component={RouterLink} onClick={handleClose}>
+              Profils
+            </MenuItem>
+            <MenuItem to='/settings' component={RouterLink} onClick={handleClose}>
+              Iestatījumi
+            </MenuItem>
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Toolbar>

@@ -104,7 +104,7 @@ function TestForm() {
       <Stack sx={{ mt: 1 }}>
         {Object.keys(errors).length > 0 && (
           <Typography textAlign='center' color='error' variant='caption' component='span'>
-            Visas atbildes obligatas!
+            Visas atbildes obligātas!
           </Typography>
         )}
         <Button disabled={!isDirty} type='submit'>

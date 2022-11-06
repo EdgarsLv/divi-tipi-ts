@@ -1,10 +1,10 @@
 import { PaletteOptions, PaletteColorOptions } from '@mui/material/styles';
-import { amber, grey } from '@mui/material/colors';
+import { red, blueGrey } from '@mui/material/colors';
 
 const PRIMARY: PaletteColorOptions = {
-  light: amber[200],
-  main: amber[600],
-  dark: amber[900],
+  light: blueGrey[200],
+  main: blueGrey[600],
+  dark: blueGrey[900],
 };
 const SECONDARY: PaletteColorOptions = {
   light: '#84A9FF',
@@ -27,9 +27,9 @@ const WARNING: PaletteColorOptions = {
   dark: '#B78103',
 };
 const ERROR: PaletteColorOptions = {
-  light: '#FFA48D',
-  main: '#FF4842',
-  dark: '#B72136',
+  light: red[400],
+  main: red[600],
+  dark: red[800],
 };
 
 const COMMON_LIGHT: PaletteOptions = {
@@ -45,15 +45,15 @@ const palette = {
   light: {
     ...COMMON_LIGHT,
     mode: 'light',
-    text: { primary: grey[800], secondary: grey[600] },
-    background: { paper: amber[100], default: amber[300] },
-    action: { active: '#637381', hover: amber[200] },
+    text: { primary: blueGrey[800], secondary: blueGrey[600] },
+    background: { paper: blueGrey[50], default: blueGrey[200] },
+    action: { active: '#637381', hover: blueGrey[100] },
   } as PaletteOptions,
 
   dark: {
     ...COMMON_LIGHT,
     mode: 'dark',
-    text: { primary: amber[400], secondary: amber[300] },
+    text: { primary: blueGrey[400], secondary: blueGrey[300] },
     background: { paper: ' #343744', default: '#2C2F3C' },
     action: { active: '#919EAB' },
   } as PaletteOptions,

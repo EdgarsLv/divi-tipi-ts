@@ -4,11 +4,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 // ...
 import counterSlice from './slices/counterSlice';
 import usersSlice from './slices/usersSlice';
+import discussionsSlice from './slices/discussionsSlice';
 
 export const store = configureStore({
   reducer: {
     counter: counterSlice,
     users: usersSlice,
+    discussions: discussionsSlice,
   },
 });
 

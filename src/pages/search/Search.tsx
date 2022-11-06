@@ -22,13 +22,7 @@ function Search() {
           alignItems={{ sm: 'center' }}
           justifyContent='flex-end'
         >
-          <Stack
-            direction='row'
-            justifyContent='space-between'
-            // width='100%'
-            // spacing={1}
-            // flexShrink={0}
-          >
+          <Stack direction='row' justifyContent='space-between'>
             <Box />
             <FilterSidebar />
           </Stack>

@@ -3,11 +3,11 @@ import { Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
 function Discussion() {
-  const { name } = useParams();
+  const { id } = useParams();
   return (
     <Page title='Discussion'>
       <Typography>discussion</Typography>
-      <Typography>{name}</Typography>
+      <Typography>{id}</Typography>
     </Page>
   );
 }
