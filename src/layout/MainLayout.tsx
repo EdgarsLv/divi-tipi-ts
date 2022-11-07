@@ -4,9 +4,9 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Header } from '../sections/header';
 import { Sidebar } from '../sections/sidebar';
-import { ScrollToTop } from '@/components';
+import { RouteProgress, ScrollToTop } from '@/components';
 
-const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+export const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 function MainLayout(): ReactElement {
   return (
@@ -20,6 +20,8 @@ function MainLayout(): ReactElement {
       <Offset />
 
       <ScrollToTop />
+
+      <RouteProgress />
     </Box>
   );
 }

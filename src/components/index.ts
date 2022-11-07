@@ -8,3 +8,4 @@ export { default as LogoWithText } from './LogoWithText';
 export { default as Image } from './Image';
 export { default as LinkToPersonality } from './LinkToPersonality';
 export { default as LinkToRelations } from './LinkToRelations';
+export { default as RouteProgress } from './RouteProgress';

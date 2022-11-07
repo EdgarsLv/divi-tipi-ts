@@ -37,6 +37,7 @@ const Relationships = Loadable(lazy(() => import('../pages/relationships')));
 const Relation = Loadable(lazy(() => import('../pages/relation')));
 
 // ACCOUNT
+const Account = Loadable(lazy(() => import('../pages/account')));
 const Settings = Loadable(lazy(() => import('../pages/settings')));
 
 // AUTH
@@ -67,6 +68,10 @@ export const router = createBrowserRouter([
       {
         path: 'settings',
         element: <Settings />,
+      },
+      {
+        path: 'account',
+        element: <Account />,
       },
       {
         path: 'user',

@@ -1,3 +1,31 @@
+export const SMOKE = ['nesmēķēju', 'reti', 'ikdienā', 'elektronisko'];
+export const ALCOHOL = ['nelietoju', 'svētkos', 'reizēm', 'regulāri'];
+export const KIDS = ['nav', 'ir'];
+export const EDUCATION = ['pamata', 'vidējā', 'augstākā', 'šobrīd studēju'];
+export const BODY_TYPE = ['tievs', 'vidējs', 'atlētisks', 'liels'];
+export const HOROSCOPE = [
+  'ūdensvīrs',
+  'zivs',
+  'auns',
+  'vērsis',
+  'dvīņi',
+  'vēzis',
+  'lauva',
+  'jaunava',
+  'svari',
+  'skorpions',
+  'strēlnieks',
+  'mežāzis',
+];
+export const GOALS = ['iepazīties', 'diskusijas', 'izklaide', 'sekss'];
+export const GENDER = ['vīrietis', 'sieviete'];
+
+export const SMOKE_SEARCH = ['nesmēķē', 'reti', 'ikdienā', 'elektronisko', 'nav svarīgi'];
+export const ALCOHOL_SEARCH = ['nelieto', 'svētkos', 'reizēm', 'regulāri', 'nav svarīgi'];
+export const KIDS_SEARCH = ['ir', 'nav', 'nav nozīmes'];
+export const EDUCATION_SEARCH = ['pamata', 'vidējā', 'augstākā', 'šobrīd studē', 'nav svarīgi'];
+export const LANGUAGE_SEARCH = ['Latviešu', 'Krievu', 'Angļu', 'cita'];
+
 export type Relations = {
   key: string;
   name: string;
@@ -148,8 +176,12 @@ export const TEST_QUESTIONS = [
     ],
   },
 ];
+export type Interests = {
+  icon: string;
+  name: string;
+};
 
-export const INTERESTS = [
+export const INTERESTS: Interests[] = [
   {
     icon: 'simple-icons:yourtraveldottv',
     name: 'ceļošana',

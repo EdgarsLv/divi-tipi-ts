@@ -1,0 +1,192 @@
+import * as Yup from 'yup';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Box, Grid, Card, Stack, Typography, Button } from '@mui/material';
+import { useEffect } from 'react';
+import { FormProvider, RHFMultiSelect, RHFSelect, RHFTextField } from '@/components/hook-form';
+import { ALCOHOL, BODY_TYPE, EDUCATION, GENDER, GOALS, HOROSCOPE, KIDS, SMOKE } from '@/constants';
+
+type FormValues = {
+  name: string;
+  gender: string;
+  age: number;
+  length: number;
+  city: string;
+  body: string;
+  alcohol: string;
+  goals: string[];
+  smoke: string;
+  about: string;
+  horoscope: string;
+  kids: string;
+  education: string;
+  sociotips: string;
+};
+function General() {
+  const UpdateUserSchema = Yup.object().shape({
+    name: Yup.string()
+      .required('Lūdzu, norādiet vārdu')
+      .min(3, 'Vismaz 3 simboli')
+      .max(15, 'Maksimums 15 simboli')
+      .trim(),
+    gender: Yup.string().required('Lūdzu, norādiet dzimumu'),
+    age: Yup.number()
+      .required('Lūdzu, norādiet vecumu')
+      .min(18, 'Jābūt vismaz 18 gadiem')
+      .max(99, 'Tiešām tik vecs?')
+      .typeError('Lūdzu, norādiet vecumu'),
+  });
+
+  const defaultValues: FormValues = {
+    name: 'Edgars',
+    city: '',
+    age: 18,
+    length: 180,
+    body: '',
+    alcohol: '',
+    goals: [],
+    smoke: '',
+    about: '',
+    gender: 'vīrietis',
+    horoscope: '',
+    kids: '',
+    education: '',
+    sociotips: '',
+  };
+  const methods = useForm({
+    mode: 'all',
+    resolver: yupResolver(UpdateUserSchema),
+    defaultValues,
+  });
+
+  const {
+    reset,
+    handleSubmit,
+    formState: { isDirty },
+  } = methods;
+
+  useEffect(() => {
+    reset(defaultValues);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reset]);
+  const onSubmit: SubmitHandler<FormValues> = (values) => {
+    console.log(values);
+  };
+  // const onSubmit = async (values) => {
+  //   await supabase
+  //     .from('users')
+  //     .update({ name: values.name, gender: values.gender, age: values.age, user: { ...values } })
+  //     .match({ id: user.userId })
+  //     .then(({ error }) => {
+  //       if (error) {
+  //         throw new Error('Kļūme');
+  //       }
+  //       enqueueSnackbar('Izmaiņas saglabātas!');
+  //     })
+  //     .catch(({ message }) => {
+  //       enqueueSnackbar(message, { variant: 'error' });
+  //     })
+  //     .finally(() => {
+  //       dispatch(getUserProfile(user.userId));
+  //     });
+  // };
+  return (
+    <Box>
+      <Typography variant='h3' sx={{ mb: 1 }}>
+        Par mani
+      </Typography>
+      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={12}>
+            <Card sx={{ p: 3 }}>
+              <Box
+                sx={{
+                  display: 'grid',
+                  rowGap: 3,
+                  columnGap: 2,
+                  gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
+                }}
+              >
+                <RHFTextField name='name' label='Vārds' />
+                <RHFSelect name='gender' label='Dzimums' placeholder='dzimums'>
+                  <option value='' />
+                  {GENDER.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+                <RHFTextField name='city' label='Pilsēta' />
+
+                <RHFTextField type='number' name='age' label='Vecums' />
+                <RHFTextField type='number' name='length' label='Garums' />
+                <RHFSelect name='body' label='Ķermeņa uzbūve' placeholder='ķermeņa uzbūve'>
+                  <option value='' />
+                  {BODY_TYPE.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+
+                <RHFSelect name='education' label='Izglītība' placeholder='izglītība'>
+                  <option value='' />
+                  {EDUCATION.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+                <RHFSelect name='horoscope' label='Horoskops' placeholder='horoskops'>
+                  <option value='' />
+                  {HOROSCOPE.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+                <RHFSelect name='smoke' label='Smēķēšana' placeholder='smēķēšana'>
+                  <option value='' />
+                  {SMOKE.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+
+                <RHFSelect name='alcohol' label='Alkohola patēriņš' placeholder='alkohola patēriņš'>
+                  <option value='' />
+                  {ALCOHOL.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+                <RHFSelect name='kids' label='Bērni' placeholder='bērni'>
+                  <option value='' />
+                  {KIDS.map((option, i) => (
+                    <option key={i} value={option}>
+                      {option}
+                    </option>
+                  ))}
+                </RHFSelect>
+                <RHFMultiSelect name='goals' options={GOALS} label='Mērķis portālā' />
+              </Box>
+
+              <Stack spacing={3} alignItems='flex-end' sx={{ mt: 3 }}>
+                <RHFTextField name='about' multiline rows={4} label='Saviem vārdiem' />
+
+                <Button disabled={!isDirty} type='submit' variant='contained'>
+                  Saglabāt izmaiņas
+                </Button>
+              </Stack>
+            </Card>
+          </Grid>
+        </Grid>
+      </FormProvider>
+    </Box>
+  );
+}
+
+export default General;

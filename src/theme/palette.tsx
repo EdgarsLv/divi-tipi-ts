@@ -47,7 +47,7 @@ const palette = {
     mode: 'light',
     text: { primary: blueGrey[800], secondary: blueGrey[600] },
     background: { paper: blueGrey[50], default: blueGrey[200] },
-    action: { active: '#637381', hover: blueGrey[100] },
+    action: { active: '#637381', hover: blueGrey[100], selected: '#bdcdd4' },
   } as PaletteOptions,
 
   dark: {
