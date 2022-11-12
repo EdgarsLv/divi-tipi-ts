@@ -5,24 +5,13 @@ import { Box, Grid, Card, Stack, Typography, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { FormProvider, RHFMultiSelect, RHFSelect, RHFTextField } from '@/components/hook-form';
 import { ALCOHOL, BODY_TYPE, EDUCATION, GENDER, GOALS, HOROSCOPE, KIDS, SMOKE } from '@/constants';
+import { useAppSelector } from '@/redux/store';
+import { selectAccountData } from '@/redux/slices/accountSlice';
+import { UserInfo } from '@/types';
 
-type FormValues = {
-  name: string;
-  gender: string;
-  age: number;
-  length: number;
-  city: string;
-  body: string;
-  alcohol: string;
-  goals: string[];
-  smoke: string;
-  about: string;
-  horoscope: string;
-  kids: string;
-  education: string;
-  sociotips: string;
-};
 function General() {
+  const account = useAppSelector(selectAccountData);
+
   const UpdateUserSchema = Yup.object().shape({
     name: Yup.string()
       .required('Lūdzu, norādiet vārdu')
@@ -37,22 +26,23 @@ function General() {
       .typeError('Lūdzu, norādiet vecumu'),
   });
 
-  const defaultValues: FormValues = {
-    name: 'Edgars',
-    city: '',
-    age: 18,
-    length: 180,
-    body: '',
-    alcohol: '',
-    goals: [],
-    smoke: '',
-    about: '',
-    gender: 'vīrietis',
-    horoscope: '',
-    kids: '',
-    education: '',
-    sociotips: '',
+  const defaultValues: UserInfo = {
+    name: account.user.name,
+    city: account.user.city,
+    age: account.user.age,
+    length: account.user.length,
+    body: account.user.body,
+    alcohol: account.user.alcohol,
+    goals: account.user.goals,
+    smoke: account.user.smoke,
+    about: account.user.about,
+    gender: account.user.gender,
+    horoscope: account.user.horoscope,
+    kids: account.user.kids,
+    education: account.user.education,
+    sociotips: account.user.sociotips,
   };
+
   const methods = useForm({
     mode: 'all',
     resolver: yupResolver(UpdateUserSchema),
@@ -69,10 +59,12 @@ function General() {
     reset(defaultValues);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reset]);
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
+  }, [reset, account.user]);
+
+  const onSubmit: SubmitHandler<UserInfo> = (values) => {
     console.log(values);
   };
+
   // const onSubmit = async (values) => {
   //   await supabase
   //     .from('users')
@@ -108,8 +100,8 @@ function General() {
                   gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
                 }}
               >
-                <RHFTextField name='name' label='Vārds' />
-                <RHFSelect name='gender' label='Dzimums' placeholder='dzimums'>
+                <RHFTextField<UserInfo> name='name' label='Vārds' />
+                <RHFSelect<UserInfo> name='gender' label='Dzimums' placeholder='dzimums'>
                   <option value='' />
                   {GENDER.map((option, i) => (
                     <option key={i} value={option}>
@@ -117,11 +109,15 @@ function General() {
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFTextField name='city' label='Pilsēta' />
+                <RHFTextField<UserInfo> name='city' label='Pilsēta' />
 
-                <RHFTextField type='number' name='age' label='Vecums' />
-                <RHFTextField type='number' name='length' label='Garums' />
-                <RHFSelect name='body' label='Ķermeņa uzbūve' placeholder='ķermeņa uzbūve'>
+                <RHFTextField<UserInfo> type='number' name='age' label='Vecums' />
+                <RHFTextField<UserInfo> type='number' name='length' label='Garums' />
+                <RHFSelect<UserInfo>
+                  name='body'
+                  label='Ķermeņa uzbūve'
+                  placeholder='ķermeņa uzbūve'
+                >
                   <option value='' />
                   {BODY_TYPE.map((option, i) => (
                     <option key={i} value={option}>
@@ -130,7 +126,7 @@ function General() {
                   ))}
                 </RHFSelect>
 
-                <RHFSelect name='education' label='Izglītība' placeholder='izglītība'>
+                <RHFSelect<UserInfo> name='education' label='Izglītība' placeholder='izglītība'>
                   <option value='' />
                   {EDUCATION.map((option, i) => (
                     <option key={i} value={option}>
@@ -138,7 +134,7 @@ function General() {
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFSelect name='horoscope' label='Horoskops' placeholder='horoskops'>
+                <RHFSelect<UserInfo> name='horoscope' label='Horoskops' placeholder='horoskops'>
                   <option value='' />
                   {HOROSCOPE.map((option, i) => (
                     <option key={i} value={option}>
@@ -146,7 +142,7 @@ function General() {
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFSelect name='smoke' label='Smēķēšana' placeholder='smēķēšana'>
+                <RHFSelect<UserInfo> name='smoke' label='Smēķēšana' placeholder='smēķēšana'>
                   <option value='' />
                   {SMOKE.map((option, i) => (
                     <option key={i} value={option}>
@@ -155,7 +151,11 @@ function General() {
                   ))}
                 </RHFSelect>
 
-                <RHFSelect name='alcohol' label='Alkohola patēriņš' placeholder='alkohola patēriņš'>
+                <RHFSelect<UserInfo>
+                  name='alcohol'
+                  label='Alkohola patēriņš'
+                  placeholder='alkohola patēriņš'
+                >
                   <option value='' />
                   {ALCOHOL.map((option, i) => (
                     <option key={i} value={option}>
@@ -163,7 +163,7 @@ function General() {
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFSelect name='kids' label='Bērni' placeholder='bērni'>
+                <RHFSelect<UserInfo> name='kids' label='Bērni' placeholder='bērni'>
                   <option value='' />
                   {KIDS.map((option, i) => (
                     <option key={i} value={option}>
@@ -171,11 +171,11 @@ function General() {
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFMultiSelect name='goals' options={GOALS} label='Mērķis portālā' />
+                <RHFMultiSelect<UserInfo> name='goals' options={GOALS} label='Mērķis portālā' />
               </Box>
 
               <Stack spacing={3} alignItems='flex-end' sx={{ mt: 3 }}>
-                <RHFTextField name='about' multiline rows={4} label='Saviem vārdiem' />
+                <RHFTextField<UserInfo> name='about' multiline rows={4} label='Saviem vārdiem' />
 
                 <Button disabled={!isDirty} type='submit' variant='contained'>
                   Saglabāt izmaiņas

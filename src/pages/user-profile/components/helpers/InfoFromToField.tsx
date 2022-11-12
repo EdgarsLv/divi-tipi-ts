@@ -1,15 +1,17 @@
 import { Stack, Typography } from '@mui/material';
 
 type Props = {
-  from?: string | number;
-  to?: string | number;
+  from?: number;
+  to?: number;
   id: string;
 };
 
 export default function InfoFromToField({ from, to, id }: Props) {
+  const valid = Boolean(from) || Boolean(to);
+
   return (
     <>
-      {(from || to) && (
+      {valid && (
         <Stack direction='row' sx={{ ml: 2, mb: 1, textTransform: 'capitalize' }} spacing={2}>
           <Typography color='text.secondary' component='span'>
             {id}:

@@ -14,9 +14,13 @@ import {
 import { ReactNode, useEffect } from 'react';
 import { INTERESTS } from '@/constants';
 import { Iconify } from '@/components';
+import { useAppSelector } from '@/redux/store';
+import { selectAccountData } from '@/redux/slices/accountSlice';
 
 export default function Interests() {
-  const defaultValues = { interests: ['kaķi', 'spēles', 'fitness', 'dejot'] };
+  const account = useAppSelector(selectAccountData);
+
+  const defaultValues = { interests: account.interests };
 
   const methods = useForm({
     defaultValues,
@@ -33,7 +37,7 @@ export default function Interests() {
     reset(defaultValues);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reset]);
+  }, [reset, account.interests]);
 
   const onSubmit = async (values: any) => {
     // await supabase

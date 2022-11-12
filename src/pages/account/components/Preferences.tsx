@@ -16,26 +16,13 @@ import {
   PERSONALITIES,
   SMOKE_SEARCH,
 } from '@/constants';
-
-type FormValues = {
-  minAge: number;
-  maxAge: number;
-  minLength: number;
-  maxLength: number;
-  body: string[];
-  alcohol: string[];
-  goals: string[];
-  smoke: string[];
-  about: string;
-  gender: string[];
-  horoscope: string[];
-  kids: string[];
-  education: string[];
-  sociotips: string[];
-  language: string[];
-};
+import { useAppSelector } from '@/redux/store';
+import { selectAccountData } from '@/redux/slices/accountSlice';
+import { UserPrefrences } from '@/types';
 
 export default function Preferences() {
+  const account = useAppSelector(selectAccountData);
+
   const emptyStringToNull = (value: any, originalValue: any) =>
     typeof originalValue === 'string' && originalValue === '' ? null : value;
 
@@ -52,22 +39,22 @@ export default function Preferences() {
       .moreThan(Yup.ref('minLength'), 'Jābūt lielākam par "Garums no"'),
   });
 
-  const defaultValues: FormValues = {
-    minAge: 18,
-    maxAge: 99,
-    minLength: 160,
-    maxLength: 170,
-    body: [],
-    alcohol: [],
-    goals: [],
-    smoke: [],
-    about: '',
-    gender: [],
-    horoscope: [],
-    kids: [],
-    education: [],
-    sociotips: [],
-    language: [],
+  const defaultValues: UserPrefrences = {
+    minAge: account.search.minAge,
+    maxAge: account.search.maxAge,
+    minLength: account.search.minLength,
+    maxLength: account.search.maxLength,
+    body: account.search.body,
+    alcohol: account.search.alcohol,
+    goals: account.search.goals,
+    smoke: account.search.smoke,
+    about: account.search.about,
+    gender: account.search.gender,
+    horoscope: account.search.horoscope,
+    kids: account.search.kids,
+    education: account.search.education,
+    sociotips: account.search.sociotips,
+    language: account.search.language,
   };
 
   const methods = useForm({
@@ -85,8 +72,8 @@ export default function Preferences() {
   useEffect(() => {
     reset(defaultValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reset]);
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
+  }, [reset, account.search]);
+  const onSubmit: SubmitHandler<UserPrefrences> = (values) => {
     console.log(values);
   };
   // const onSubmit = async (values) => {
@@ -125,8 +112,8 @@ export default function Preferences() {
                   gridTemplateColumns: { xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' },
                 }}
               >
-                <RHFMultiSelect<FormValues> name='gender' options={GENDER} label='Dzimums' />
-                <RHFMultiSelect<FormValues>
+                <RHFMultiSelect<UserPrefrences> name='gender' options={GENDER} label='Dzimums' />
+                <RHFMultiSelect<UserPrefrences>
                   name='language'
                   options={LANGUAGE_SEARCH}
                   label='Saziņas valoda'
@@ -134,49 +121,66 @@ export default function Preferences() {
 
                 <Box>
                   <Stack direction='row' spacing={3}>
-                    <RHFTextField<FormValues> type='number' name='minAge' label='Vecums no' />
-                    <RHFTextField<FormValues> type='number' name='maxAge' label='līdz' />
+                    <RHFTextField<UserPrefrences> type='number' name='minAge' label='Vecums no' />
+                    <RHFTextField<UserPrefrences> type='number' name='maxAge' label='līdz' />
                   </Stack>
                 </Box>
                 <Box>
                   <Stack direction='row' spacing={3}>
-                    <RHFTextField<FormValues> type='number' name='minLength' label='Garums no' />
-                    <RHFTextField<FormValues> type='number' name='maxLength' label='līdz' />
+                    <RHFTextField<UserPrefrences>
+                      type='number'
+                      name='minLength'
+                      label='Garums no'
+                    />
+                    <RHFTextField<UserPrefrences> type='number' name='maxLength' label='līdz' />
                   </Stack>
                 </Box>
 
-                <RHFMultiSelect<FormValues>
+                <RHFMultiSelect<UserPrefrences>
                   name='body'
                   options={BODY_TYPE}
                   label='Ķermeņa uzbūve'
                 />
-                <RHFMultiSelect<FormValues> name='smoke' options={SMOKE_SEARCH} label='Smēķēšana' />
-                <RHFMultiSelect<FormValues>
+                <RHFMultiSelect<UserPrefrences>
+                  name='smoke'
+                  options={SMOKE_SEARCH}
+                  label='Smēķēšana'
+                />
+                <RHFMultiSelect<UserPrefrences>
                   name='alcohol'
                   options={ALCOHOL_SEARCH}
                   label='Alkohola patēriņš'
                 />
-                <RHFMultiSelect<FormValues> name='kids' options={KIDS_SEARCH} label='Bērni' />
-                <RHFMultiSelect<FormValues>
+                <RHFMultiSelect<UserPrefrences> name='kids' options={KIDS_SEARCH} label='Bērni' />
+                <RHFMultiSelect<UserPrefrences>
                   name='sociotips'
                   options={PERSONALITIES}
                   label='Sociotips'
                 />
-                <RHFMultiSelect<FormValues>
+                <RHFMultiSelect<UserPrefrences>
                   name='horoscope'
                   options={HOROSCOPE}
                   label='Horoskops'
                 />
-                <RHFMultiSelect<FormValues>
+                <RHFMultiSelect<UserPrefrences>
                   name='education'
                   options={EDUCATION_SEARCH}
                   label='Izglītība'
                 />
-                <RHFMultiSelect<FormValues> name='goals' options={GOALS} label='Mērķis portālā' />
+                <RHFMultiSelect<UserPrefrences>
+                  name='goals'
+                  options={GOALS}
+                  label='Mērķis portālā'
+                />
               </Box>
 
               <Stack spacing={3} alignItems='flex-end' sx={{ mt: 3 }}>
-                <RHFTextField<FormValues> name='about' multiline rows={4} label='Saviem vārdiem' />
+                <RHFTextField<UserPrefrences>
+                  name='about'
+                  multiline
+                  rows={4}
+                  label='Saviem vārdiem'
+                />
 
                 <Button disabled={!isDirty} type='submit' variant='contained'>
                   Saglabāt izmaiņas

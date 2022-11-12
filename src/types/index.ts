@@ -40,7 +40,7 @@ export type User = {
   gender: string;
   age: string;
   interests: string[];
-  user: UserInfo | null;
+  user: UserInfo;
   search: UserPrefrences;
   avatar_image: { avatar: string; updated_at: string };
   cover_image: { cover: string; updated_at: string };
