@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { supabase } from '@/service';
-import { User, UserPrefrences } from '@/types';
+import { User, UserInfo, UserInterests, UserPrefrences } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { AppDispatch, RootState } from '../store';
@@ -78,6 +78,46 @@ export const updatePreferencesInfo =
       const { data, error } = await supabase
         .from('users')
         .update({ search: { ...values } })
+        .eq('id', id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const updateGeneralInfo =
+  (values: UserInfo, id?: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .update({ user: { ...values } })
+        .eq('id', id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const updateInterestsInfo =
+  (values: UserInterests, id?: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .update({ ...values })
         .eq('id', id)
         .select()
         .maybeSingle();

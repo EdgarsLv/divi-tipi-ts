@@ -33,6 +33,7 @@ export type UserPrefrences = {
   smoke: string[];
   sociotips: string[];
 };
+
 export type User = {
   id: string;
   created_at: string;
@@ -49,6 +50,10 @@ export type User = {
   updated_at: string;
   has_avatar: boolean;
   user_images?: string[];
+};
+
+export type UserInterests = {
+  interests: string[];
 };
 
 export type Discussion = {

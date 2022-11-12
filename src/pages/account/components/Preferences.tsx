@@ -19,10 +19,11 @@ import {
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectAccountData, updatePreferencesInfo } from '@/redux/slices/accountSlice';
 import { UserPrefrences } from '@/types';
-
 import { useAuth } from '@/contexts/AuthContext';
+import { useSnackbar } from 'notistack';
 
 export default function Preferences() {
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuth();
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
@@ -79,7 +80,9 @@ export default function Preferences() {
   }, [reset, account.search]);
 
   const onSubmit: SubmitHandler<UserPrefrences> = async (values) => {
-    dispatch(updatePreferencesInfo(values, user?.id));
+    dispatch(updatePreferencesInfo(values, user?.id)).finally(() =>
+      enqueueSnackbar('Izmaiņas saglabātas!'),
+    );
   };
 
   return (

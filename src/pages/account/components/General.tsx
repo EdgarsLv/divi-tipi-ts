@@ -6,12 +6,13 @@ import { useEffect } from 'react';
 import { FormProvider, RHFMultiSelect, RHFSelect, RHFTextField } from '@/components/hook-form';
 import { ALCOHOL, BODY_TYPE, EDUCATION, GENDER, GOALS, HOROSCOPE, KIDS, SMOKE } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { loadAccountData, selectAccountData } from '@/redux/slices/accountSlice';
+import { selectAccountData, updateGeneralInfo } from '@/redux/slices/accountSlice';
 import { UserInfo } from '@/types';
-import { supabase } from '@/service';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSnackbar } from 'notistack';
 
 function General() {
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuth();
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
@@ -66,14 +67,9 @@ function General() {
   }, [reset, account.user]);
 
   const onSubmit: SubmitHandler<UserInfo> = async (values) => {
-    const { data } = await supabase
-      .from('users')
-      .update({ user: { ...values } })
-      .eq('id', user?.id)
-      .select()
-      .maybeSingle();
-
-    dispatch(loadAccountData(data));
+    dispatch(updateGeneralInfo(values, user?.id)).finally(() =>
+      enqueueSnackbar('Izmaiņas saglabātas!'),
+    );
   };
 
   return (

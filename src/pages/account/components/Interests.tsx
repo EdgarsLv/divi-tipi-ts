@@ -15,15 +15,13 @@ import { ReactNode, useEffect } from 'react';
 import { INTERESTS } from '@/constants';
 import { Iconify } from '@/components';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
-import { loadAccountData, selectAccountData } from '@/redux/slices/accountSlice';
-import { supabase } from '@/service';
+import { selectAccountData, updateInterestsInfo } from '@/redux/slices/accountSlice';
 import { useAuth } from '@/contexts/AuthContext';
-
-type UserInterests = {
-  interests: string[];
-};
+import { useSnackbar } from 'notistack';
+import { UserInterests } from '@/types';
 
 export default function Interests() {
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuth();
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
@@ -48,14 +46,9 @@ export default function Interests() {
   }, [reset, account.interests]);
 
   const onSubmit: SubmitHandler<UserInterests> = async (values) => {
-    const { data } = await supabase
-      .from('users')
-      .update({ ...values })
-      .eq('id', user?.id)
-      .select()
-      .maybeSingle();
-
-    dispatch(loadAccountData(data));
+    dispatch(updateInterestsInfo(values, user?.id)).finally(() =>
+      enqueueSnackbar('Izmaiņas saglabātas!'),
+    );
   };
 
   return (
