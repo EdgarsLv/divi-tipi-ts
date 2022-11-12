@@ -16,11 +16,15 @@ import {
   PERSONALITIES,
   SMOKE_SEARCH,
 } from '@/constants';
-import { useAppSelector } from '@/redux/store';
-import { selectAccountData } from '@/redux/slices/accountSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { selectAccountData, updatePreferencesInfo } from '@/redux/slices/accountSlice';
 import { UserPrefrences } from '@/types';
 
+import { useAuth } from '@/contexts/AuthContext';
+
 export default function Preferences() {
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
 
   const emptyStringToNull = (value: any, originalValue: any) =>
@@ -73,27 +77,10 @@ export default function Preferences() {
     reset(defaultValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, account.search]);
-  const onSubmit: SubmitHandler<UserPrefrences> = (values) => {
-    console.log(values);
+
+  const onSubmit: SubmitHandler<UserPrefrences> = async (values) => {
+    dispatch(updatePreferencesInfo(values, user?.id));
   };
-  // const onSubmit = async (values) => {
-  //   await supabase
-  //     .from('users')
-  //     .update({ search: { ...values } })
-  //     .match({ id: user.userId })
-  //     .then(({ error }) => {
-  //       if (error) {
-  //         throw new Error('Kļūme');
-  //       }
-  //       enqueueSnackbar('Izmaiņas saglabātas!');
-  //     })
-  //     .catch(({ message }) => {
-  //       enqueueSnackbar(message, { variant: 'error' });
-  //     })
-  //     .finally(() => {
-  //       dispatch(getUserProfile(user.userId));
-  //     });
-  // };
 
   return (
     <Box>

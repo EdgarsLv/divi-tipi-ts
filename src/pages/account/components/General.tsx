@@ -5,11 +5,15 @@ import { Box, Grid, Card, Stack, Typography, Button } from '@mui/material';
 import { useEffect } from 'react';
 import { FormProvider, RHFMultiSelect, RHFSelect, RHFTextField } from '@/components/hook-form';
 import { ALCOHOL, BODY_TYPE, EDUCATION, GENDER, GOALS, HOROSCOPE, KIDS, SMOKE } from '@/constants';
-import { useAppSelector } from '@/redux/store';
-import { selectAccountData } from '@/redux/slices/accountSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { loadAccountData, selectAccountData } from '@/redux/slices/accountSlice';
 import { UserInfo } from '@/types';
+import { supabase } from '@/service';
+import { useAuth } from '@/contexts/AuthContext';
 
 function General() {
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
 
   const UpdateUserSchema = Yup.object().shape({
@@ -61,28 +65,17 @@ function General() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, account.user]);
 
-  const onSubmit: SubmitHandler<UserInfo> = (values) => {
-    console.log(values);
+  const onSubmit: SubmitHandler<UserInfo> = async (values) => {
+    const { data } = await supabase
+      .from('users')
+      .update({ user: { ...values } })
+      .eq('id', user?.id)
+      .select()
+      .maybeSingle();
+
+    dispatch(loadAccountData(data));
   };
 
-  // const onSubmit = async (values) => {
-  //   await supabase
-  //     .from('users')
-  //     .update({ name: values.name, gender: values.gender, age: values.age, user: { ...values } })
-  //     .match({ id: user.userId })
-  //     .then(({ error }) => {
-  //       if (error) {
-  //         throw new Error('Kļūme');
-  //       }
-  //       enqueueSnackbar('Izmaiņas saglabātas!');
-  //     })
-  //     .catch(({ message }) => {
-  //       enqueueSnackbar(message, { variant: 'error' });
-  //     })
-  //     .finally(() => {
-  //       dispatch(getUserProfile(user.userId));
-  //     });
-  // };
   return (
     <Box>
       <Typography variant='h3' sx={{ mb: 1 }}>

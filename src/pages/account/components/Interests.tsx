@@ -1,4 +1,4 @@
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, SubmitHandler } from 'react-hook-form';
 import {
   Button,
   Box,
@@ -14,13 +14,21 @@ import {
 import { ReactNode, useEffect } from 'react';
 import { INTERESTS } from '@/constants';
 import { Iconify } from '@/components';
-import { useAppSelector } from '@/redux/store';
-import { selectAccountData } from '@/redux/slices/accountSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { loadAccountData, selectAccountData } from '@/redux/slices/accountSlice';
+import { supabase } from '@/service';
+import { useAuth } from '@/contexts/AuthContext';
+
+type UserInterests = {
+  interests: string[];
+};
 
 export default function Interests() {
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
 
-  const defaultValues = { interests: account.interests };
+  const defaultValues: UserInterests = { interests: account.interests };
 
   const methods = useForm({
     defaultValues,
@@ -39,17 +47,15 @@ export default function Interests() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, account.interests]);
 
-  const onSubmit = async (values: any) => {
-    // await supabase
-    //   .from('users')
-    //   .update({ ...values })
-    //   .match({ id: user.userId })
-    //   .then(({ error }) => {
-    //     if (error) {
-    //       throw new Error('Kļūme');
-    //     }
-    //   })
-    console.log(values);
+  const onSubmit: SubmitHandler<UserInterests> = async (values) => {
+    const { data } = await supabase
+      .from('users')
+      .update({ ...values })
+      .eq('id', user?.id)
+      .select()
+      .maybeSingle();
+
+    dispatch(loadAccountData(data));
   };
 
   return (
@@ -57,7 +63,6 @@ export default function Interests() {
       <Typography variant='h3' sx={{ mb: 1 }}>
         Intereses
       </Typography>
-
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl component='fieldset' variant='standard'>
           <FormGroup>

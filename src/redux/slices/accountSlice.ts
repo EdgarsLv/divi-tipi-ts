@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { supabase } from '@/service';
-import { User } from '@/types';
+import { User, UserPrefrences } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { AppDispatch, RootState } from '../store';
@@ -68,8 +68,28 @@ export const fetchAccountData = (id?: string) => async (dispatch: AppDispatch) =
       throw error;
     }
   } catch (error) {
-    //   dispatch(hasError(error.message));
+    console.error(error);
   }
 };
+
+export const updatePreferencesInfo =
+  (values: UserPrefrences, id?: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .update({ search: { ...values } })
+        .eq('id', id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export default accountSlice.reducer;
