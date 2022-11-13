@@ -1,6 +1,10 @@
 /* eslint-disable camelcase */
 import { useAuth } from '@/contexts/AuthContext';
-import { loadAccountData, selectAccountImages } from '@/redux/slices/accountSlice';
+import {
+  loadAccountData,
+  loadAccountImages,
+  selectAccountImages,
+} from '@/redux/slices/accountSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { supabase } from '@/service';
 import { imageResizer } from '@/utils/imageResizer';
@@ -59,27 +63,26 @@ export default function useImageUpload() {
 
     setAvatarUrl(`${storageUrl}/${filePath}`);
 
-    console.log(filePath, image);
-    // const { error } = await supabase.storage
-    //   .from('user-images')
-    //   .upload(filePath, image, { cacheControl: '10', upsert: true });
+    const { error } = await supabase.storage
+      .from('user-images')
+      .upload(filePath, image, { cacheControl: '10', upsert: true });
 
-    // if (error) {
-    //   throw error;
-    // }
+    if (error) {
+      throw error;
+    }
 
-    // const update = {
-    //   avatar: filePath,
-    //   updated_at: new Date(),
-    // };
-    // const { data } = await supabase
-    //   .from('users')
-    //   .update({ avatar_image: update, has_avatar: true })
-    //   .eq('id', user?.id)
-    //   .select()
-    //   .maybeSingle();
+    const update = {
+      avatar: filePath,
+      updated_at: new Date(),
+    };
+    const { data } = await supabase
+      .from('users')
+      .update({ avatar_image: update, has_avatar: true })
+      .eq('id', user?.id)
+      .select()
+      .maybeSingle();
 
-    // dispatch(loadAccountData(data));
+    dispatch(loadAccountData(data));
   };
 
   const uploadCover = async (image: File) => {
@@ -119,7 +122,7 @@ export default function useImageUpload() {
     try {
       const { error } = await supabase.storage.from('user-images').upload(filePath, image);
 
-      // dispatch(getCurrentUserImages([...images, filePath]));
+      dispatch(loadAccountImages([...images, filePath]));
 
       await supabase.from('user_images').upsert(
         {

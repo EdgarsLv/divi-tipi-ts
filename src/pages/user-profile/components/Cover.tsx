@@ -1,4 +1,4 @@
-import { styled } from '@mui/material/styles';
+import { styled, alpha } from '@mui/material/styles';
 import { Box, IconButton, Stack, Typography, Avatar } from '@mui/material';
 import { Iconify, Image, LinkToPersonality, LinkToRelations } from '@/components';
 import { useLoaderData, useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ export default function ProfileCover() {
   const navigate = useNavigate();
   const { cover, avatar } = useUserImages(user);
   return (
-    <RootStyle>
+    <Box>
       <Stack
         width='100%'
         justifyContent='flex-start'
@@ -29,13 +29,10 @@ export default function ProfileCover() {
       </Stack>
       <InfoStyle>
         <Avatar
-          variant='rounded'
           src={avatar}
           sx={{
             mx: 'auto',
-            borderWidth: 1.5,
-            borderStyle: 'solid',
-            borderColor: 'primary.main',
+            cursor: 'pointer',
             width: { xs: 90, md: 128 },
             height: { xs: 90, md: 128 },
           }}
@@ -69,21 +66,9 @@ export default function ProfileCover() {
         src={cover}
         sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       />
-    </RootStyle>
+    </Box>
   );
 }
-
-const RootStyle = styled('div')(() => ({
-  '&:before': {
-    top: 0,
-    zIndex: 9,
-    content: '""',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    backgroundImage: 'linear-gradient(to bottom, #ffffff10, #ffffff)',
-  },
-}));
 
 const InfoStyle = styled('div')(({ theme }) => ({
   left: 0,
@@ -91,6 +76,15 @@ const InfoStyle = styled('div')(({ theme }) => ({
   zIndex: 99,
   position: 'absolute',
   marginTop: theme.spacing(2),
+
+  backdropFilter: 'blur( 5px )',
+  paddingRight: theme.spacing(2),
+  backgroundColor: alpha(theme.palette.background.paper, 0.65),
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderColor:
+    theme.palette.mode === 'light' ? theme.palette.common.white : theme.palette.common.black,
+
   [theme.breakpoints.up('xs')]: {
     right: 'auto',
     display: 'flex',

@@ -1,11 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import { Container, Tab, Box, Tabs, Card } from '@mui/material';
 import { Iconify, Page } from '@/components';
 import { Cover, Gallery, General, Interests, Preferences } from './components';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAppDispatch } from '@/redux/store';
+import { fetchAccountImages } from '@/redux/slices/accountSlice';
 
 export default function Account() {
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
+
   const [currentTab, setCurrentTab] = useState('Anketa');
+
+  useEffect(() => {
+    dispatch(fetchAccountImages(user?.id));
+  }, [dispatch, user?.id]);
 
   const ACCOUNT_TABS = [
     {

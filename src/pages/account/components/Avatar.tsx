@@ -1,17 +1,15 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState } from 'react';
 import { Iconify, Image } from '@/components';
 import { Card, IconButton } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useAuth } from '@/contexts/AuthContext';
-import { useImageUpload } from '@/hooks';
+import { useImageUpload, useUserImages } from '@/hooks';
+import { useAppSelector } from '@/redux/store';
+import { selectAccountData } from '@/redux/slices/accountSlice';
 
-export default function Avatar() {
-  const { user } = useAuth();
-
+function Avatar() {
+  const account = useAppSelector(selectAccountData);
   const { pickImage, avatarUrl } = useImageUpload();
-
-  const [uploading, setUploading] = useState(false);
+  const { avatar } = useUserImages(account);
 
   const hasAvatar = true;
 
@@ -29,15 +27,7 @@ export default function Avatar() {
     >
       <DropZoneStyle>
         {hasAvatar && (
-          <Image
-            alt='avatar'
-            src={
-              avatarUrl
-                ? avatarUrl
-                : 'https://i.etsystatic.com/35274874/r/il/752c48/3878130426/il_fullxfull.3878130426_lv76.jpg'
-            }
-            sx={{ zIndex: 8 }}
-          />
+          <Image alt='avatar' src={avatarUrl ? avatarUrl : avatar} sx={{ zIndex: 8 }} />
         )}
 
         <PlaceholderStyle
@@ -59,7 +49,6 @@ export default function Avatar() {
             htmlFor='avatar-file'
           >
             <Input
-              disabled={uploading}
               accept='image/*'
               id='avatar-file'
               type='file'
@@ -77,6 +66,8 @@ export default function Avatar() {
     </Card>
   );
 }
+
+export default Avatar;
 
 const Input = styled('input')({
   display: 'none',

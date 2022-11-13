@@ -6,7 +6,7 @@ import { useImageUpload, useUserImages } from '@/hooks';
 import { useAppSelector } from '@/redux/store';
 import { selectAccountData } from '@/redux/slices/accountSlice';
 
-export default function Cover() {
+function Cover() {
   const account = useAppSelector(selectAccountData);
   const { coverUrl, pickImage } = useImageUpload();
   const { cover } = useUserImages(account);
@@ -98,6 +98,7 @@ export default function Cover() {
   );
 }
 
+export default Cover;
 // STYLES ----------------------------------------------------------------------
 
 const RootStyle = styled('div')(() => ({
@@ -108,7 +109,11 @@ const RootStyle = styled('div')(() => ({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    backgroundImage: 'linear-gradient(to bottom, #ffffff30, #ffffff)',
+    // background: 'rgba(255, 255, 255, 0.25)',
+    backdropFilter: 'blur( 5px )',
+
+    backgroundImage: 'linear-gradient(to bottom, #ffffff10, #ffffff70)',
+    // filter: 'blur(30px)',
   },
 }));
 

@@ -78,6 +78,24 @@ export const fetchAccountData = (id?: string) => async (dispatch: AppDispatch) =
   }
 };
 
+export const fetchAccountImages = (id?: string) => async (dispatch: AppDispatch) => {
+  try {
+    const { data, error } = await supabase
+      .from('user_images')
+      .select('images')
+      .eq('user_id', id)
+      .maybeSingle();
+
+    dispatch(loadAccountImages(data?.images));
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const updatePreferencesInfo =
   (values: UserPrefrences, id?: string) => async (dispatch: AppDispatch) => {
     try {

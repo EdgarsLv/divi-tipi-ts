@@ -54,7 +54,7 @@ const palette = {
     ...COMMON_LIGHT,
     mode: 'dark',
     text: { primary: blueGrey[400], secondary: blueGrey[300] },
-    background: { paper: ' #343744', default: '#2C2F3C' },
+    background: { paper: '#343744', default: '#2C2F3C' },
     action: { active: '#919EAB' },
   } as PaletteOptions,
 };
