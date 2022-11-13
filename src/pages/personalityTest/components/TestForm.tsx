@@ -6,29 +6,12 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { styled } from '@mui/material/styles';
 import { TEST_QUESTIONS } from '@/constants';
 import { testResult } from '@/utils/testResult';
+import { useAppDispatch } from '@/redux/store';
+import { useAuth } from '@/contexts/AuthContext';
+import { updatePersonality } from '@/redux/slices/accountSlice';
+import { useSnackbar } from 'notistack';
+import { PersonalityTestQuestions } from '@/types';
 
-export type FormValues = {
-  q1: string;
-  q2: string;
-  q3: string;
-  q4: string;
-  q5: string;
-  q6: string;
-  q7: string;
-  q8: string;
-  q9: string;
-  q10: string;
-  q12: string;
-  q14: string;
-  q15: string;
-  q16: string;
-  q17: string;
-  q18: string;
-  q19: string;
-  q20: string;
-  q21: string;
-  q22: string;
-};
 const UpdateTestSchema = Yup.object().shape({
   q1: Yup.string().required('Šī atbilde ir obligāta!'),
   q2: Yup.string().required('Šī atbilde ir obligāta!'),
@@ -55,40 +38,37 @@ const UpdateTestSchema = Yup.object().shape({
 const NumberStyle = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
+  width: 30,
 }));
 
 function TestForm() {
-  const defaultValues: FormValues = {
-    q1: '',
-    q2: '',
-    q3: '',
-    q4: '',
-    q5: '',
-    q6: '',
-    q7: '',
-    q8: '',
-    q9: '',
-    q10: '',
-    q12: '',
-    q14: '',
-    q15: '',
-    q16: '',
-    q17: '',
-    q18: '',
-    q19: '',
-    q20: '',
-    q21: '',
-    q22: '',
+  const { enqueueSnackbar } = useSnackbar();
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
+
+  // prettier-ignore
+  const defaultValues: PersonalityTestQuestions = {
+    q1: '', q2: '', q3: '', q4: '', q5: '', q6: '', q7: '', q8: '', q9: '', q10: '', q12: '',
+    q14: '', q15: '', q16: '', q17: '', q18: '', q19: '', q20: '', q21: '', q22: '',
   };
 
-  const methods = useForm<FormValues>({ resolver: yupResolver(UpdateTestSchema), defaultValues });
+  const methods = useForm<PersonalityTestQuestions>({
+    resolver: yupResolver(UpdateTestSchema),
+    defaultValues,
+  });
 
   const {
     handleSubmit,
     formState: { isDirty, errors },
   } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => console.log(testResult(data));
+  const onSubmit: SubmitHandler<PersonalityTestQuestions> = (values) => {
+    const sociotype = testResult(values);
+    dispatch(updatePersonality({ sociotype }, user?.id)).then(() =>
+      enqueueSnackbar(`Sociotips noteikts: ${sociotype.toUpperCase()}`),
+    );
+  };
+
   const opt = [1, 2];
   return (
     <FormProvider onSubmit={handleSubmit(onSubmit)} methods={methods}>

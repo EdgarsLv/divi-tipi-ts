@@ -1,8 +1,16 @@
 import { styled } from '@mui/material/styles';
-import { Box, Typography, Stack, IconButton, Link, CircularProgress, Avatar } from '@mui/material';
+import { Box, Typography, Stack, IconButton, Link, CircularProgress } from '@mui/material';
 import { Iconify, Image } from '@/components';
+import Avatar from './Avatar';
+import { useImageUpload, useUserImages } from '@/hooks';
+import { useAppSelector } from '@/redux/store';
+import { selectAccountData } from '@/redux/slices/accountSlice';
 
 export default function Cover() {
+  const account = useAppSelector(selectAccountData);
+  const { coverUrl, pickImage } = useImageUpload();
+  const { cover } = useUserImages(account);
+
   return (
     <RootStyle>
       <Stack
@@ -22,7 +30,7 @@ export default function Cover() {
             accept='image/*'
             id='cover-file'
             type='file'
-            onChange={() => console.log('upload')}
+            onChange={(e) => pickImage(e, 'cover')}
           />
           <IconButton component='span'>
             <Iconify
@@ -60,11 +68,7 @@ export default function Cover() {
               />
             </IconButton>
           )}
-          <Avatar
-            variant='rounded'
-            sx={{ width: 110, height: 110 }}
-            src='https://st.depositphotos.com/1001094/3259/i/450/depositphotos_32593135-stock-photo-portrait-of-young-beautiful-fashionable.jpg'
-          />
+          <Avatar />
         </Box>
 
         <Box
@@ -79,7 +83,7 @@ export default function Cover() {
 
           <Typography sx={{ textTransform: 'capitalize' }}>
             draizers
-            <LinkStyle underline='always' ml={2} variant='overline' href='/'>
+            <LinkStyle underline='always' ml={2} variant='overline' href='/personalities/test'>
               Sociotipa tests
             </LinkStyle>
           </Typography>
@@ -87,7 +91,7 @@ export default function Cover() {
       </InfoStyle>
       <Image
         alt='account cover'
-        src='https://t3.ftcdn.net/jpg/04/85/99/84/360_F_485998444_SxEQFlLmOUOrxf5diV5Jr8dRuIYeHjqb.jpg'
+        src={coverUrl ? coverUrl : cover}
         sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       />
     </RootStyle>
@@ -100,11 +104,11 @@ const RootStyle = styled('div')(() => ({
   '&:before': {
     top: 0,
     zIndex: 9,
-    // eslint-disable-next-line quotes
-    content: "''",
+    content: '""',
     width: '100%',
     height: '100%',
     position: 'absolute',
+    backgroundImage: 'linear-gradient(to bottom, #ffffff30, #ffffff)',
   },
 }));
 

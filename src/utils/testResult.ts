@@ -1,4 +1,4 @@
-import { FormValues } from '@/pages/personalityTest/components/TestForm';
+import { PersonalityTestQuestions } from '@/types';
 
 const tips = (value: string) => {
   switch (value) {
@@ -44,7 +44,7 @@ const tips = (value: string) => {
 // S = SENSORS N = INTUITS
 // i j n f intro iracionals intuits etisks
 
-export const testResult = (values: FormValues) => {
+export const testResult = (values: PersonalityTestQuestions) => {
   const {
     q1,
     q2,

@@ -7,6 +7,7 @@ import type { AppDispatch, RootState } from '../store';
 
 interface AccountState {
   account: User;
+  images: string[];
 }
 
 const initialState: AccountState = {
@@ -42,6 +43,7 @@ const initialState: AccountState = {
     has_avatar: false,
     user_images: [],
   },
+  images: [],
 };
 
 export const accountSlice = createSlice({
@@ -51,12 +53,16 @@ export const accountSlice = createSlice({
     loadAccountData: (state, action) => {
       state.account = action.payload;
     },
+    loadAccountImages: (state, action) => {
+      state.images = action.payload;
+    },
   },
 });
 
-export const { loadAccountData } = accountSlice.actions;
+export const { loadAccountData, loadAccountImages } = accountSlice.actions;
 
 export const selectAccountData = (state: RootState) => state.account.account;
+export const selectAccountImages = (state: RootState) => state.account.images;
 
 export const fetchAccountData = (id?: string) => async (dispatch: AppDispatch) => {
   try {
@@ -118,6 +124,27 @@ export const updateInterestsInfo =
       const { data, error } = await supabase
         .from('users')
         .update({ ...values })
+        .eq('id', id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const updatePersonality =
+  (values: { sociotype: string }, id?: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        // eslint-disable-next-line camelcase
+        .update({ sociotype: values.sociotype, has_sociotype: true })
         .eq('id', id)
         .select()
         .maybeSingle();

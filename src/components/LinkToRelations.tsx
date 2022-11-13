@@ -1,6 +1,8 @@
 import { styled } from '@mui/material/styles';
 import { Link } from '@mui/material';
 import { setRelations, setRelationSign } from '../utils/showRelations';
+import { useAppSelector } from '@/redux/store';
+import { selectAccountData } from '@/redux/slices/accountSlice';
 
 const LinkStyle = styled(Link)(() => ({
   overflow: 'hidden',
@@ -15,9 +17,9 @@ function getLinkName(sociotype: string, personality: string) {
 }
 
 export default function LinkToRelations({ personality }: { personality: string }) {
-  const mySociotype = 'draizers';
+  const account = useAppSelector(selectAccountData);
 
-  const { name, sign } = getLinkName(mySociotype, personality);
+  const { name, sign } = getLinkName(account.sociotype, personality);
 
   const linkTo = `/relationships/${name}`;
 

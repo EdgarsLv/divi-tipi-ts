@@ -4,11 +4,13 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Stack, Card, Typography, Button } from '@mui/material';
 import { FormProvider, RHFTextField } from '@/components/hook-form';
 import { supabase } from '@/service';
+import { useSnackbar } from 'notistack';
 
 type FormValues = {
   newEmail: string;
 };
 export default function EmailChange() {
+  const { enqueueSnackbar } = useSnackbar();
   const ChangeEmailSchema = Yup.object().shape({
     newEmail: Yup.string().email('Ievadiet derīgu e-pastu!').required('Lūdzu, ievadiet e-pastu!'),
   });
@@ -34,6 +36,8 @@ export default function EmailChange() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      enqueueSnackbar('Epats nomainīts!');
     }
   };
 

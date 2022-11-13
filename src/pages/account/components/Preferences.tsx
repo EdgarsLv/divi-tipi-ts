@@ -62,7 +62,7 @@ export default function Preferences() {
     language: account.search.language,
   };
 
-  const methods = useForm({
+  const methods = useForm<UserPrefrences>({
     resolver: yupResolver(UpdateUserSchema),
     defaultValues,
   });
@@ -79,8 +79,8 @@ export default function Preferences() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, account.search]);
 
-  const onSubmit: SubmitHandler<UserPrefrences> = async (values) => {
-    dispatch(updatePreferencesInfo(values, user?.id)).finally(() =>
+  const onSubmit: SubmitHandler<UserPrefrences> = (values) => {
+    dispatch(updatePreferencesInfo(values, user?.id)).then(() =>
       enqueueSnackbar('Izmaiņas saglabātas!'),
     );
   };

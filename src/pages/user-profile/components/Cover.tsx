@@ -24,10 +24,7 @@ export default function ProfileCover() {
         }}
       >
         <IconButton onClick={() => navigate(-1)}>
-          <Iconify
-            icon='akar-icons:arrow-back-thick'
-            sx={{ color: 'primary.main', width: 24, height: 24 }}
-          />
+          <Iconify icon='akar-icons:arrow-back-thick' sx={{ width: 24, height: 24 }} />
         </IconButton>
       </Stack>
       <InfoStyle>
@@ -47,7 +44,6 @@ export default function ProfileCover() {
           sx={{
             ml: { xs: 2, md: 3 },
             mt: { xs: 1, md: -1 },
-            color: 'common.white',
             textAlign: 'left',
           }}
         >
@@ -57,12 +53,12 @@ export default function ProfileCover() {
             </Typography>
             <Typography variant='h4'> {user.age}</Typography>
           </Stack>
-          <Box sx={{ opacity: 0.9 }}>
+          <Box>
             <LinkToPersonality personality={user.sociotype} />
             <LinkToRelations personality={user.sociotype} />
           </Box>
 
-          <Typography variant='caption' sx={{ opacity: 0.82, fontSize: '10px' }}>
+          <Typography variant='caption' sx={{ fontSize: '10px' }}>
             Online: 2022.12.18
           </Typography>
         </Box>
@@ -81,11 +77,11 @@ const RootStyle = styled('div')(() => ({
   '&:before': {
     top: 0,
     zIndex: 9,
-    // eslint-disable-next-line quotes
-    content: "''",
+    content: '""',
     width: '100%',
     height: '100%',
     position: 'absolute',
+    backgroundImage: 'linear-gradient(to bottom, #ffffff10, #ffffff)',
   },
 }));
 

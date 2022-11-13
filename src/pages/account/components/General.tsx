@@ -48,7 +48,7 @@ function General() {
     sociotips: account.user.sociotips,
   };
 
-  const methods = useForm({
+  const methods = useForm<UserInfo>({
     mode: 'all',
     resolver: yupResolver(UpdateUserSchema),
     defaultValues,
@@ -66,8 +66,8 @@ function General() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, account.user]);
 
-  const onSubmit: SubmitHandler<UserInfo> = async (values) => {
-    dispatch(updateGeneralInfo(values, user?.id)).finally(() =>
+  const onSubmit: SubmitHandler<UserInfo> = (values) => {
+    dispatch(updateGeneralInfo(values, user?.id)).then(() =>
       enqueueSnackbar('Izmaiņas saglabātas!'),
     );
   };

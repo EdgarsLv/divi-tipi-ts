@@ -4,12 +4,14 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { Stack, Card, Typography, Button } from '@mui/material';
 import { FormProvider, RHFTextField } from '@/components/hook-form';
 import { supabase } from '@/service';
+import { useSnackbar } from 'notistack';
 
 type FormValues = {
   newPassword: string;
   confirmNewPassword: string;
 };
 export default function PasswordChange() {
+  const { enqueueSnackbar } = useSnackbar();
   const ChangePassWordSchema = Yup.object().shape({
     newPassword: Yup.string()
       .min(6, 'Parolei jābūt vismaz 6 simboliem')
@@ -39,6 +41,8 @@ export default function PasswordChange() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      enqueueSnackbar('Parole nomainīta!');
     }
   };
 

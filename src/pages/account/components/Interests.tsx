@@ -28,7 +28,7 @@ export default function Interests() {
 
   const defaultValues: UserInterests = { interests: account.interests };
 
-  const methods = useForm({
+  const methods = useForm<UserInterests>({
     defaultValues,
   });
 
@@ -45,8 +45,8 @@ export default function Interests() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reset, account.interests]);
 
-  const onSubmit: SubmitHandler<UserInterests> = async (values) => {
-    dispatch(updateInterestsInfo(values, user?.id)).finally(() =>
+  const onSubmit: SubmitHandler<UserInterests> = (values) => {
+    dispatch(updateInterestsInfo(values, user?.id)).then(() =>
       enqueueSnackbar('Izmaiņas saglabātas!'),
     );
   };

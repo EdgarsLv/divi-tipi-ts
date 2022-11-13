@@ -1,7 +1,7 @@
 import { supabase } from '@/service';
 import { createContext, useEffect, useReducer, useState, useContext } from 'react';
 
-type User = {
+type AuthUser = {
   email: string;
   id: string;
 } | null;
@@ -9,7 +9,7 @@ type User = {
 type RootState = {
   isAuthenticated: boolean;
   isInitialized: boolean;
-  user: User;
+  user: AuthUser;
 };
 const initialState: RootState = {
   isAuthenticated: false,

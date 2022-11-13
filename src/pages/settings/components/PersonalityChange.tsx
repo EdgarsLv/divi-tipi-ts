@@ -7,6 +7,9 @@ import { supabase } from '@/service';
 import { FormProvider, RHFSelect } from '@/components/hook-form';
 import { PERSONALITIES } from '@/constants';
 import { useAuth } from '@/contexts/AuthContext';
+import { useSnackbar } from 'notistack';
+import { useAppDispatch } from '@/redux/store';
+import { updatePersonality } from '@/redux/slices/accountSlice';
 
 type FormValues = {
   sociotype: string;
@@ -16,7 +19,9 @@ type Code = {
 } | null;
 
 export default function PersonalityChange() {
+  const { enqueueSnackbar } = useSnackbar();
   const { user } = useAuth();
+  const dispatch = useAppDispatch();
   const [code, setCode] = useState<Code | null>();
   const [userCode, setUserCode] = useState('');
 
@@ -56,21 +61,12 @@ export default function PersonalityChange() {
 
   const { handleSubmit } = methods;
 
-  const onSubmit: SubmitHandler<FormValues> = async (values) => {
-    try {
-      const { error } = await supabase
-        .from('users')
-        // eslint-disable-next-line camelcase
-        .update({ sociotype: values.sociotype, has_sociotype: true })
-        .match({ id: user?.id });
+  const onSubmit: SubmitHandler<FormValues> = (values) => {
+    dispatch(updatePersonality(values, user?.id)).then(() =>
+      enqueueSnackbar(`Sociotips nomainīts! ${values.sociotype}`),
+    );
 
-      if (error) {
-        throw error;
-      }
-    } catch (error) {
-      console.error(error);
-    }
-
+    setCode({ code: 'randomcode' });
     setUserCode('');
   };
 
