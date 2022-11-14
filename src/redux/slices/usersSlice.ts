@@ -6,11 +6,13 @@ import type { AppDispatch, RootState } from '../store';
 
 interface UsersState {
   users: User[];
+  isOpen: boolean;
 }
 
 // Define the initial state using that type
 const initialState: UsersState = {
   users: [],
+  isOpen: false,
 };
 
 export const usersSlice = createSlice({
@@ -20,13 +22,17 @@ export const usersSlice = createSlice({
     loadUsers: (state, action) => {
       state.users = action.payload;
     },
+    setIsOpen: (state, action) => {
+      state.isOpen = action.payload;
+    },
   },
 });
 
-export const { loadUsers } = usersSlice.actions;
+export const { loadUsers, setIsOpen } = usersSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectUsers = (state: RootState) => state.users.users;
+export const selectIsOpen = (state: RootState) => state.users.isOpen;
 
 export const fetchInitialUsers = () => async (dispatch: AppDispatch) => {
   // const { minAge, maxAge, gender, sociotypes } = filters;
@@ -41,7 +47,7 @@ export const fetchInitialUsers = () => async (dispatch: AppDispatch) => {
 
       .neq('id', 'cd1bd5b7-85b2-4187-83d4-996f3b4647bf')
       .order('updated_at', { ascending: false })
-      .range(0, 19);
+      .range(0, 39);
 
     dispatch(loadUsers(data));
 

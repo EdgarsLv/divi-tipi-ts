@@ -49,7 +49,7 @@ export type User = {
   has_sociotype: boolean;
   updated_at: string;
   has_avatar: boolean;
-  user_images?: string[];
+  user_images?: { [key: number]: { images: string[] } };
 };
 
 export type UserInterests = {

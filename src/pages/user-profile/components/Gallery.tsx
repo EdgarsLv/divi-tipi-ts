@@ -1,17 +1,12 @@
 import { Image } from '@/components';
-import { User } from '@/types';
-import { Box, Card, LinearProgress, Typography } from '@mui/material';
-import { useLoaderData } from 'react-router-dom';
+import { Box, Card, Typography } from '@mui/material';
 
-const IMAGES: string[] = [
-  'https://eit.europa.eu/sites/default/files/cristina_aleixendri_portrait_-_vertical_0.jpg',
-  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsrbJG6gMZ1o6wS97zmIdYiZ8bBBZ2Ucuqaw&usqp=CAU',
-];
+type Props = {
+  handleOpen: (index: number) => void;
+  images: string[];
+};
 
-export default function Gallery() {
-  const user = useLoaderData() as User;
-  console.log(user);
-  const loading = false;
+export default function Gallery({ handleOpen, images }: Props) {
   return (
     <Box>
       <Typography variant='h3' sx={{ mb: 1 }}>
@@ -19,11 +14,6 @@ export default function Gallery() {
       </Typography>
 
       <Card sx={{ p: 3, position: 'relative' }}>
-        {loading && (
-          <Box sx={{ position: 'absolute', top: 0, right: 0, left: 0 }}>
-            <LinearProgress />
-          </Box>
-        )}
         <Box
           sx={{
             display: 'grid',
@@ -35,30 +25,30 @@ export default function Gallery() {
             },
           }}
         >
-          {IMAGES.map((image, i) => (
-            <GalleryItem key={i} image={image} />
+          {images.map((image, index) => (
+            <Card
+              key={index}
+              onClick={() => handleOpen(index)}
+              sx={{ cursor: 'pointer', position: 'relative' }}
+            >
+              <Image ratio='1/1' src={image} />
+            </Card>
           ))}
-        </Box>
 
-        {/* <LightboxModal
-          images={imagesLightbox}
-          mainSrc={imagesLightbox[selectedImage]}
-          photoIndex={selectedImage}
-          setPhotoIndex={setSelectedImage}
-          isOpen={openLightbox}
-          onCloseRequest={() => setOpenLightbox(false)}
-        /> */}
+          {!images.length && (
+            <Box>
+              <Typography variant='subtitle1' mb={1}>
+                Šeit nekā nav!{' '}
+              </Typography>
+              <Image
+                ratio='1/1'
+                alt='Nekā nav'
+                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqHmGErNgGVx-RCYkeKLQL083vXz7KyCIyCaAd7nRbeuMmn8mTDgFFyEpUCaOW4_n_NWc&usqp=CAU'
+              />
+            </Box>
+          )}
+        </Box>
       </Card>
     </Box>
-  );
-}
-
-// ----------------------------------------------------------------------
-
-function GalleryItem({ image }: { image: string }) {
-  return (
-    <Card sx={{ cursor: 'pointer', position: 'relative' }}>
-      <Image ratio='1/1' src={image} />
-    </Card>
   );
 }

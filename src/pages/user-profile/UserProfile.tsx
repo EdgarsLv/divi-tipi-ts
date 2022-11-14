@@ -1,12 +1,51 @@
-import { useState } from 'react';
-import { Iconify, Page } from '@/components';
+const storageUrl = import.meta.env.VITE_SUPABASE_STORAGE_URL;
+import { useState, useEffect } from 'react';
+import { Iconify, LightBox, Page } from '@/components';
 import { styled } from '@mui/material/styles';
 import { Tab, Box, Card, Tabs, Container } from '@mui/material';
 import { Cover, Gallery, General, Interests, Messaging } from './components';
 import { supabase } from '@/service';
+import { useLoaderData } from 'react-router-dom';
+import { User } from '@/types';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { selectIsOpen, setIsOpen } from '@/redux/slices/usersSlice';
 
 function UserProfile() {
   const [currentTab, setCurrentTab] = useState('Anketa');
+  const [images, setImages] = useState<string[]>([]);
+
+  const user = useLoaderData() as User;
+  const dispatch = useAppDispatch();
+  const isOpen = useAppSelector(selectIsOpen);
+
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const getMappedImages = () => {
+    let images: string[] = [];
+    const avatar: string[] = user?.avatar_image?.avatar ? [user?.avatar_image?.avatar] : [];
+
+    if (user.user_images && user.user_images[0]?.images.length > 0) {
+      images = [...avatar, ...user.user_images[0].images];
+    } else {
+      images = avatar;
+    }
+
+    return images.map((img) => `${storageUrl}/${img}`);
+  };
+
+  useEffect(() => {
+    setImages(getMappedImages());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const handleClose = () => {
+    dispatch(setIsOpen(false));
+  };
+
+  const handleOpen = (index: number) => {
+    dispatch(setIsOpen(true));
+    setPhotoIndex(index);
+  };
 
   const handleChangeTab = (newValue: string) => {
     setCurrentTab(newValue);
@@ -31,7 +70,7 @@ function UserProfile() {
     {
       value: 'Galerija',
       icon: <Iconify icon={'carbon:image-copy'} sx={{ width: '20px' }} />,
-      component: <Gallery />,
+      component: <Gallery handleOpen={handleOpen} images={images} />,
     },
   ];
 
@@ -66,6 +105,14 @@ function UserProfile() {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
         })}
+
+        <LightBox
+          handleClose={handleClose}
+          isOpen={isOpen}
+          photoIndex={photoIndex}
+          setPhotoIndex={setPhotoIndex}
+          images={images}
+        />
       </Container>
     </Page>
   );

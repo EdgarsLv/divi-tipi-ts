@@ -1,4 +1,5 @@
-import { Iconify, Image } from '@/components';
+import { useState } from 'react';
+import { Iconify, Image, LightBox } from '@/components';
 import { useAppSelector } from '@/redux/store';
 import { Box, Card, IconButton, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -9,17 +10,26 @@ const Input = styled('input')({
 });
 
 function Gallery() {
-  const images = useAppSelector(selectAccountImages);
+  const imagesList = useAppSelector(selectAccountImages);
 
-  const imagesList = [
+  const [isOpen, setIsOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0);
+
+  const images = [
     'https://dm.henkel-dam.com/is/image/henkel/men_perfect_com_thumbnails_home_pack_400x400-wcms-international?scl=1&fmt=jpg',
     'https://thumbs.dreamstime.com/z/handsome-young-man-getting-out-water-wet-hair-attractive-sea-looking-away-to-side-90791720.jpg',
     'https://thumbs.dreamstime.com/b/handsome-young-man-getting-out-water-wet-hair-attractive-young-man-sea-getting-out-water-wet-hair-looking-107451173.jpg',
     'https://media-s3-us-east-1.ceros.com/forbes/images/2021/12/06/bbff530cddcb7ed1b79ecee931f9f854/artboard-2-copy-6.jpg',
     'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
   ];
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
-  console.log(images);
+  const handleShow = (index: number) => {
+    setIsOpen(true);
+    setPhotoIndex(index);
+  };
 
   return (
     <Box>
@@ -58,25 +68,20 @@ function Gallery() {
             },
           }}
         >
-          {imagesList.map((image, i) => (
-            <GalleryItem
-              // onDeleteImage={onDeleteImage}
-              key={i}
-              image={image}
-              // id={user.userId}
-              // onOpenLightbox={handleOpenLightbox}
-            />
+          {images.map((image, i) => (
+            <Box sx={{ cursor: 'pointer' }} key={i}>
+              <img alt='llddlld' src={image} onClickCapture={() => handleShow(i)} />
+            </Box>
           ))}
-        </Box>
 
-        {/* <LightboxModal
-          images={imagesLightbox}
-          mainSrc={imagesLightbox[selectedImage]}
-          photoIndex={selectedImage}
-          setPhotoIndex={setSelectedImage}
-          isOpen={openLightbox}
-          onCloseRequest={() => setOpenLightbox(false)}
-        /> */}
+          <LightBox
+            handleClose={handleClose}
+            isOpen={isOpen}
+            photoIndex={photoIndex}
+            setPhotoIndex={setPhotoIndex}
+            images={images}
+          />
+        </Box>
       </Card>
     </Box>
   );

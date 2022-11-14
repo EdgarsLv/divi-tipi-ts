@@ -35,5 +35,5 @@ export default function useUserImages(user: User) {
     cover = fakeCover;
   }
 
-  return { avatar, cover };
+  return { avatar, cover, hasAvatar };
 }

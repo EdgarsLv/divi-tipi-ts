@@ -41,7 +41,7 @@ const initialState: AccountState = {
     has_sociotype: false,
     updated_at: '',
     has_avatar: false,
-    user_images: [],
+    user_images: undefined,
   },
   images: [],
 };

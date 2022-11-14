@@ -4,37 +4,33 @@ import { Iconify, Image, LinkToPersonality, LinkToRelations } from '@/components
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { User } from '@/types';
 import { useUserImages } from '@/hooks';
+import { useAppDispatch } from '@/redux/store';
+import { setIsOpen } from '@/redux/slices/usersSlice';
 
 export default function ProfileCover() {
   const user = useLoaderData() as User;
   const navigate = useNavigate();
-  const { cover, avatar } = useUserImages(user);
+  const { cover, avatar, hasAvatar } = useUserImages(user);
+
+  const dispatch = useAppDispatch();
+
   return (
     <Box>
-      <Stack
-        width='100%'
-        justifyContent='flex-start'
-        direction='row'
-        sx={{
-          boxSizing: 'border-box',
-          position: 'absolute',
-          top: 0,
-          zIndex: 111,
-          padding: '20px 16px',
-        }}
-      >
+      <TopStack direction='row'>
         <IconButton onClick={() => navigate(-1)}>
           <Iconify icon='akar-icons:arrow-back-thick' sx={{ width: 24, height: 24 }} />
         </IconButton>
-      </Stack>
+      </TopStack>
       <InfoStyle>
         <Avatar
+          onClick={() => dispatch(setIsOpen(true))}
           src={avatar}
           sx={{
             mx: 'auto',
             cursor: 'pointer',
             width: { xs: 90, md: 128 },
             height: { xs: 90, md: 128 },
+            pointerEvents: hasAvatar ? 'all' : 'none',
           }}
         />
         <Box
@@ -69,6 +65,16 @@ export default function ProfileCover() {
     </Box>
   );
 }
+
+const TopStack = styled(Stack)(() => ({
+  boxSizing: 'border-box',
+  position: 'absolute',
+  top: 0,
+  zIndex: 111,
+  padding: '20px 16px',
+  width: '100%',
+  justifyContent: 'flex-start',
+}));
 
 const InfoStyle = styled('div')(({ theme }) => ({
   left: 0,
