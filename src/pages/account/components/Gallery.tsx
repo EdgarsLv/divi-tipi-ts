@@ -1,27 +1,30 @@
-import { useState } from 'react';
+const storageUrl = import.meta.env.VITE_SUPABASE_STORAGE_URL;
+import { MouseEventHandler, useState } from 'react';
 import { Iconify, Image, LightBox } from '@/components';
-import { useAppSelector } from '@/redux/store';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Box, Card, IconButton, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { selectAccountImages } from '@/redux/slices/accountSlice';
+import { loadAccountImages, selectAccountImages } from '@/redux/slices/accountSlice';
+import { useImageUpload } from '@/hooks';
+import { supabase } from '@/service';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Input = styled('input')({
   display: 'none',
 });
 
 function Gallery() {
-  const imagesList = useAppSelector(selectAccountImages);
+  const { user } = useAuth();
+  const dispatch = useAppDispatch();
+  const accountImages = useAppSelector(selectAccountImages);
+
+  const { pickImage, uploading } = useImageUpload();
 
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-  const images = [
-    'https://dm.henkel-dam.com/is/image/henkel/men_perfect_com_thumbnails_home_pack_400x400-wcms-international?scl=1&fmt=jpg',
-    'https://thumbs.dreamstime.com/z/handsome-young-man-getting-out-water-wet-hair-attractive-sea-looking-away-to-side-90791720.jpg',
-    'https://thumbs.dreamstime.com/b/handsome-young-man-getting-out-water-wet-hair-attractive-young-man-sea-getting-out-water-wet-hair-looking-107451173.jpg',
-    'https://media-s3-us-east-1.ceros.com/forbes/images/2021/12/06/bbff530cddcb7ed1b79ecee931f9f854/artboard-2-copy-6.jpg',
-    'https://static01.nyt.com/images/2019/11/17/books/review/17Salam/Salam1-superJumbo.jpg',
-  ];
+  const images = accountImages.map((img) => `${storageUrl}/${img}`);
+
   const handleClose = () => {
     setIsOpen(false);
   };
@@ -29,6 +32,25 @@ function Gallery() {
   const handleShow = (index: number) => {
     setIsOpen(true);
     setPhotoIndex(index);
+  };
+
+  const handleDeleteImage = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    index: number,
+  ) => {
+    e.stopPropagation();
+
+    const newImages: string[] = accountImages.filter((_x, i) => i !== index);
+
+    await supabase.storage.from('user-images').remove([accountImages[index]]);
+    const { data } = await supabase
+      .from('user_images')
+      .update({ images: newImages })
+      .eq('user_id', user?.id)
+      .select()
+      .maybeSingle();
+
+    dispatch(loadAccountImages(data?.images));
   };
 
   return (
@@ -39,20 +61,23 @@ function Gallery() {
 
       <Card sx={{ p: 3, pt: 1, position: 'relative' }}>
         <Box sx={{ height: '50px' }}>
-          {true && (
+          {accountImages.length < 5 && (
             <label htmlFor='icon-file'>
-              <Input accept='image/*' id='icon-file' type='file' onChange={(e) => console.log(e)} />
+              <Input
+                disabled={uploading}
+                accept='image/*'
+                id='icon-file'
+                type='file'
+                onChange={(e) => pickImage(e, 'gallery')}
+              />
               <IconButton sx={{ mb: 1 }} component='span'>
-                <Iconify
-                  icon='iconoir:add-media-image'
-                  sx={{ color: 'text.primary', width: 24, height: 24 }}
-                />
+                <Iconify icon='iconoir:add-media-image' sx={{ width: 24, height: 24 }} />
               </IconButton>
             </label>
           )}
         </Box>
 
-        {false && (
+        {uploading && (
           <Box sx={{ position: 'absolute', top: 0, right: 0, left: 0 }}>
             <LinearProgress />
           </Box>
@@ -69,9 +94,12 @@ function Gallery() {
           }}
         >
           {images.map((image, i) => (
-            <Box sx={{ cursor: 'pointer' }} key={i}>
-              <img alt='llddlld' src={image} onClickCapture={() => handleShow(i)} />
-            </Box>
+            <GalleryItem
+              key={i}
+              image={image}
+              handleDelete={(e) => handleDeleteImage(e, i)}
+              handleOpen={() => handleShow(i)}
+            />
           ))}
 
           <LightBox
@@ -89,28 +117,23 @@ function Gallery() {
 
 export default Gallery;
 
-function GalleryItem({ image }: { image: string }) {
-  // const onSetProfileImage = async (path) => {
-  //   const update = {
-  //     avatar: path,
-  //     updated_at: new Date(),
-  //   };
-  //   await supabase.from('users').update({ avatarImage: update }).match({ id });
-  // };
-
+type ItemProps = {
+  image: string;
+  handleOpen: MouseEventHandler<HTMLDivElement>;
+  handleDelete: MouseEventHandler<HTMLButtonElement>;
+};
+function GalleryItem({ image, handleOpen, handleDelete }: ItemProps) {
   return (
-    <Box sx={{ cursor: 'pointer', position: 'relative' }}>
+    <Box onClick={handleOpen} sx={{ cursor: 'pointer', position: 'relative' }}>
       <Image alt='gallery image' ratio='1/1' src={image} />
 
       <CaptionStyle>
-        {/* <Tooltip title="Profila foto" placement="top">
-          <IconButton onClick={() => onSetProfileImage(image.path)} color="inherit">
-            <Iconify icon={'ic:outline-photo-camera-front'} width={24} height={24} />
-          </IconButton>
-        </Tooltip> */}
         <Tooltip title='Dzēst' placement='top'>
-          <IconButton onClick={() => console.log('delete')} color='error'>
-            <Iconify icon={'ic:outline-delete'} />
+          <IconButton onClick={handleDelete}>
+            <Iconify
+              icon='ic:twotone-delete-forever'
+              sx={{ color: 'black', width: 30, height: 30 }}
+            />
           </IconButton>
         </Tooltip>
       </CaptionStyle>

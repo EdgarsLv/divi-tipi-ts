@@ -16,6 +16,7 @@ export default function useImageUpload() {
   const { user } = useAuth();
   const [coverUrl, setCoverUrl] = useState<string | null>(null);
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
 
   const dispatch = useAppDispatch();
   const images = useAppSelector(selectAccountImages);
@@ -119,6 +120,7 @@ export default function useImageUpload() {
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${user?.id}/gallery/${fileName}`;
 
+    setUploading(true);
     try {
       const { error } = await supabase.storage.from('user-images').upload(filePath, image);
 
@@ -138,8 +140,10 @@ export default function useImageUpload() {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setUploading(false);
     }
   };
 
-  return { coverUrl, avatarUrl, pickImage };
+  return { coverUrl, avatarUrl, uploading, pickImage };
 }

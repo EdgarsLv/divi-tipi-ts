@@ -1,10 +1,15 @@
 import { styled } from '@mui/material/styles';
-import { Link } from '@mui/material';
+import { Link, SxProps, Theme } from '@mui/material';
 
-function LinkToPersonality({ personality }: { personality: string }) {
+type Props = {
+  personality: string;
+  sx?: SxProps<Theme>;
+};
+
+function LinkToPersonality({ personality, sx }: Props) {
   const linkTo = `/personalities/${personality}`;
   return (
-    <LinkStyle underline='always' variant='subtitle2' href={linkTo}>
+    <LinkStyle sx={{ ...sx }} underline='always' variant='subtitle2' href={linkTo}>
       {personality}
     </LinkStyle>
   );

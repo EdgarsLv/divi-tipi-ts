@@ -1,4 +1,4 @@
-import { Image } from '@/components';
+import { Iconify, Image } from '@/components';
 import { Box, Card, Typography } from '@mui/material';
 
 type Props = {
@@ -38,13 +38,9 @@ export default function Gallery({ handleOpen, images }: Props) {
           {!images.length && (
             <Box>
               <Typography variant='subtitle1' mb={1}>
-                Šeit nekā nav!{' '}
+                Šeit nekā nav!
               </Typography>
-              <Image
-                ratio='1/1'
-                alt='Nekā nav'
-                src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqHmGErNgGVx-RCYkeKLQL083vXz7KyCIyCaAd7nRbeuMmn8mTDgFFyEpUCaOW4_n_NWc&usqp=CAU'
-              />
+              <Iconify icon='system-uicons:face-sad' sx={{ width: '40px', height: '40px' }} />
             </Box>
           )}
         </Box>

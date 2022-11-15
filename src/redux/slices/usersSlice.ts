@@ -47,7 +47,7 @@ export const fetchInitialUsers = () => async (dispatch: AppDispatch) => {
 
       .neq('id', 'cd1bd5b7-85b2-4187-83d4-996f3b4647bf')
       .order('updated_at', { ascending: false })
-      .range(0, 39);
+      .range(0, 19);
 
     dispatch(loadUsers(data));
 

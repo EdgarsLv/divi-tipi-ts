@@ -8,7 +8,8 @@ type Props = {
 
 export default function InfoFromToField({ from, to, id }: Props) {
   const valid = Boolean(from) || Boolean(to);
-
+  const validFrom = Boolean(from);
+  const validTo = Boolean(to);
   return (
     <>
       {valid && (
@@ -16,7 +17,7 @@ export default function InfoFromToField({ from, to, id }: Props) {
           <Typography color='text.secondary' component='span'>
             {id}:
           </Typography>
-          {from && (
+          {validFrom && (
             <Typography variant='subtitle1' component='span'>
               <Typography
                 sx={{ textTransform: 'lowercase' }}
@@ -30,7 +31,7 @@ export default function InfoFromToField({ from, to, id }: Props) {
               {from}
             </Typography>
           )}
-          {to && (
+          {validTo && (
             <Typography variant='subtitle1' component='span'>
               <Typography
                 sx={{ textTransform: 'lowercase' }}

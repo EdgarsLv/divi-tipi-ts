@@ -18,7 +18,7 @@ export default function ProfileCover() {
     <Box>
       <TopStack direction='row'>
         <IconButton onClick={() => navigate(-1)}>
-          <Iconify icon='akar-icons:arrow-back-thick' sx={{ width: 24, height: 24 }} />
+          <Iconify icon='icon-park-twotone:back' sx={{ width: 24, height: 24 }} />
         </IconButton>
       </TopStack>
       <InfoStyle>
@@ -47,7 +47,7 @@ export default function ProfileCover() {
             <Typography variant='h4'> {user.age}</Typography>
           </Stack>
           <Box>
-            <LinkToPersonality personality={user.sociotype} />
+            <LinkToPersonality sx={{ color: 'text.primary' }} personality={user.sociotype} />
             <LinkToRelations personality={user.sociotype} />
           </Box>
 
@@ -84,7 +84,7 @@ const InfoStyle = styled('div')(({ theme }) => ({
   marginTop: theme.spacing(2),
 
   backdropFilter: 'blur( 5px )',
-  paddingRight: theme.spacing(2),
+  padding: theme.spacing(0.5, 2, 0.5, 0.5),
   backgroundColor: alpha(theme.palette.background.paper, 0.65),
   borderWidth: '1px',
   borderStyle: 'solid',
@@ -95,7 +95,7 @@ const InfoStyle = styled('div')(({ theme }) => ({
     right: 'auto',
     display: 'flex',
     alignItems: 'center',
-    left: theme.spacing(3),
+    left: theme.spacing(1),
     bottom: theme.spacing(7),
   },
   [theme.breakpoints.up('md')]: {
