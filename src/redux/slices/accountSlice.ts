@@ -177,4 +177,46 @@ export const updatePersonality =
     }
   };
 
+export const removeAccountImages =
+  (images: string[], index: number, id?: string) => async (dispatch: AppDispatch) => {
+    const newImages: string[] = images.filter((_x, i) => i !== index);
+    try {
+      await supabase.storage.from('user-images').remove([images[index]]);
+      const { data, error } = await supabase
+        .from('user_images')
+        .update({ images: newImages })
+        .eq('user_id', id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountImages(data?.images));
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+export const removeAccountAvatar = (id?: string) => async (dispatch: AppDispatch) => {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      // eslint-disable-next-line camelcase
+      .update({ avatar_image: null, has_avatar: false })
+      .eq('id', id)
+      .select()
+      .maybeSingle();
+
+    dispatch(loadAccountData(data));
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export default accountSlice.reducer;

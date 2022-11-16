@@ -62,57 +62,71 @@ export default function useImageUpload() {
     const fileName = `avatarimage${bust}.${fileExt}`;
     const filePath = `${user?.id}/avatar/${fileName}`;
 
-    setAvatarUrl(`${storageUrl}/${filePath}`);
+    setUploading(true);
 
-    const { error } = await supabase.storage
-      .from('user-images')
-      .upload(filePath, image, { cacheControl: '10', upsert: true });
+    try {
+      const { error } = await supabase.storage
+        .from('user-images')
+        .upload(filePath, image, { cacheControl: '10', upsert: true });
 
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+      const update = {
+        avatar: filePath,
+        updated_at: new Date(),
+      };
+      const { data } = await supabase
+        .from('users')
+        .update({ avatar_image: update, has_avatar: true })
+        .eq('id', user?.id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setAvatarUrl(`${storageUrl}/${filePath}`);
+      setUploading(false);
     }
-
-    const update = {
-      avatar: filePath,
-      updated_at: new Date(),
-    };
-    const { data } = await supabase
-      .from('users')
-      .update({ avatar_image: update, has_avatar: true })
-      .eq('id', user?.id)
-      .select()
-      .maybeSingle();
-
-    dispatch(loadAccountData(data));
   };
 
   const uploadCover = async (image: File) => {
     const fileExt = image.name.split('.').pop();
-    const fileName = `coverimage.${fileExt}`;
+    const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${user?.id}/cover/${fileName}`;
 
-    setCoverUrl(`${storageUrl}/${filePath}`);
+    setUploading(true);
 
-    const { error } = await supabase.storage
-      .from('user-images')
-      .upload(filePath, image, { cacheControl: '10', upsert: true });
+    try {
+      const { error } = await supabase.storage
+        .from('user-images')
+        .upload(filePath, image, { cacheControl: '10', upsert: true });
 
-    if (error) {
-      throw error;
+      if (error) {
+        throw error;
+      }
+
+      const update = {
+        cover: filePath,
+        updated_at: new Date(),
+      };
+      const { data } = await supabase
+        .from('users')
+        .update({ cover_image: update })
+        .eq('id', user?.id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setCoverUrl(`${storageUrl}/${filePath}`);
+      setUploading(false);
     }
-
-    const update = {
-      cover: filePath,
-      updated_at: new Date(),
-    };
-    const { data } = await supabase
-      .from('users')
-      .update({ cover_image: update })
-      .eq('id', user?.id)
-      .select()
-      .maybeSingle();
-
-    dispatch(loadAccountData(data));
   };
 
   const uploadGallery = async (image: File) => {

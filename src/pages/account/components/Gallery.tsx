@@ -4,14 +4,9 @@ import { Iconify, Image, LightBox } from '@/components';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Box, Card, IconButton, LinearProgress, Tooltip, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { loadAccountImages, selectAccountImages } from '@/redux/slices/accountSlice';
+import { removeAccountImages, selectAccountImages } from '@/redux/slices/accountSlice';
 import { useImageUpload } from '@/hooks';
-import { supabase } from '@/service';
 import { useAuth } from '@/contexts/AuthContext';
-
-const Input = styled('input')({
-  display: 'none',
-});
 
 function Gallery() {
   const { user } = useAuth();
@@ -39,18 +34,7 @@ function Gallery() {
     index: number,
   ) => {
     e.stopPropagation();
-
-    const newImages: string[] = accountImages.filter((_x, i) => i !== index);
-
-    await supabase.storage.from('user-images').remove([accountImages[index]]);
-    const { data } = await supabase
-      .from('user_images')
-      .update({ images: newImages })
-      .eq('user_id', user?.id)
-      .select()
-      .maybeSingle();
-
-    dispatch(loadAccountImages(data?.images));
+    dispatch(removeAccountImages(accountImages, index, user?.id));
   };
 
   return (
@@ -151,3 +135,7 @@ const CaptionStyle = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   color: theme.palette.common.white,
 }));
+
+const Input = styled('input')({
+  display: 'none',
+});

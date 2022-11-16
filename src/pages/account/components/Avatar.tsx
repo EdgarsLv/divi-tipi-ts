@@ -9,9 +9,7 @@ import { selectAccountData } from '@/redux/slices/accountSlice';
 function Avatar() {
   const account = useAppSelector(selectAccountData);
   const { pickImage, avatarUrl } = useImageUpload();
-  const { avatar } = useUserImages(account);
-
-  const hasAvatar = true;
+  const { avatar, hasAvatar } = useUserImages(account);
 
   return (
     <Card

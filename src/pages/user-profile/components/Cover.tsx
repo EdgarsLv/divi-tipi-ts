@@ -23,6 +23,7 @@ export default function ProfileCover() {
       </TopStack>
       <InfoStyle>
         <Avatar
+          variant='rounded'
           onClick={() => dispatch(setIsOpen(true))}
           src={avatar}
           sx={{
@@ -33,13 +34,7 @@ export default function ProfileCover() {
             pointerEvents: hasAvatar ? 'all' : 'none',
           }}
         />
-        <Box
-          sx={{
-            ml: { xs: 2, md: 3 },
-            mt: { xs: 1, md: -1 },
-            textAlign: 'left',
-          }}
-        >
+        <Box sx={{ ml: { xs: 2, md: 3 }, mt: { xs: 1, md: -1 }, textAlign: 'left' }}>
           <Stack direction='row'>
             <Typography mr={1} variant='h4'>
               {user.name}

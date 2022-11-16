@@ -1,92 +1,66 @@
-import { styled } from '@mui/material/styles';
-import { Box, Typography, Stack, IconButton, Link, CircularProgress } from '@mui/material';
-import { Iconify, Image } from '@/components';
+import { styled, alpha } from '@mui/material/styles';
+import { Box, Typography, Stack, IconButton, Link, CircularProgress, Paper } from '@mui/material';
+import { Iconify, Image, LinkToPersonality } from '@/components';
 import Avatar from './Avatar';
 import { useImageUpload, useUserImages } from '@/hooks';
-import { useAppSelector } from '@/redux/store';
-import { selectAccountData } from '@/redux/slices/accountSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { removeAccountAvatar, selectAccountData } from '@/redux/slices/accountSlice';
 
 function Cover() {
   const account = useAppSelector(selectAccountData);
-  const { coverUrl, pickImage } = useImageUpload();
-  const { cover } = useUserImages(account);
+  const dispatch = useAppDispatch();
+
+  const { coverUrl, uploading, pickImage } = useImageUpload();
+  const { cover, hasAvatar } = useUserImages(account);
+
+  const handleDeleteAvatar = () => {
+    dispatch(removeAccountAvatar(account.id));
+  };
 
   return (
-    <RootStyle>
-      <Stack
-        justifyContent='flex-end'
-        direction='row'
-        sx={{
-          boxSizing: 'border-box',
-          position: 'absolute',
-          top: 0,
-          right: 0,
-          zIndex: 100,
-          padding: '16px 24px',
-        }}
-      >
+    <Box>
+      <TopStack direction='row'>
         <label htmlFor='cover-file'>
           <Input
+            disabled={uploading}
             accept='image/*'
             id='cover-file'
             type='file'
             onChange={(e) => pickImage(e, 'cover')}
           />
           <IconButton component='span'>
-            <Iconify
-              icon='dashicons:cover-image'
-              sx={{
-                width: 24,
-                height: 24,
-              }}
-            />
+            <Iconify icon='dashicons:cover-image' sx={{ color: '#000', width: 24, height: 24 }} />
           </IconButton>
         </label>
-        {false && (
+        {uploading && (
           <Box sx={{ position: 'absolute', top: '16px', right: '24px' }}>
             <CircularProgress />
           </Box>
         )}
-      </Stack>
+      </TopStack>
 
       <InfoStyle>
         <Box sx={{ position: 'relative' }}>
-          {true && (
-            <IconButton
-              onClick={() => console.log('delete')}
-              sx={{ zIndex: 10, position: 'absolute', top: '-20px', right: '-20px' }}
-            >
+          {hasAvatar && (
+            <PaperButton elevation={3} onClick={handleDeleteAvatar}>
               <Iconify
-                icon='clarity:remove-line'
-                sx={{
-                  backgroundColor: '#161C24',
-                  borderRadius: '50%',
-                  color: 'red',
-                  width: { xs: 25, md: 30 },
-                  height: { xs: 25, md: 30 },
-                }}
+                icon='mdi:delete-circle-outline'
+                sx={{ width: 25, height: 25, color: 'text.primary' }}
               />
-            </IconButton>
+            </PaperButton>
           )}
           <Avatar />
         </Box>
 
-        <Box
-          sx={{
-            ml: { xs: 1, md: 3 },
-            mt: { xs: 1, md: 0 },
+        <Box sx={{ ml: { xs: 1, md: 3 }, mt: { xs: 1, md: 0 }, textAlign: 'left' }}>
+          <Typography variant='h4'>{account.name}</Typography>
 
-            textAlign: 'left',
-          }}
-        >
-          <Typography variant='h4'>Edgars</Typography>
-
-          <Typography sx={{ textTransform: 'capitalize' }}>
-            draizers
-            <LinkStyle underline='always' ml={2} variant='overline' href='/personalities/test'>
+          <Box>
+            <LinkToPersonality sx={{ color: 'text.primary' }} personality={account.sociotype} />
+            <Link underline='always' ml={1} variant='overline' href='/personalities/test'>
               Sociotipa tests
-            </LinkStyle>
-          </Typography>
+            </Link>
+          </Box>
         </Box>
       </InfoStyle>
       <Image
@@ -94,27 +68,20 @@ function Cover() {
         src={coverUrl ? coverUrl : cover}
         sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
       />
-    </RootStyle>
+    </Box>
   );
 }
 
 export default Cover;
 // STYLES ----------------------------------------------------------------------
-
-const RootStyle = styled('div')(() => ({
-  '&:before': {
-    top: 0,
-    zIndex: 9,
-    content: '""',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    // background: 'rgba(255, 255, 255, 0.25)',
-    backdropFilter: 'blur( 5px )',
-
-    backgroundImage: 'linear-gradient(to bottom, #ffffff10, #ffffff70)',
-    // filter: 'blur(30px)',
-  },
+const TopStack = styled(Stack)(() => ({
+  boxSizing: 'border-box',
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  zIndex: 100,
+  padding: '16px 24px',
+  justifyContent: 'flex-end',
 }));
 
 const InfoStyle = styled('div')(({ theme }) => ({
@@ -123,11 +90,20 @@ const InfoStyle = styled('div')(({ theme }) => ({
   zIndex: 99,
   position: 'absolute',
   marginTop: theme.spacing(2),
+
+  backdropFilter: 'blur( 5px )',
+  padding: theme.spacing(0.5, 2, 0.5, 0.5),
+  backgroundColor: alpha(theme.palette.background.paper, 0.65),
+  borderWidth: '1px',
+  borderStyle: 'solid',
+  borderColor:
+    theme.palette.mode === 'light' ? theme.palette.common.white : theme.palette.common.black,
+
   [theme.breakpoints.up('xs')]: {
     right: 'auto',
     display: 'flex',
     alignItems: 'center',
-    left: theme.spacing(3),
+    left: theme.spacing(1),
     bottom: theme.spacing(7),
   },
   [theme.breakpoints.up('md')]: {
@@ -143,16 +119,14 @@ const Input = styled('input')({
   display: 'none',
 });
 
-const LinkStyle = styled(Link)(() => ({
-  overflow: 'hidden',
-  // padding: '0 5px',
+const PaperButton = styled(Paper)(() => ({
+  position: 'absolute',
+  alignItems: 'center',
+  borderRadius: '50%',
+  display: 'flex',
+  top: -15,
+  right: -15,
+  zIndex: 10,
+  padding: '2px',
+  cursor: 'pointer',
 }));
-
-// const DeleteAvatarButton = styled(IconButton)(({ theme }) => ({
-//   position: 'absolute',
-//   bottom: 0,
-//   left: '51%',
-//   [theme.breakpoints.up('md')]: {
-//     left: 0,
-//   },
-// }));
