@@ -62,7 +62,7 @@ export default function PersonalityChange() {
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = (values) => {
-    dispatch(updatePersonality(values, user?.id)).then(() =>
+    dispatch(updatePersonality({ ...values, confirmed: true }, user?.id)).then(() =>
       enqueueSnackbar(`Sociotips nomainīts! ${values.sociotype}`),
     );
 

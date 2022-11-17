@@ -41,6 +41,7 @@ const initialState: AccountState = {
     has_sociotype: false,
     updated_at: '',
     has_avatar: false,
+    confirmed_sociotype: false,
     user_images: undefined,
   },
   images: [],
@@ -157,12 +158,17 @@ export const updateInterestsInfo =
   };
 
 export const updatePersonality =
-  (values: { sociotype: string }, id?: string) => async (dispatch: AppDispatch) => {
+  (values: { sociotype: string; confirmed: boolean }, id?: string) =>
+  async (dispatch: AppDispatch) => {
     try {
       const { data, error } = await supabase
         .from('users')
         // eslint-disable-next-line camelcase
-        .update({ sociotype: values.sociotype, has_sociotype: true })
+        .update({
+          sociotype: values.sociotype,
+          has_sociotype: true,
+          confirmed_sociotype: values.confirmed,
+        })
         .eq('id', id)
         .select()
         .maybeSingle();

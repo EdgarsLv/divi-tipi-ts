@@ -1,10 +1,11 @@
+/* eslint-disable camelcase */
 import { Image, LinkToPersonality, LinkToRelations } from '@/components';
 import { useUserImages } from '@/hooks';
 import { User } from '@/types';
 import { Box, Card, Grid, Link, Typography } from '@mui/material';
 
 function UserCard({ user }: { user: User }) {
-  const { name, age, sociotype, id } = user;
+  const { name, age, sociotype, id, confirmed_sociotype } = user;
 
   const { avatar } = useUserImages(user);
 
@@ -25,7 +26,7 @@ function UserCard({ user }: { user: User }) {
             </Typography>
           </Box>
           <Box>
-            <LinkToPersonality personality={sociotype} />
+            <LinkToPersonality confirmed={confirmed_sociotype} personality={sociotype} />
             <LinkToRelations personality={sociotype} />
           </Box>
         </Box>

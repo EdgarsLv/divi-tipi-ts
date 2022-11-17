@@ -49,6 +49,7 @@ export type User = {
   has_sociotype: boolean;
   updated_at: string;
   has_avatar: boolean;
+  confirmed_sociotype: boolean;
   user_images?: { [key: number]: { images: string[] } };
 };
 

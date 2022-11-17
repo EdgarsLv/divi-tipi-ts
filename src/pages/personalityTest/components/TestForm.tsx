@@ -64,7 +64,7 @@ function TestForm() {
 
   const onSubmit: SubmitHandler<PersonalityTestQuestions> = (values) => {
     const sociotype = testResult(values);
-    dispatch(updatePersonality({ sociotype }, user?.id)).then(() =>
+    dispatch(updatePersonality({ sociotype, confirmed: false }, user?.id)).then(() =>
       enqueueSnackbar(`Sociotips noteikts: ${sociotype.toUpperCase()}`),
     );
   };
