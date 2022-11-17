@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Page } from '@/components';
 import { RenderTextArray } from '@/components/RenderTextArray';
+import { supabase } from '@/service';
 import { Card, Container, Typography } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
 
@@ -10,6 +12,14 @@ export type Data = {
 
 function Relation() {
   const { description, id } = useLoaderData() as Data;
+
+  useEffect(() => {
+    const increaseCount = async () => {
+      await supabase.rpc('relations_views_count', { reltp: id });
+    };
+    increaseCount();
+  }, [id]);
+
   return (
     <Page title={id.toUpperCase()}>
       <Container maxWidth='lg'>

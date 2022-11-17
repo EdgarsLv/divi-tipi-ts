@@ -56,7 +56,11 @@ function Cover() {
           <Typography variant='h4'>{account.name}</Typography>
 
           <Box>
-            <LinkToPersonality sx={{ color: 'text.primary' }} personality={account.sociotype} />
+            <LinkToPersonality
+              confirmed={account.confirmed_sociotype}
+              sx={{ color: 'text.primary' }}
+              personality={account.sociotype}
+            />
             <Link underline='always' ml={1} variant='overline' href='/personalities/test'>
               Sociotipa tests
             </Link>

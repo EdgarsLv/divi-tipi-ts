@@ -2,8 +2,8 @@ import { Suspense, lazy, ComponentType } from 'react';
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
 import { AuthGuard, GuestGuard } from '../guards';
 import { Spinner } from '../components';
-import { personalityLoader } from '@/pages/personalities/Personalities';
-import { relationLoader } from '@/pages/relationships/Relationships';
+import { personalitiesLoader, personalityLoader } from '@/pages/personalities/Personalities';
+import { relationLoader, relationshipLoader } from '@/pages/relationships/Relationships';
 import { profileLoader } from '@/pages/user-profile/UserProfile';
 
 type AnyProps = {
@@ -89,13 +89,11 @@ export const router = createBrowserRouter([
       {
         path: 'personalities',
         children: [
-          { element: <Personalities />, index: true },
+          { element: <Personalities />, index: true, loader: () => personalitiesLoader() },
           {
             path: ':name',
             element: <Personality />,
-            loader: ({ params }) => {
-              return personalityLoader(params.name);
-            },
+            loader: ({ params }) => personalityLoader(params.name),
             errorElement: <div>here is error</div>,
           },
           { path: 'test', element: <PersonalityTest /> },
@@ -104,13 +102,15 @@ export const router = createBrowserRouter([
       {
         path: 'relationships',
         children: [
-          { element: <Relationships />, index: true },
+          {
+            element: <Relationships />,
+            index: true,
+            loader: () => relationshipLoader(),
+          },
           {
             path: ':name',
             element: <Relation />,
-            loader: ({ params }) => {
-              return relationLoader(params.name);
-            },
+            loader: ({ params }) => relationLoader(params.name),
           },
         ],
       },

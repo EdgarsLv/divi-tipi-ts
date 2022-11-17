@@ -1,6 +1,6 @@
 import { styled, alpha } from '@mui/material/styles';
 import { Box, IconButton, Stack, Typography, Avatar } from '@mui/material';
-import { Iconify, Image, LinkToPersonality, LinkToRelations } from '@/components';
+import { Iconify, Image, LinkToPersonality, LinkToRelations, ReactTimeAgo } from '@/components';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { User } from '@/types';
 import { useUserImages } from '@/hooks';
@@ -42,12 +42,16 @@ export default function ProfileCover() {
             <Typography variant='h4'> {user.age}</Typography>
           </Stack>
           <Box>
-            <LinkToPersonality sx={{ color: 'text.primary' }} personality={user.sociotype} />
+            <LinkToPersonality
+              confirmed={user.confirmed_sociotype}
+              sx={{ color: 'text.primary' }}
+              personality={user.sociotype}
+            />
             <LinkToRelations personality={user.sociotype} />
           </Box>
 
           <Typography variant='caption' sx={{ fontSize: '10px' }}>
-            Online: 2022.12.18
+            redzēts: <ReactTimeAgo date={user.updated_at} />
           </Typography>
         </Box>
       </InfoStyle>

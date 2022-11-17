@@ -26,32 +26,6 @@ export const KIDS_SEARCH = ['ir', 'nav', 'nav nozīmes'];
 export const EDUCATION_SEARCH = ['pamata', 'vidējā', 'augstākā', 'šobrīd studē', 'nav svarīgi'];
 export const LANGUAGE_SEARCH = ['Latviešu', 'Krievu', 'Angļu', 'cita'];
 
-export type Relations = {
-  key: string;
-  name: string;
-  description: string;
-};
-
-export const RELATIONS = [
-  { key: 'D', name: 'duālās', description: 'Saderīgas attiecības' },
-  { key: 'A', name: 'aktivācijas', description: 'Saderīgas attiecības' },
-  { key: 'M', name: 'mirāžas', description: 'Saderīgas attiecības' },
-  { key: 'pd', name: 'pusduālās', description: 'Saderīgas attiecības' },
-  { key: 'V', name: 'vienādās', description: 'Lietišķas attiecības' },
-  { key: 'S', name: 'spoguļa', description: 'Lietišķas attiecības' },
-  { key: 'd', name: 'darba', description: 'Lietišķas attiecības' },
-  { key: 'šv', name: 'šķietami vienādo', description: 'Lietišķas attiecības' },
-  { key: 'pp', name: 'pilnīga pretstata', description: 'Nesaderigas attiecības' },
-  { key: 'se', name: 'super ego', description: 'Nesaderigas attiecības' },
-  { key: 'sp', name: 'sociālā pasūtījuma', description: 'Nesaderigas attiecības' },
-  { key: 're', name: 'revīzijas', description: 'Nesaderigas attiecības' },
-  { key: 'K', name: 'konflikta', description: 'Nesaderigas attiecības' },
-  { key: 'ra', name: 'radniecīgo', description: 'Nesaderigas attiecības' },
-];
-
-export const STORAGE_PATH_TO_USER_IMAGES =
-  'https://mlkrjdijcbzgeukhwlgu.supabase.co/storage/v1/object/public/user-images';
-
 export const TEST_QUESTIONS = [
   {
     question: 'q1',

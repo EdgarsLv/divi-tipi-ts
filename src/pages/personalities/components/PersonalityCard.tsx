@@ -1,12 +1,12 @@
-import { Personalities } from '@/assets/personalities/sociotypes';
 import { Image, Label } from '@/components';
+import { Personality } from '@/types';
 import { Box, Card, Grid, Stack, Typography, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-function PersonalityCard({ personality }: { personality: Personalities }) {
-  const { name, description, tipsImg } = personality;
+function PersonalityCard({ personality }: { personality: Personality }) {
+  const { id, caption, views, image } = personality;
 
-  const linkTo = `/personalities/${name}`;
+  const linkTo = `/personalities/${id}`;
 
   return (
     <Grid item xs={6} sm={4} md={3}>
@@ -19,16 +19,16 @@ function PersonalityCard({ personality }: { personality: Personalities }) {
       >
         <Link sx={{ textDecoration: 'none' }} href={linkTo}>
           <StyledBox>
-            <Label label={34} icon='akar-icons:eye-open' />
+            <Label label={views} icon='akar-icons:eye-open' />
           </StyledBox>
-          <Image sx={{ mt: 1 }} alt={name} src={tipsImg} ratio='1/1' />
+          <Image sx={{ mt: 1 }} alt={id} src={image} ratio='1/1' />
           <Stack sx={{ p: 2 }}>
             <StyledText color='text.primary' variant='h6' noWrap>
-              {name}
+              {id}
             </StyledText>
 
             <StyledText color='text.secondary' variant='subtitle2' noWrap>
-              {description}
+              {caption}
             </StyledText>
           </Stack>
         </Link>

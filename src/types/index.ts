@@ -57,6 +57,20 @@ export type UserInterests = {
   interests: string[];
 };
 
+export type Relations = {
+  id: string;
+  views: number;
+  caption: string;
+  short: string;
+};
+
+export type Personality = {
+  id: string;
+  views: number;
+  caption: string;
+  image: string;
+};
+
 export type Discussion = {
   author?: {
     name: string;
