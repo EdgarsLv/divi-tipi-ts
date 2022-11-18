@@ -36,6 +36,7 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
   const { MIN, MAX } = useDynamicMinMax(values.minAge, values.maxAge);
 
   const onClose = () => {
+    localStorage.setItem('filters', JSON.stringify(values));
     setParams({ page: '1' });
     dispatch(setFilters(values));
     setIsOpen(false);
@@ -100,7 +101,11 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
 
             <Stack spacing={1}>
               <Typography variant='subtitle1'>Sociotips</Typography>
-              <RHFMultiCheckbox<FilterForm> name='sociotypes' options={PERSONALITIES} />
+              <RHFMultiCheckbox<FilterForm>
+                name='sociotypes'
+                options={PERSONALITIES}
+                setColor={true}
+              />
             </Stack>
           </Stack>
         </FormProvider>

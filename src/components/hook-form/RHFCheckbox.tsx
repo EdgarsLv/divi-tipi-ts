@@ -1,16 +1,20 @@
 import { useFormContext, Controller, Path } from 'react-hook-form';
 import { Checkbox, FormGroup, FormControlLabel } from '@mui/material';
+import { useRelationColors } from '@/hooks';
 
 type IFormInputProps<TFormValues> = {
   name: Path<TFormValues>;
   options: string[];
+  setColor?: boolean;
 };
 
 const RHFMultiCheckbox = <TFormValues extends Record<string, unknown>>({
   name,
   options,
+  setColor = false,
   ...other
 }: IFormInputProps<TFormValues>) => {
+  const color = useRelationColors();
   const { control } = useFormContext();
 
   return (
@@ -30,6 +34,7 @@ const RHFMultiCheckbox = <TFormValues extends Record<string, unknown>>({
                 key={option}
                 control={
                   <Checkbox
+                    sx={{ ...(setColor && { color: `${color(option)}` }) }}
                     checked={field.value.includes(option)}
                     onChange={() => field.onChange(onSelected(option))}
                   />

@@ -8,6 +8,7 @@ import { RouteProgress } from '@/components';
 import { useAppDispatch } from '@/redux/store';
 import { fetchAccountData } from '@/redux/slices/accountSlice';
 import { useAuth } from '@/contexts/AuthContext';
+import { setFilters } from '@/redux/slices/usersSlice';
 
 export const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
@@ -16,8 +17,15 @@ function MainLayout(): ReactElement {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const value = localStorage.getItem('filters');
+
     dispatch(fetchAccountData(user?.id));
+
+    if (value != null) {
+      dispatch(setFilters(JSON.parse(value)));
+    }
   }, [user?.id, dispatch]);
+
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Header />

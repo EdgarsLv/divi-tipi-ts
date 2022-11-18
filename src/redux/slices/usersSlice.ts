@@ -19,7 +19,6 @@ interface UsersState {
   };
 }
 
-// Define the initial state using that type
 const initialState: UsersState = {
   users: [],
   isLoading: true,
@@ -58,7 +57,6 @@ export const usersSlice = createSlice({
 
 export const { loadUsers, setIsOpen, setFilters, startLoading } = usersSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
 export const selectUsers = (state: RootState) => state.users.users;
 export const selectIsOpen = (state: RootState) => state.users.isOpen;
 export const selectFilters = (state: RootState) => state.users.filters;
