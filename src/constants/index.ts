@@ -26,6 +26,8 @@ export const KIDS_SEARCH = ['ir', 'nav', 'nav nozīmes'];
 export const EDUCATION_SEARCH = ['pamata', 'vidējā', 'augstākā', 'šobrīd studē', 'nav svarīgi'];
 export const LANGUAGE_SEARCH = ['Latviešu', 'Krievu', 'Angļu', 'cita'];
 
+export const PAGIN_SIZE = 19;
+
 export const TEST_QUESTIONS = [
   {
     question: 'q1',

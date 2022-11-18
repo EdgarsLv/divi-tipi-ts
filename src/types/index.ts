@@ -53,6 +53,23 @@ export type User = {
   user_images?: { [key: number]: { images: string[] } };
 };
 
+export type FilterWithPagin = {
+  start: number;
+  end: number;
+  id?: string;
+  minAge: number;
+  maxAge: number;
+  gender: string[];
+  sociotypes: string[];
+};
+
+export type FilterForm = {
+  minAge: number;
+  maxAge: number;
+  gender: string[];
+  sociotypes: string[];
+};
+
 export type UserInterests = {
   interests: string[];
 };

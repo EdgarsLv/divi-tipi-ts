@@ -5,7 +5,7 @@ type FieldValues = Record<string, any>;
 
 type FormProps<TFormValues> = {
   children: ReactNode;
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onSubmit?: FormEventHandler<HTMLFormElement>;
   methods: UseFormReturn<TFormValues & FieldValues, any>;
 };
 

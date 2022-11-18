@@ -1,10 +1,10 @@
 import { ReactElement, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Header } from '../sections/header';
 import { Sidebar } from '../sections/sidebar';
-import { RouteProgress, ScrollToTop } from '@/components';
+import { RouteProgress } from '@/components';
 import { useAppDispatch } from '@/redux/store';
 import { fetchAccountData } from '@/redux/slices/accountSlice';
 import { useAuth } from '@/contexts/AuthContext';
@@ -28,7 +28,7 @@ function MainLayout(): ReactElement {
 
       <Offset />
 
-      <ScrollToTop />
+      <ScrollRestoration />
 
       <RouteProgress />
     </Box>

@@ -1,54 +1,55 @@
 import { useState } from 'react';
+import { NavigateOptions, URLSearchParamsInit } from 'react-router-dom';
 import { Iconify } from '@/components';
 import { Box, Stack, Button, Drawer, Divider, IconButton, Typography } from '@mui/material';
 import { FormProvider, RHFMultiCheckbox, RHFSelect } from '@/components/hook-form';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useDynamicMinMax } from '@/hooks';
 import { PERSONALITIES } from '@/constants';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { selectFilters, setFilters } from '@/redux/slices/usersSlice';
+import { FilterForm } from '@/types';
 
-type FormValues = {
-  minAge: number;
-  maxAge: number;
-  gender: string;
-  sociotypes: string;
-};
+declare type SetURLSearchParams = (
+  nextInit?: URLSearchParamsInit | ((prev: URLSearchParams) => URLSearchParamsInit),
+  navigateOpts?: NavigateOptions,
+) => void;
 
-export default function FilterSidebar() {
+export default function FilterSidebar({ setParams }: { setParams: SetURLSearchParams }) {
+  const { minAge, maxAge, gender, sociotypes } = useAppSelector(selectFilters);
+  const dispatch = useAppDispatch();
+
   const [isOpen, setIsOpen] = useState(false);
-  const onOpen = () => {
-    setIsOpen(true);
-  };
-  const onClose = () => {
-    setIsOpen(false);
+
+  // prettier-ignore
+  const defaultValues: FilterForm = {
+    minAge, maxAge, gender, sociotypes,
   };
 
-  const defaultValues: FormValues = {
-    minAge: 18,
-    maxAge: 99,
-    gender: '',
-    sociotypes: '',
-  };
-  const methods = useForm<FormValues>({
+  const methods = useForm<FilterForm>({
     defaultValues,
   });
 
-  const { handleSubmit, watch } = methods;
+  const { watch } = methods;
   const values = watch();
 
-  const onSubmit: SubmitHandler<FormValues> = (values) => {
-    console.log(values);
-  };
-
   const { MIN, MAX } = useDynamicMinMax(values.minAge, values.maxAge);
+
+  const onClose = () => {
+    setParams({ page: '1' });
+    dispatch(setFilters(values));
+    setIsOpen(false);
+  };
 
   return (
     <>
       <Button
+        sx={{ zIndex: 10 }}
         variant='contained'
         size='small'
         color='inherit'
         endIcon={<Iconify icon='ic:round-filter-list' />}
-        onClick={onOpen}
+        onClick={() => setIsOpen(true)}
       >
         Filtrs
       </Button>
@@ -69,25 +70,25 @@ export default function FilterSidebar() {
         </Stack>
 
         <Divider />
-        <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider methods={methods}>
           <Stack spacing={3} sx={{ p: 3 }}>
             <Stack spacing={1}>
               <Typography variant='subtitle1'>Dzimums</Typography>
-              <RHFMultiCheckbox<FormValues> name='gender' options={['one', 'two', 'three']} />
+              <RHFMultiCheckbox<FilterForm> name='gender' options={['vīrietis', 'sieviete']} />
             </Stack>
 
             <Stack spacing={1}>
               <Typography variant='subtitle1'>Vecums</Typography>
 
               <Stack direction='row' spacing={1}>
-                <RHFSelect<FormValues> name='minAge' label='No' size='small'>
+                <RHFSelect<FilterForm> name='minAge' label='No' size='small'>
                   {MIN.map((option, i) => (
                     <option key={i} value={option}>
                       {option}
                     </option>
                   ))}
                 </RHFSelect>
-                <RHFSelect<FormValues> name='maxAge' label='Līdz' size='small'>
+                <RHFSelect<FilterForm> name='maxAge' label='Līdz' size='small'>
                   {MAX.map((option, i) => (
                     <option key={i} value={option}>
                       {option}
@@ -99,10 +100,9 @@ export default function FilterSidebar() {
 
             <Stack spacing={1}>
               <Typography variant='subtitle1'>Sociotips</Typography>
-              <RHFMultiCheckbox<FormValues> name='sociotypes' options={PERSONALITIES} />
+              <RHFMultiCheckbox<FilterForm> name='sociotypes' options={PERSONALITIES} />
             </Stack>
           </Stack>
-          <Button type='submit'>submit</Button>
         </FormProvider>
         <Divider />
         <Box sx={{ p: 3 }} />
