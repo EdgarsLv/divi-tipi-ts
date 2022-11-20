@@ -88,6 +88,38 @@ export type Personality = {
   image: string;
 };
 
+export type Conversation = {
+  id: number;
+  isSeen: boolean;
+  lastMessage: string;
+  updated_at: string;
+  senderId: string;
+  user: {
+    name: string;
+    age?: string;
+    userId?: string;
+    avatar_image?: { avatar: string; updated_at: string };
+  };
+  isDeleted: boolean;
+};
+
+export type Message = {
+  conversation_id: number;
+  created_at: string;
+  id: number;
+  is_seen: boolean;
+  message: string;
+  receiver_id: string;
+  sender_id: string;
+};
+
+export type SendMessage = {
+  sender_id: string;
+  receiver_id?: string;
+  message: string;
+  conversation_id: number;
+};
+
 export type Discussion = {
   author?: {
     name: string;

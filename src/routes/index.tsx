@@ -5,6 +5,7 @@ import { Spinner } from '../components';
 import { personalitiesLoader, personalityLoader } from '@/pages/personalities/Personalities';
 import { relationLoader, relationshipLoader } from '@/pages/relationships/Relationships';
 import { profileLoader } from '@/pages/user-profile/UserProfile';
+import { messagesLoader } from '@/pages/messages/components/ChatMessages';
 
 type AnyProps = {
   [key: string]: any;
@@ -59,7 +60,14 @@ export const router = createBrowserRouter([
       { element: <Search />, index: true },
       {
         path: 'messages',
-        element: <Messages />,
+        children: [
+          { element: <Messages />, index: true },
+          {
+            path: ':chatId',
+            element: <Messages />,
+            loader: ({ params }) => messagesLoader(params.chatId),
+          },
+        ],
       },
       {
         path: 'statistics',

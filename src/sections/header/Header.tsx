@@ -9,12 +9,15 @@ import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
 import { Iconify } from '@/components';
-import { NavLink as RouterLink } from 'react-router-dom';
+import { NavLink as RouterLink, useLocation, useNavigate } from 'react-router-dom';
+import { setListOpen } from '@/redux/slices/messagesSlice';
 
 export default function Header(): ReactElement {
-  const dispatch = useAppDispatch();
   const { logout } = useAuth();
   const { toggleTheme } = useThemeMode();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const handleOpen = (): void => {
     dispatch(setOpen());
@@ -34,6 +37,14 @@ export default function Header(): ReactElement {
     logout();
   };
 
+  const handleMessages = () => {
+    if (!pathname.includes('/messages/')) {
+      navigate('/messages');
+    }
+
+    dispatch(setListOpen(true));
+  };
+
   return (
     <Box>
       <AppBar elevation={1} color='inherit' position='fixed'>
@@ -50,6 +61,10 @@ export default function Header(): ReactElement {
           </IconButton>
 
           <Box>
+            <IconButton onClick={handleMessages} color='primary'>
+              <Iconify icon='fluent:mail-28-regular' />
+            </IconButton>
+
             <IconButton onClick={toggleTheme} color='primary'>
               <Iconify icon='ic:baseline-invert-colors' />
             </IconButton>

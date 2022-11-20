@@ -8,11 +8,11 @@ export default function SkeletonUserCard() {
 
         <Box sx={{ py: 0.5, px: 1 }}>
           <Stack direction='row'>
-            <Skeleton variant='text' sx={{ mr: 2, width: 60 }} />
+            <Skeleton variant='text' sx={{ mr: 2, width: 40 }} />
             <Skeleton variant='text' sx={{ width: 20 }} />
           </Stack>
           <Stack direction='row'>
-            <Skeleton variant='text' sx={{ mr: 2, width: 70 }} />
+            <Skeleton variant='text' sx={{ mr: 2, width: 50 }} />
             <Skeleton variant='text' sx={{ width: 15 }} />
           </Stack>
         </Box>
