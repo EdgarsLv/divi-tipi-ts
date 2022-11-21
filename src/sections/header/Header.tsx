@@ -3,14 +3,17 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import { Menu, MenuItem, Avatar } from '@mui/material';
-import { useAppDispatch } from '../../redux/store';
+import { Menu, MenuItem, Avatar, Badge, BadgeProps } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
 import { Iconify } from '@/components';
 import { NavLink as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { setListOpen } from '@/redux/slices/messagesSlice';
+import { useCounters, useUserImages } from '@/hooks';
+import { styled } from '@mui/material/styles';
+import { selectAccountData } from '@/redux/slices/accountSlice';
 
 export default function Header(): ReactElement {
   const { logout } = useAuth();
@@ -18,6 +21,9 @@ export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { unreadMessagesCount } = useCounters();
+  const account = useAppSelector(selectAccountData);
+  const { avatar } = useUserImages(account);
 
   const handleOpen = (): void => {
     dispatch(setOpen());
@@ -62,7 +68,9 @@ export default function Header(): ReactElement {
 
           <Box>
             <IconButton onClick={handleMessages} color='primary'>
-              <Iconify icon='fluent:mail-28-regular' />
+              <StyledBadge color='primary' badgeContent={unreadMessagesCount}>
+                <Iconify icon='fluent:mail-28-regular' />
+              </StyledBadge>
             </IconButton>
 
             <IconButton onClick={toggleTheme} color='primary'>
@@ -72,10 +80,10 @@ export default function Header(): ReactElement {
             <IconButton id='demo-positioned-button' size='large' onClick={handleClick}>
               <Avatar
                 variant='rounded'
+                alt={account.name}
+                src={avatar}
                 sx={{ width: 30, height: 30, bgcolor: (theme) => theme.palette.primary.main }}
-              >
-                E
-              </Avatar>
+              />
             </IconButton>
           </Box>
 
@@ -106,3 +114,10 @@ export default function Header(): ReactElement {
     </Box>
   );
 }
+
+const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  '& .MuiBadge-badge': {
+    border: `2px solid ${theme.palette.background.paper}`,
+    padding: '0 4px',
+  },
+}));

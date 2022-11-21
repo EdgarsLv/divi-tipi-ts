@@ -14,6 +14,7 @@ export default function ChatsList() {
         conversation?.id ? (
           <ChatsListItem
             key={index}
+            chatId={chatId}
             conversation={conversation}
             isSelected={chatId == conversation.id}
           />

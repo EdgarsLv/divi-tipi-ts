@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import { Box, Avatar, ListItemText, ListItemAvatar, ListItemButton } from '@mui/material';
@@ -8,14 +9,15 @@ import { Conversation } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectAccountData } from '@/redux/slices/accountSlice';
 import { getAvatar, getMessageStatus } from '../utils';
-import { setListOpen } from '@/redux/slices/messagesSlice';
+import { setListOpen, updateConversationStatus } from '@/redux/slices/messagesSlice';
 
 type Props = {
+  chatId?: string;
   isSelected: boolean;
   conversation: Conversation;
 };
 
-export default function ChatsListItem({ isSelected, conversation }: Props) {
+export default function ChatsListItem({ chatId, isSelected, conversation }: Props) {
   const { user } = useAuth();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -24,6 +26,13 @@ export default function ChatsListItem({ isSelected, conversation }: Props) {
 
   const status = getMessageStatus(conversation, user!.id);
   const avatar = getAvatar(conversation);
+
+  useEffect(() => {
+    if (Number(chatId) === conversation.id && status.isNew) {
+      updateConversationStatus(user!.id, conversation.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversation.id, chatId, status.isNew, user?.id]);
 
   const handleSelect = () => {
     dispatch(setListOpen(false));

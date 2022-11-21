@@ -8,6 +8,9 @@ import {
 import { Iconify } from '@/components';
 import { getAvatar } from '../utils';
 import { Conversation } from '@/types';
+import { clearMessages, deleteConversation } from '@/redux/slices/messagesSlice';
+import { useAppDispatch } from '@/redux/store';
+import { useNavigate } from 'react-router-dom';
 
 const RootStyle = styled('div')(({ theme }) => ({
   flexShrink: 0,
@@ -24,27 +27,18 @@ const LinkStyle = styled(Link)(() => ({
 }));
 
 export default function ChatHeader({ selected }: { selected: Conversation }) {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
 
   const avatar = getAvatar(selected);
 
-  // const handleDeleteConveration = async (id) => {
-  //   try {
-  //     const { error } = await supabase
-  //       .from('conversations')
-  //       .delete()
-  //       .match({ id: Number(id) });
-
-  //     if (error) {
-  //       throw error;
-  //     }
-  //     if (!error) {
-  //       navigate(PATH_MAIN.messages.root, { replace: true });
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleDeleteConveration = () => {
+    deleteConversation(selected.id);
+    dispatch(clearMessages());
+    navigate('/messages');
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -77,7 +71,7 @@ export default function ChatHeader({ selected }: { selected: Conversation }) {
         </DialogContent>
         <DialogActions>
           <Button
-            onClickCapture={() => console.log('delete')}
+            onClickCapture={handleDeleteConveration}
             variant='contained'
             color='error'
             onClick={handleClose}

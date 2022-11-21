@@ -45,7 +45,13 @@ const slice = createSlice({
       if (m) {
         const update = conversations.map((c) =>
           c.id === m.id
-            ? { ...c, lastMessage: m.last_message, updated_at: m.updated_at, senderId: m.sender_id }
+            ? {
+                ...c,
+                lastMessage: m.last_message,
+                updated_at: m.updated_at,
+                senderId: m.sender_id,
+                isSeen: m.is_seen,
+              }
             : c,
         );
         state.conversations = update;
@@ -144,6 +150,34 @@ export const fetchConversations = (userId?: string) => async (dispatch: AppDispa
     dispatch(hasError(error));
   }
 };
+
+export async function updateConversationStatus(userId: string, chatId: number) {
+  try {
+    const { error } = await supabase
+      .from('conversations')
+      .update({ is_seen: true })
+      .match({ id: chatId, is_seen: false })
+      .not('sender_id', 'eq', userId);
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function deleteConversation(id: number) {
+  try {
+    const { error } = await supabase.from('conversations').delete().eq('id', id);
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
 
 // SEND MESSAGE
 export async function onSendMessage(value: SendMessage) {
