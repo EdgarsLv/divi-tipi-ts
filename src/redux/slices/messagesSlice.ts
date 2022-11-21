@@ -9,7 +9,6 @@ type MessagesState = {
   error: string | null;
   conversations: Conversation[];
   messages: Message[];
-  lastMessage: string | null;
   isListOpen: boolean;
 };
 
@@ -18,7 +17,6 @@ const initialState: MessagesState = {
   error: null,
   conversations: [],
   messages: [],
-  lastMessage: null,
   isListOpen: true,
 };
 
@@ -40,24 +38,30 @@ const slice = createSlice({
       state.conversations = action.payload;
     },
 
-    // GET REALTIME MESSAGES
-    getRealTimeMessages: (state, action) => {
-      state.messages = [{ ...action.payload }, ...state.messages];
-    },
-
-    // UPDATE LAST MESSAGE
-    updateLastMessage: (state, action) => {
-      state.lastMessage = action.payload;
-      const message = action.payload;
-
+    updateConversations: (state, action) => {
+      const m = action.payload;
       const { conversations } = state;
 
-      if (message) {
-        const updatedConversations = conversations.map((x) =>
-          x.id === message.id ? { ...x, ...message } : x,
+      if (m) {
+        const update = conversations.map((c) =>
+          c.id === m.id
+            ? { ...c, lastMessage: m.last_message, updated_at: m.updated_at, senderId: m.sender_id }
+            : c,
         );
-        state.conversations = updatedConversations;
+        state.conversations = update;
       }
+    },
+
+    getInitialMessages: (state, action) => {
+      state.messages = action.payload;
+    },
+
+    getSubscribedMessages: (state, action) => {
+      state.messages = [action.payload, ...state.messages];
+    },
+
+    clearMessages: (state) => {
+      state.messages = [];
     },
 
     setListOpen: (state, action) => {
@@ -72,14 +76,17 @@ export default slice.reducer;
 // Actions
 export const {
   setListOpen,
-  updateLastMessage,
-  getRealTimeMessages,
+  updateConversations,
   getConversations,
+  getSubscribedMessages,
+  getInitialMessages,
+  clearMessages,
   startLoading,
   hasError,
 } = slice.actions;
 
 export const selectConversations = (state: RootState) => state.messages.conversations;
+export const selectMessages = (state: RootState) => state.messages.messages;
 export const selectIsListOpen = (state: RootState) => state.messages.isListOpen;
 
 export const fetchConversations = (userId?: string) => async (dispatch: AppDispatch) => {
@@ -151,8 +158,8 @@ export async function onSendMessage(value: SendMessage) {
 }
 
 // UPDATE LAST MESSAGE IN CONVERSATION
-export async function onUpdateLastMessage(value: any) {
-  const timeNow = new Date().toDateString();
+export async function onUpdateLastMessage(value: SendMessage) {
+  const timeNow = new Date().toISOString();
   try {
     const { error } = await supabase
       .from('conversations')

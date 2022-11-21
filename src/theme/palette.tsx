@@ -2,7 +2,7 @@ import { PaletteOptions, PaletteColorOptions } from '@mui/material/styles';
 import { red, blueGrey } from '@mui/material/colors';
 
 const PRIMARY: PaletteColorOptions = {
-  light: blueGrey[200],
+  light: blueGrey[300],
   main: blueGrey[600],
   dark: blueGrey[900],
 };

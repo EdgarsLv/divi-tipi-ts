@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Header } from '../sections/header';
 import { Sidebar } from '../sections/sidebar';
-import { RouteProgress } from '@/components';
+import { RootSubscriptions, RouteProgress } from '@/components';
 import { useAppDispatch } from '@/redux/store';
 import { fetchAccountData } from '@/redux/slices/accountSlice';
 import { useAuth } from '@/contexts/AuthContext';
@@ -38,6 +38,7 @@ function MainLayout(): ReactElement {
 
       <ScrollRestoration />
 
+      <RootSubscriptions />
       <RouteProgress />
     </Box>
   );

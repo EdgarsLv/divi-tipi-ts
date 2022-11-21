@@ -3,7 +3,7 @@ import { Card, Container } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useAppDispatch } from '@/redux/store';
 import { useEffect } from 'react';
-import { fetchConversations } from '@/redux/slices/messagesSlice';
+import { clearMessages, fetchConversations } from '@/redux/slices/messagesSlice';
 import { useAuth } from '@/contexts/AuthContext';
 import { ChatSidebar, ChatWindow } from './components';
 
@@ -14,6 +14,10 @@ function Messages() {
 
   useEffect(() => {
     dispatch(fetchConversations(user?.id));
+
+    return () => {
+      dispatch(clearMessages());
+    };
   }, [dispatch, user?.id]);
 
   return (

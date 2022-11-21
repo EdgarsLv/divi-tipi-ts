@@ -12,3 +12,4 @@ export { default as RouteProgress } from './RouteProgress';
 export { default as LightBox } from './LightBox';
 export { default as ReactTimeAgo } from './ReactTimeAgo';
 export { default as Scrollbar } from './Scrollbar';
+export { default as RootSubscriptions } from './RootSubscriptions';

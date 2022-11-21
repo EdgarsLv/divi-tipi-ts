@@ -38,7 +38,7 @@ export default function ChatMessageItem({ message }: { message: Message }) {
             <ReactTimeAgo date={message.created_at} />
           </InfoStyle>
 
-          <ContentStyle sx={{ ...(isMe && { color: 'grey.800', bgcolor: 'primary.light' }) }}>
+          <ContentStyle sx={{ ...(isMe && { color: '#f1f1f1', bgcolor: 'primary.main' }) }}>
             {message.message?.split('\n').map((msg, i) => (
               <Typography variant='body2' sx={{ minHeight: '0.8rem' }} key={i}>
                 {msg}

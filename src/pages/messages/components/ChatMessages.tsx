@@ -1,7 +1,6 @@
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/material';
 import { supabase } from '@/service';
-import { useLoaderData } from 'react-router-dom';
 import { Message } from '@/types';
 import ChatMessageItem from './ChatMessageItem';
 
@@ -25,9 +24,7 @@ const MessagesContainer = styled(Box)(({ theme }) => ({
   },
 }));
 
-function ChatMessages() {
-  const messages = useLoaderData() as Message[];
-
+function ChatMessages({ messages }: { messages: Message[] }) {
   return (
     <MessagesContainer>
       {messages?.map((message, i) => (

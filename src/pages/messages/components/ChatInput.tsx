@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { styled } from '@mui/material/styles';
 import { Input, Divider, IconButton, InputAdornment } from '@mui/material';
 import { Iconify } from '@/components';
 import { Conversation, SendMessage } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
-import { onSendMessage } from '@/redux/slices/messagesSlice';
-import { supabase } from '@/service';
+import { onSendMessage, onUpdateLastMessage } from '@/redux/slices/messagesSlice';
 
 const RootStyle = styled('form')(({ theme }) => ({
   minHeight: 56,
@@ -22,41 +21,11 @@ type Props = {
   chatId?: string;
 };
 
-export default function ChatInput({ disabled, selected, chatId }: Props) {
+export default function ChatInput({ disabled, selected }: Props) {
   const { user } = useAuth();
 
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
-
-  useEffect(() => {
-    if (!chatId) {
-      return;
-    }
-
-    const messageChannel = supabase
-      .channel(`public:messages:conversation_id=eq.${chatId}`)
-      .on(
-        'postgres_changes',
-        {
-          event: 'INSERT',
-          schema: 'public',
-          table: 'messages',
-          filter: `conversation_id=eq.${chatId}`,
-        },
-        (payload) => handleInsert(payload),
-      )
-      .subscribe((status) => console.log(status));
-
-    // .on('INSERT', (payload) => dispatch(getRealTimeMessages(payload.new)))
-
-    return () => {
-      supabase.removeChannel(messageChannel);
-    };
-  }, [chatId]);
-
-  const handleInsert = (payload: any) => {
-    console.log(payload);
-  };
 
   const handleSendMessage = () => {
     if (inputRef.current?.value.trim() === '') {
@@ -70,6 +39,8 @@ export default function ChatInput({ disabled, selected, chatId }: Props) {
     };
 
     onSendMessage(content);
+    onUpdateLastMessage(content);
+
     inputRef.current!.focus();
     formRef.current!.reset();
   };
@@ -84,7 +55,7 @@ export default function ChatInput({ disabled, selected, chatId }: Props) {
         multiline
         minRows={1}
         maxRows={3}
-        placeholder='Rakstīt ziņu...'
+        placeholder={selected?.isDeleted ? 'Ar šo lietotāju nevar sazināties!' : 'Rakstīt ziņu...'}
         startAdornment={
           <InputAdornment position='start'>
             <Iconify icon='line-md:emoji-smile-twotone' />
@@ -94,7 +65,12 @@ export default function ChatInput({ disabled, selected, chatId }: Props) {
 
       <Divider orientation='vertical' flexItem />
 
-      <IconButton color='primary' onClick={handleSendMessage} sx={{ mx: 1 }}>
+      <IconButton
+        disabled={selected?.isDeleted}
+        color='primary'
+        onClick={handleSendMessage}
+        sx={{ mx: 1 }}
+      >
         <Iconify icon='ic:round-send' />
       </IconButton>
     </RootStyle>

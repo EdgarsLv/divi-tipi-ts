@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
-import { Drawer, Typography, Paper, Box } from '@mui/material';
+import { Drawer, Typography, Box } from '@mui/material';
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
 import { Scrollbar } from '@/components';
 import ChatsList from './ChatsList';
@@ -29,11 +29,11 @@ export default function ChatSidebar() {
 
   const renderContent = (
     <>
-      <Paper sx={{ py: 1.8, px: 3 }}>
+      <Box sx={{ py: 1.8, px: 3 }}>
         <Typography sx={{ textAlign: 'right' }} variant='subtitle1'>
           Sarakstes
         </Typography>
-      </Paper>
+      </Box>
 
       <Scrollbar>
         <ChatsList />
