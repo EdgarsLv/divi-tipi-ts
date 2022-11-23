@@ -89,4 +89,21 @@ export const fetchUsers = (values: FilterWithPagin) => async (dispatch: AppDispa
   }
 };
 
+export async function updateUserStatus(focused: boolean, userId?: string) {
+  const timeNow = new Date().toISOString();
+  try {
+    const { error } = await supabase
+      .from('users')
+      // eslint-disable-next-line camelcase
+      .update({ updated_at: timeNow, online: focused })
+      .eq('id', userId);
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default usersSlice.reducer;

@@ -21,7 +21,7 @@ export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { unreadMessagesCount } = useCounters();
+  const { newMessages, statistics } = useCounters();
   const account = useAppSelector(selectAccountData);
   const { avatar } = useUserImages(account);
 
@@ -67,9 +67,15 @@ export default function Header(): ReactElement {
           </IconButton>
 
           <Box>
+            <IconButton onClick={() => navigate('/statistics')} color='primary'>
+              <StyledBadge color='primary' badgeContent={statistics}>
+                <Iconify icon='eva:eye-outline' sx={{ width: 21, height: 21 }} />
+              </StyledBadge>
+            </IconButton>
+
             <IconButton onClick={handleMessages} color='primary'>
-              <StyledBadge color='primary' badgeContent={unreadMessagesCount}>
-                <Iconify icon='fluent:mail-28-regular' />
+              <StyledBadge color='primary' badgeContent={newMessages}>
+                <Iconify icon='fluent:mail-28-regular' sx={{ width: 21, height: 21 }} />
               </StyledBadge>
             </IconButton>
 

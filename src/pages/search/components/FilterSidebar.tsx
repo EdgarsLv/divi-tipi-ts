@@ -23,7 +23,7 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
 
   // prettier-ignore
   const defaultValues: FilterForm = {
-    minAge, maxAge, gender, sociotypes,
+    minAge, maxAge, gender, sociotypes
   };
 
   const methods = useForm<FilterForm>({

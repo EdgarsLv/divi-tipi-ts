@@ -4,14 +4,14 @@ import maleAvatar from '../assets/images/manavatar.jpg';
 import fakeCover from '../assets/images/abstract.jpg';
 import { User } from '@/types';
 
-function getFakeAvatar(user: User) {
+function getFakeAvatar(user: Partial<User>) {
   if (user?.gender === 'vīrietis') {
     return maleAvatar;
   }
   return femaleAvatar;
 }
 
-export default function useUserImages(user: User) {
+export default function useUserImages(user: Partial<User>) {
   const fake = getFakeAvatar(user);
 
   let avatar: string | null = null;

@@ -51,6 +51,20 @@ export type User = {
   has_avatar: boolean;
   confirmed_sociotype: boolean;
   user_images?: { [key: number]: { images: string[] } };
+  online: boolean;
+};
+
+export type SeenUser = {
+  created_at: string;
+  is_seen: boolean;
+  seen_user: {
+    age: string;
+    name: string;
+    sociotype: string;
+    confirmed_sociotype: boolean;
+    avatar_image: { avatar: string; updated_at: string };
+  };
+  seen_user_id: string;
 };
 
 export type FilterWithPagin = {

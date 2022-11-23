@@ -7,6 +7,7 @@ import usersSlice from './slices/usersSlice';
 import discussionsSlice from './slices/discussionsSlice';
 import accountSlice from './slices/accountSlice';
 import messagesSlice from './slices/messagesSlice';
+import statisticsSlice from './slices/statisticsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export const store = configureStore({
     users: usersSlice,
     discussions: discussionsSlice,
     messages: messagesSlice,
+    statistics: statisticsSlice,
   },
 });
 

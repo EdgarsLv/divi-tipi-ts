@@ -23,7 +23,6 @@ export default function ProfileCover() {
       </TopStack>
       <InfoStyle>
         <Avatar
-          variant='rounded'
           onClick={() => dispatch(setIsOpen(true))}
           src={avatar}
           sx={{

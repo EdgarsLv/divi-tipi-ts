@@ -6,6 +6,7 @@ import { personalitiesLoader, personalityLoader } from '@/pages/personalities/Pe
 import { relationLoader, relationshipLoader } from '@/pages/relationships/Relationships';
 import { profileLoader } from '@/pages/user-profile/UserProfile';
 import { messagesLoader } from '@/pages/messages/components/ChatMessages';
+import { statisticsLoader } from '@/pages/statistics/Statistics';
 
 type AnyProps = {
   [key: string]: any;
@@ -72,6 +73,7 @@ export const router = createBrowserRouter([
       {
         path: 'statistics',
         element: <Statistics />,
+        loader: () => statisticsLoader(),
       },
       {
         path: 'settings',
@@ -97,7 +99,13 @@ export const router = createBrowserRouter([
       {
         path: 'personalities',
         children: [
-          { element: <Personalities />, index: true, loader: () => personalitiesLoader() },
+          {
+            element: <Personalities />,
+            index: true,
+            loader: () => {
+              return personalitiesLoader();
+            },
+          },
           {
             path: ':name',
             element: <Personality />,
