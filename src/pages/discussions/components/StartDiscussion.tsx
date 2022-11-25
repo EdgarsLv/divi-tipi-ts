@@ -1,4 +1,8 @@
 import { Iconify } from '@/components';
+import { selectAccountData } from '@/redux/slices/accountSlice';
+import { startDiscussion } from '@/redux/slices/discussionsSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
+import { CommentAuthor } from '@/types';
 import {
   Box,
   Button,
@@ -15,6 +19,9 @@ export default function StartDiscussion() {
   const titleRef = useRef<HTMLInputElement>(null);
   const subtitleRef = useRef<HTMLInputElement>(null);
 
+  const dispatch = useAppDispatch();
+  const account = useAppSelector(selectAccountData);
+
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -28,10 +35,27 @@ export default function StartDiscussion() {
   const handleSend = async () => {
     const title = titleRef.current!.value;
     const subtitle = subtitleRef.current!.value;
+    const time = new Date().toISOString();
 
     if (title.trim() === '' || subtitle.trim() === '') {
       return;
     }
+
+    const content = {
+      title,
+      subtitle,
+      // eslint-disable-next-line camelcase
+      author_id: account.id,
+    };
+
+    const author: CommentAuthor = {
+      age: account.age,
+      name: account.name,
+      // eslint-disable-next-line camelcase
+      avatar_image: { avatar: account?.avatar_image?.avatar, updated_at: time },
+    };
+
+    dispatch(startDiscussion(content, author));
 
     setOpen(false);
   };

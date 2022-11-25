@@ -4,8 +4,8 @@ import { Comment, Discussion, Participants } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { AppDispatch, RootState } from '../store';
 
-const COMMENTS_COUNT = 3;
-const DISCUSSION_COUNT = 3;
+export const COMMENTS_COUNT = 3;
+export const DISCUSSION_COUNT = 3;
 
 type Root = {
   isLoading: boolean;

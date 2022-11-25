@@ -10,12 +10,11 @@ import {
   fetchCommentsById,
   fetchParticipants,
   increaseDiscussionViewsCount,
+  COMMENTS_COUNT,
 } from '@/redux/slices/discussionsSlice';
 import { supabase } from '@/service';
 import { SkeletonComments } from '@/components/skeletons';
 import { useAuth } from '@/contexts/AuthContext';
-
-const PAGE_SIZE = 3;
 
 function Discussion() {
   const { user } = useAuth();
@@ -40,7 +39,7 @@ function Discussion() {
   useEffect(() => {
     const page = Number(params.get('page'));
 
-    dispatch(fetchCommentsById((page - 1) * PAGE_SIZE, page * PAGE_SIZE, id));
+    dispatch(fetchCommentsById((page - 1) * COMMENTS_COUNT, page * COMMENTS_COUNT, id));
   }, [dispatch, id, params]);
 
   const handlePagination = (_: any, value: number) => {

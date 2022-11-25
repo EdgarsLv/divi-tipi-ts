@@ -1,14 +1,12 @@
 import { Page } from '@/components';
 import { SkeletonDiscussion } from '@/components/skeletons';
 import { useAuth } from '@/contexts/AuthContext';
-import { fetchDiscussions } from '@/redux/slices/discussionsSlice';
+import { DISCUSSION_COUNT, fetchDiscussions } from '@/redux/slices/discussionsSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Typography, Stack, Box, Pagination, Container } from '@mui/material';
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { DiscussionBlock, StartDiscussion } from './components';
-
-const PAGE_SIZE = 3;
 
 function Discussions() {
   const { user } = useAuth();
@@ -21,7 +19,7 @@ function Discussions() {
   useEffect(() => {
     const page = Number(params.get('page'));
 
-    dispatch(fetchDiscussions((page - 1) * PAGE_SIZE, page * PAGE_SIZE, user?.id));
+    dispatch(fetchDiscussions((page - 1) * DISCUSSION_COUNT, page * DISCUSSION_COUNT, user?.id));
   }, [dispatch, params, user?.id]);
 
   const handlePagination = (_: any, value: number) => {
