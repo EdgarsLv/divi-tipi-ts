@@ -12,11 +12,11 @@ function UserCard({ user }: { user: User }) {
   const isOnline = () => {
     let color = 'lime';
 
-    if (new Date().getTime() - new Date(updated_at).getTime() > 300000) {
+    if (new Date().getTime() - new Date(updated_at).getTime() > 900000) {
       color = 'yellow';
     }
 
-    if (new Date().getTime() - new Date(updated_at).getTime() > 600000) {
+    if (new Date().getTime() - new Date(updated_at).getTime() > 1800000) {
       color = 'transparent';
     }
 

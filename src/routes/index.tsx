@@ -7,6 +7,7 @@ import { relationLoader, relationshipLoader } from '@/pages/relationships/Relati
 import { profileLoader } from '@/pages/user-profile/UserProfile';
 import { messagesLoader } from '@/pages/messages/components/ChatMessages';
 import { statisticsLoader } from '@/pages/statistics/Statistics';
+import { discussionLoader } from '@/pages/discussion/Discussion';
 
 type AnyProps = {
   [key: string]: any;
@@ -134,7 +135,13 @@ export const router = createBrowserRouter([
         path: 'discussions',
         children: [
           { element: <Discussions />, index: true },
-          { path: ':id', element: <Discussion /> },
+          {
+            path: ':id',
+            element: <Discussion />,
+            loader: ({ params }) => {
+              return discussionLoader(params?.id);
+            },
+          },
         ],
       },
     ],

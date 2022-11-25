@@ -11,103 +11,62 @@ import {
   Link,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useTheme } from '@mui/material/styles';
 import { Discussion } from '@/types';
-import BlockFooter from './BlockFooter';
-
-export const getAuthorData = (data: any, userId: any) => {
-  let author = data?.author;
-  let isMe = false;
-  let isDeleted = false;
-  let avatarImg = null;
-
-  if (!data?.author) {
-    author = { name: 'Dzēsts lietotājs', age: '', avatar: undefined };
-    isDeleted = true;
-  }
-  if (data?.author_id === userId) {
-    isMe = true;
-  }
-  if (author.avatar) {
-    avatarImg = 'dd';
-  }
-
-  return { author, isMe, isDeleted, avatarImg };
-};
+import Counters from './Counters';
+import { getAuthorData } from '@/pages/discussion/utils/getAuthorData';
+import { useAuth } from '@/contexts/AuthContext';
+import { ReactTimeAgo } from '@/components';
+import { styled } from '@mui/material/styles';
 
 export default function DiscussionBlock({ discussion }: { discussion: Discussion }) {
-  //   const userId = 'id';
-
-  const theme = useTheme();
+  const { user } = useAuth();
   const navigate = useNavigate();
 
-  //   const { author, isMe, isDeleted, avatarImg } = getAuthorData(data, userId);
+  const { isMe, isDeleted, avatar } = getAuthorData(discussion, user?.id);
 
-  const linkToDiscussion = 'dd';
-  //   const linkToUser = 'ee';
-
-  //   const style = {
-  //     pointerEvents: 'none',
-  //     color: 'text.primary',
-  //   };
+  const style = {
+    pointerEvents: 'none',
+    color: 'text.primary',
+  };
 
   return (
     <Card
       sx={{
+        ...(!discussion.isSeen ? { backgroundColor: 'action.selected' } : {}),
         borderRadius: 0,
         boxShadow: 1,
         mb: 1,
-        borderBottom: `1px solid ${theme.palette.primary.main}`,
       }}
     >
       <CardHeader
         sx={{ py: 0.5, px: 2 }}
-        avatar={<Avatar src='' variant='rounded' sx={{ width: '40px', height: '40px' }} />}
+        avatar={<Avatar src={avatar} variant='rounded' sx={{ width: '40px', height: '40px' }} />}
         title={
           <Link
-            // sx={isMe || isDeleted ? style : { textDecoration: 'underline' }}
-            href='/'
+            variant='body1'
+            underline={isMe || isDeleted ? 'none' : 'always'}
+            sx={isMe || isDeleted ? style : {}}
+            href={`/user/${discussion.author_id}`}
           >
-            {discussion.author?.name}, {discussion.author?.age}
+            {discussion?.author?.name}, {discussion?.author?.age}
           </Link>
         }
         subheader={
           <Typography variant='caption' color='text.secondary'>
-            2022.10.23
+            <ReactTimeAgo date={discussion.created_at} />
           </Typography>
         }
       />
 
-      <CardActionArea onClick={() => navigate(linkToDiscussion)}>
+      <CardActionArea onClick={() => navigate(`/discussions/${discussion.id}`)}>
         <CardContent sx={{ px: 2, py: 1 }}>
-          <Typography
-            sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 1,
-              WebkitBoxOrient: 'vertical',
-            }}
-            gutterBottom
-            variant='subtitle1'
-          >
+          <TextOneLine gutterBottom variant='subtitle1'>
             {discussion.title}
-          </Typography>
+          </TextOneLine>
 
-          {/* <TextMaxLine>{discussion.subtitle}</TextMaxLine> */}
-          <Typography
-            sx={{
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              display: '-webkit-box',
-              WebkitLineClamp: 1,
-              WebkitBoxOrient: 'vertical',
-            }}
-            variant='body2'
-            color='text.secondary'
-          >
+          <TextOneLine variant='body2' color='text.secondary'>
             {discussion.subtitle}
-          </Typography>
+          </TextOneLine>
         </CardContent>
 
         <Divider />
@@ -119,30 +78,18 @@ export default function DiscussionBlock({ discussion }: { discussion: Discussion
             justifyContent='space-between'
             alignItems='center'
           >
-            <Typography
-              sx={{
-                ml: 2,
-                mr: 1,
-                maxWidth: '65%',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                display: '-webkit-box',
-                WebkitLineClamp: 1,
-                WebkitBoxOrient: 'vertical',
-              }}
-              variant='body2'
-            >
+            <TextOneLine sx={{ ml: 2, mr: 1 }} variant='body2'>
               {discussion.last_comment ? discussion.last_comment : ''}
-            </Typography>
+            </TextOneLine>
             <Typography variant='caption' color='text.secondary'>
-              2022.10.20
+              <ReactTimeAgo date={discussion.updated_at} />
             </Typography>
           </Stack>
         )}
       </CardActionArea>
 
       <CardActions sx={{ px: 2 }}>
-        <BlockFooter
+        <Counters
           users={discussion.users_count}
           views={discussion.views_count}
           comments={discussion.comments_count}
@@ -151,3 +98,11 @@ export default function DiscussionBlock({ discussion }: { discussion: Discussion
     </Card>
   );
 }
+
+const TextOneLine = styled(Typography)(() => ({
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  display: '-webkit-box',
+  WebkitLineClamp: 1,
+  WebkitBoxOrient: 'vertical',
+}));

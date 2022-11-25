@@ -134,22 +134,58 @@ export type SendMessage = {
   conversation_id: number;
 };
 
+export type Participants = {
+  discussion_id: number;
+  seen: boolean;
+  seen_at: string;
+  updated_at: string;
+  user_id: string;
+};
+
 export type Discussion = {
   author?: {
     name: string;
     age: string;
-    avatar: string;
+    avatar_image: { avatar: string; updated_at: string };
   };
   author_id: string | null;
   comments_count: number | null;
-  created_at: string | null;
+  created_at: string;
   id: number;
   last_comment: string | null;
   subtitle: string | null;
   title: string | null;
-  updated_at: string | null;
+  updated_at: string;
   users_count: number | null;
   views_count: number | null;
+  isSeen?: boolean;
+  participants: Participants[];
+};
+
+export type Comment = {
+  author: { name: string; age: string; avatar_image: { avatar: string; updated_at: string } };
+  id: number;
+  created_at: string;
+  text: string | null;
+  author_id: string | null;
+  discussion_id: number | null;
+  replies?: Comment[];
+  reply_to?: number;
+};
+
+export type CommentContent = {
+  text: string;
+  reply_to?: number;
+  discussion_id: string;
+  author_id: string;
+};
+export type CommentAuthor = {
+  age: string;
+  name: string;
+  avatar_image?: {
+    avatar: string;
+    updated_at: string;
+  };
 };
 
 export type PersonalityTestQuestions = {

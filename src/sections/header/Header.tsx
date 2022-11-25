@@ -21,7 +21,7 @@ export default function Header(): ReactElement {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { newMessages, statistics } = useCounters();
+  const { newMessages, statistics, newDiscussions } = useCounters();
   const account = useAppSelector(selectAccountData);
   const { avatar } = useUserImages(account);
 
@@ -67,6 +67,12 @@ export default function Header(): ReactElement {
           </IconButton>
 
           <Box>
+            <IconButton onClick={() => navigate('/discussions')} color='primary'>
+              <StyledBadge color='primary' badgeContent={newDiscussions}>
+                <Iconify icon='bx:bx-chat' sx={{ width: 21, height: 21 }} />
+              </StyledBadge>
+            </IconButton>
+
             <IconButton onClick={() => navigate('/statistics')} color='primary'>
               <StyledBadge color='primary' badgeContent={statistics}>
                 <Iconify icon='eva:eye-outline' sx={{ width: 21, height: 21 }} />

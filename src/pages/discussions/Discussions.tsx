@@ -1,39 +1,33 @@
 import { Page } from '@/components';
-import { supabase } from '@/service';
-import { Discussion } from '@/types';
+import { SkeletonDiscussion } from '@/components/skeletons';
+import { useAuth } from '@/contexts/AuthContext';
+import { fetchDiscussions } from '@/redux/slices/discussionsSlice';
+import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Typography, Stack, Box, Pagination, Container } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { DiscussionBlock, StartDiscussion } from './components';
 
+const PAGE_SIZE = 3;
+
 function Discussions() {
-  const [discus, setDiscus] = useState<Discussion[]>([]);
+  const { user } = useAuth();
+  const [params, setParams] = useSearchParams({ page: '1' });
+
+  const dispatch = useAppDispatch();
+
+  const { discussions, paginSize, isLoading } = useAppSelector((state) => state.discussions);
 
   useEffect(() => {
-    const fetchDiscussons = async () => {
-      try {
-        const { data, error, count } = await supabase
-          .from('discussions')
-          .select('*, author:author_id(name, age, avatar_image->avatar)', {
-            count: 'exact',
-          })
-          .order('updated_at', { ascending: false })
-          .range(0, 9);
+    const page = Number(params.get('page'));
 
-        console.log(data);
-        setDiscus(data);
-        if (error) {
-          throw error;
-        }
+    dispatch(fetchDiscussions((page - 1) * PAGE_SIZE, page * PAGE_SIZE, user?.id));
+  }, [dispatch, params, user?.id]);
 
-        // setDiscus(data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    fetchDiscussons();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const handlePagination = (_: any, value: number) => {
+    window.scrollTo(0, 0);
+    setParams({ page: value.toString() });
+  };
 
   return (
     <Page title='Diskusijas'>
@@ -45,17 +39,16 @@ function Discussions() {
 
           <StartDiscussion />
         </Stack>
-        {discus?.map((x, i) => (
-          <DiscussionBlock discussion={x} key={i} />
-        ))}
+        {isLoading && [...Array(5)].map((_, i) => <SkeletonDiscussion key={i} />)}
+        {!isLoading && discussions?.map((x, i) => <DiscussionBlock discussion={x} key={i} />)}
 
         <Box mt={5} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
           <Pagination
-            onChange={() => console.log('log')}
-            page={1}
+            onChange={handlePagination}
+            page={Number(params.get('page'))}
             variant='text'
             shape='rounded'
-            count={5}
+            count={paginSize}
             color='primary'
           />
         </Box>

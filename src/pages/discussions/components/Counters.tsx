@@ -7,7 +7,7 @@ type Props = {
   users: number | null;
 };
 
-function BlockFooter({ comments, views, users }: Props) {
+function Counters({ comments, views, users }: Props) {
   const theme = useTheme();
   return (
     <>
@@ -33,4 +33,4 @@ function BlockFooter({ comments, views, users }: Props) {
   );
 }
 
-export default BlockFooter;
+export default Counters;
