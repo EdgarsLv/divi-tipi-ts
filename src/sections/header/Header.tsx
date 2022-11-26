@@ -5,13 +5,12 @@ import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import { Menu, MenuItem, Avatar, Divider } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
 import { Iconify } from '@/components';
 import { NavLink as RouterLink } from 'react-router-dom';
 import { useUserImages } from '@/hooks';
-import { selectAccountData } from '@/redux/slices/accountSlice';
+import { selectAccountData, setSidebarOpen } from '@/redux/slices/accountSlice';
 import SmallNav from './SmallNav';
 
 function Header(): ReactElement {
@@ -22,7 +21,7 @@ function Header(): ReactElement {
   const { avatar } = useUserImages(account);
 
   const handleOpen = (): void => {
-    dispatch(setOpen());
+    dispatch(setSidebarOpen());
   };
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

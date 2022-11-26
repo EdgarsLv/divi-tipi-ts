@@ -8,6 +8,7 @@ import type { AppDispatch, RootState } from '../store';
 interface AccountState {
   account: User;
   images: string[];
+  isSidebarOpen: boolean;
 }
 
 const initialState: AccountState = {
@@ -45,6 +46,7 @@ const initialState: AccountState = {
     user_images: undefined,
   },
   images: [],
+  isSidebarOpen: false,
 };
 
 export const accountSlice = createSlice({
@@ -57,13 +59,17 @@ export const accountSlice = createSlice({
     loadAccountImages: (state, action) => {
       state.images = action.payload;
     },
+    setSidebarOpen: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    },
   },
 });
 
-export const { loadAccountData, loadAccountImages } = accountSlice.actions;
+export const { setSidebarOpen, loadAccountData, loadAccountImages } = accountSlice.actions;
 
 export const selectAccountData = (state: RootState) => state.account.account;
 export const selectAccountImages = (state: RootState) => state.account.images;
+export const selectIsSidebarOpen = (state: RootState) => state.account.isSidebarOpen;
 
 export const fetchAccountData = (id?: string) => async (dispatch: AppDispatch) => {
   try {

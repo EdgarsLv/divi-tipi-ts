@@ -51,7 +51,6 @@ export type User = {
   has_avatar: boolean;
   confirmed_sociotype: boolean;
   user_images?: { [key: number]: { images: string[] } };
-  online: boolean;
 };
 
 export type SeenUser = {

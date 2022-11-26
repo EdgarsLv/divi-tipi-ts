@@ -8,10 +8,10 @@ import ListItemText from '@mui/material/ListItemText';
 import Collapse from '@mui/material/Collapse';
 import { Children, Items, navConfig } from './NavConfig';
 import { useAppDispatch } from '../../redux/store';
-import { setOpen } from '../../redux/slices/counterSlice';
 import { useGetActiveLink } from '@/hooks';
 import { SxProps, Theme } from '@mui/material/styles';
 import { Iconify } from '@/components';
+import { setSidebarOpen } from '@/redux/slices/accountSlice';
 
 function MobileMenu() {
   return (
@@ -45,7 +45,7 @@ function NavItemRoot({ item }: { item: Items }) {
     setOpens(!open);
   };
   const handleMenu = () => {
-    dispatch(setOpen());
+    dispatch(setSidebarOpen());
   };
 
   const renderContent = (
@@ -91,7 +91,7 @@ function ListSubItem({ title, path }: Children) {
   const active = useGetActiveLink(path);
 
   const handleMenu = () => {
-    dispatch(setOpen());
+    dispatch(setSidebarOpen());
   };
 
   return (

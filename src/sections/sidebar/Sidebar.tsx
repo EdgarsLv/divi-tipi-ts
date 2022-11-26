@@ -1,15 +1,15 @@
 import { Paper, Drawer } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { selectOpen, setOpen } from '../../redux/slices/counterSlice';
 import { MobileMenu } from '../menu';
 import { LogoWithText } from '@/components';
+import { selectIsSidebarOpen, setSidebarOpen } from '@/redux/slices/accountSlice';
 
 export default function Sidebar() {
-  const open = useAppSelector(selectOpen);
+  const open = useAppSelector(selectIsSidebarOpen);
   const dispatch = useAppDispatch();
 
   const handleToggle = () => {
-    dispatch(setOpen());
+    dispatch(setSidebarOpen());
   };
 
   return (
