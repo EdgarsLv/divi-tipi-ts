@@ -95,7 +95,12 @@ export default function CommentBlock({ comment }: { comment: Comment }) {
             {!hasReply ? (
               <Typography
                 onClick={() => setOpen(!open)}
-                sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  color: 'primary.main',
+                }}
               >
                 <Iconify icon={'mdi:message-reply-text'} sx={{ width: '12px' }} />
                 <Typography ml='5px' variant='caption'>

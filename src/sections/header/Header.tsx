@@ -3,25 +3,21 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
-import { Menu, MenuItem, Avatar, Badge, BadgeProps } from '@mui/material';
+import { Menu, MenuItem, Avatar, Divider } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { setOpen } from '../../redux/slices/counterSlice';
 import { useAuth } from '../../contexts/AuthContext';
 import { useThemeMode } from '../../contexts/ThemeContext';
 import { Iconify } from '@/components';
-import { NavLink as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-import { setListOpen } from '@/redux/slices/messagesSlice';
-import { useCounters, useUserImages } from '@/hooks';
-import { styled } from '@mui/material/styles';
+import { NavLink as RouterLink } from 'react-router-dom';
+import { useUserImages } from '@/hooks';
 import { selectAccountData } from '@/redux/slices/accountSlice';
+import SmallNav from './SmallNav';
 
-export default function Header(): ReactElement {
+function Header(): ReactElement {
   const { logout } = useAuth();
   const { toggleTheme } = useThemeMode();
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const { newMessages, statistics, newDiscussions } = useCounters();
   const account = useAppSelector(selectAccountData);
   const { avatar } = useUserImages(account);
 
@@ -43,17 +39,9 @@ export default function Header(): ReactElement {
     logout();
   };
 
-  const handleMessages = () => {
-    if (!pathname.includes('/messages/')) {
-      navigate('/messages');
-    }
-
-    dispatch(setListOpen(true));
-  };
-
   return (
     <Box>
-      <AppBar elevation={1} color='inherit' position='fixed'>
+      <AppBar elevation={3} color='inherit' position='fixed'>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <IconButton
             onClick={handleOpen}
@@ -67,27 +55,7 @@ export default function Header(): ReactElement {
           </IconButton>
 
           <Box>
-            <IconButton onClick={() => navigate('/discussions')} color='primary'>
-              <StyledBadge color='primary' badgeContent={newDiscussions}>
-                <Iconify icon='bx:bx-chat' sx={{ width: 21, height: 21 }} />
-              </StyledBadge>
-            </IconButton>
-
-            <IconButton onClick={() => navigate('/statistics')} color='primary'>
-              <StyledBadge color='primary' badgeContent={statistics}>
-                <Iconify icon='eva:eye-outline' sx={{ width: 21, height: 21 }} />
-              </StyledBadge>
-            </IconButton>
-
-            <IconButton onClick={handleMessages} color='primary'>
-              <StyledBadge color='primary' badgeContent={newMessages}>
-                <Iconify icon='fluent:mail-28-regular' sx={{ width: 21, height: 21 }} />
-              </StyledBadge>
-            </IconButton>
-
-            <IconButton onClick={toggleTheme} color='primary'>
-              <Iconify icon='ic:baseline-invert-colors' />
-            </IconButton>
+            <SmallNav />
 
             <IconButton id='demo-positioned-button' size='large' onClick={handleClick}>
               <Avatar
@@ -114,12 +82,23 @@ export default function Header(): ReactElement {
             }}
           >
             <MenuItem to='/account' component={RouterLink} onClick={handleClose}>
+              <Iconify sx={{ mr: 2 }} icon='la:user-edit' />
               Profils
             </MenuItem>
             <MenuItem to='/settings' component={RouterLink} onClick={handleClose}>
+              <Iconify sx={{ mr: 2 }} icon='mdi:mixer-settings' />
               Iestatījumi
             </MenuItem>
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+
+            <MenuItem onClick={toggleTheme}>
+              <Iconify sx={{ mr: 2 }} icon='material-symbols:invert-colors' />
+              Tēma
+            </MenuItem>
+            <Divider />
+            <MenuItem onClick={handleLogout}>
+              <Iconify sx={{ mr: 2 }} icon='bx:log-out-circle' />
+              Iziet
+            </MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
@@ -127,9 +106,4 @@ export default function Header(): ReactElement {
   );
 }
 
-const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-  '& .MuiBadge-badge': {
-    border: `2px solid ${theme.palette.background.paper}`,
-    padding: '0 4px',
-  },
-}));
+export default Header;

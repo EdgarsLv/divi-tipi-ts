@@ -43,10 +43,7 @@ function Cover() {
         <Box sx={{ position: 'relative' }}>
           {hasAvatar && (
             <PaperButton elevation={3} onClick={handleDeleteAvatar}>
-              <Iconify
-                icon='mdi:delete-circle-outline'
-                sx={{ width: 25, height: 25, color: 'text.primary' }}
-              />
+              <Iconify icon='mdi:delete-circle-outline' sx={{ width: 25, height: 25 }} />
             </PaperButton>
           )}
           <Avatar />

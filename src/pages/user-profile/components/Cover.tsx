@@ -18,7 +18,10 @@ export default function ProfileCover() {
     <Box>
       <TopStack direction='row'>
         <IconButton onClick={() => navigate(-1)}>
-          <Iconify icon='icon-park-twotone:back' sx={{ width: 24, height: 24 }} />
+          <Iconify
+            icon='akar-icons:arrow-back-thick'
+            sx={{ color: 'primary.main', width: 24, height: 24 }}
+          />
         </IconButton>
       </TopStack>
       <InfoStyle>

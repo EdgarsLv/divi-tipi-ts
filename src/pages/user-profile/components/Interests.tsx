@@ -4,7 +4,7 @@ import { User } from '@/types';
 import { Box, Grid, Card, Typography } from '@mui/material';
 import { useLoaderData } from 'react-router-dom';
 
-export default function Interests() {
+function Interests() {
   const user = useLoaderData() as User;
 
   const userInterests = INTERESTS.filter((x) => user?.interests?.includes(x.name));
@@ -25,6 +25,8 @@ export default function Interests() {
   );
 }
 
+export default Interests;
+
 type InterestProps = {
   interest: { icon: string; name: string };
 };
@@ -38,7 +40,11 @@ function InterestCard({ interest }: InterestProps) {
         <Iconify icon={icon} sx={{ color: 'primary.main', width: 40, height: 40 }} />
       </Box>
       <Box sx={{ flexGrow: 1, minWidth: 0, pl: 2, pr: 1 }}>
-        <Typography sx={{ textTransform: 'capitalize' }} variant='subtitle2' noWrap>
+        <Typography
+          sx={{ textTransform: 'capitalize', color: 'primary.main' }}
+          variant='subtitle2'
+          noWrap
+        >
           {name}
         </Typography>
       </Box>

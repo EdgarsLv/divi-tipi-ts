@@ -4,7 +4,7 @@ function Messaging() {
   return (
     <Box>
       <Typography variant='h3' sx={{ mb: 1 }}>
-        Messaging
+        Rakstīt ziņu
       </Typography>
 
       <Card sx={{ p: 3 }}>

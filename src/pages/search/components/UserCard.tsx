@@ -2,18 +2,21 @@
 import { Image, LinkToPersonality, LinkToRelations } from '@/components';
 import { useUserImages } from '@/hooks';
 import { User } from '@/types';
-import { Box, Card, Grid, Link, Typography } from '@mui/material';
+import { Box, Card, Grid, Link, Typography, useTheme } from '@mui/material';
 
 function UserCard({ user }: { user: User }) {
+  const theme = useTheme();
   const { name, age, sociotype, id, confirmed_sociotype, updated_at } = user;
 
   const { avatar } = useUserImages(user);
 
-  const isOnline = () => {
-    let color = 'lime';
+  const isLight = theme.palette.mode === 'light';
+
+  const lastOnline = () => {
+    let color = isLight ? '#54e744' : '#87e283';
 
     if (new Date().getTime() - new Date(updated_at).getTime() > 900000) {
-      color = 'yellow';
+      color = isLight ? '#e4ef1a' : '#e7eea3';
     }
 
     if (new Date().getTime() - new Date(updated_at).getTime() > 1800000) {
@@ -23,7 +26,7 @@ function UserCard({ user }: { user: User }) {
     return color;
   };
 
-  const color = isOnline();
+  const color = lastOnline();
 
   return (
     <Grid sx={{ position: 'relative' }} item xs={10} sm={5} md={4}>

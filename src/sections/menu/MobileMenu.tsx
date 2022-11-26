@@ -13,7 +13,7 @@ import { useGetActiveLink } from '@/hooks';
 import { SxProps, Theme } from '@mui/material/styles';
 import { Iconify } from '@/components';
 
-export default function MobileMenu() {
+function MobileMenu() {
   return (
     <>
       {navConfig.map(({ subheader, items }, i) => (
@@ -30,6 +30,8 @@ export default function MobileMenu() {
     </>
   );
 }
+
+export default MobileMenu;
 
 function NavItemRoot({ item }: { item: Items }) {
   const { title, path, children, icon } = item;

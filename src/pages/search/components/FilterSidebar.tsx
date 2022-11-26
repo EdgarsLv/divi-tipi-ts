@@ -46,9 +46,8 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
     <>
       <Button
         sx={{ zIndex: 10 }}
-        variant='contained'
+        variant='outlined'
         size='small'
-        color='inherit'
         endIcon={<Iconify icon='ic:round-filter-list' />}
         onClick={() => setIsOpen(true)}
       >

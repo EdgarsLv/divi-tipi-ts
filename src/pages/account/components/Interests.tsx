@@ -130,7 +130,11 @@ function InterestsCard({ interest, children, checked }: CardProps) {
         <Iconify icon={icon} sx={{ color: 'primary.main', width: 40, height: 40 }} />
       </Box>
       <Box sx={{ flexGrow: 1, minWidth: 0, pl: 2, pr: 1 }}>
-        <Typography sx={{ textTransform: 'capitalize' }} variant='subtitle2' noWrap>
+        <Typography
+          sx={{ textTransform: 'capitalize', color: 'primary.main' }}
+          variant='subtitle2'
+          noWrap
+        >
           {name}
         </Typography>
       </Box>

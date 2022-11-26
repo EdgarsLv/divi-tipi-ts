@@ -20,7 +20,7 @@ export const navConfig: Navigation[] = [
       { title: 'Meklēt', path: '/', icon: 'ic:baseline-people-outline' },
       { title: 'Vēstules', path: 'messages', icon: 'fluent:mail-28-regular' },
       { title: 'Statistika', path: 'statistics', icon: 'eva:eye-outline' },
-
+      { title: 'Diskusijas', path: 'discussions', icon: 'bx:bx-chat' },
       {
         title: 'Socionika',
         path: '',
@@ -31,7 +31,6 @@ export const navConfig: Navigation[] = [
           { title: 'Saderības', path: 'relationships' },
         ],
       },
-      { title: 'Diskusijas', path: 'discussions', icon: 'bx:bx-chat' },
     ],
   },
 
