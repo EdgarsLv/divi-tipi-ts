@@ -13,7 +13,7 @@ const SECONDARY_LIGHT: PaletteColorOptions = {
 
 const PRIMARY_DARK: PaletteColorOptions = {
   light: '#37be40',
-  main: '#2bc945',
+  main: '#1faa40',
   dark: '#1f8f26',
 };
 const SECONDARY_DARK: PaletteColorOptions = {

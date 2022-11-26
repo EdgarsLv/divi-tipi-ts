@@ -8,6 +8,7 @@ type MessagesState = {
   isLoading: boolean;
   error: string | null;
   conversations: Conversation[];
+  conversationId?: number;
   messages: Message[];
   isListOpen: boolean;
 };
@@ -16,6 +17,7 @@ const initialState: MessagesState = {
   isLoading: true,
   error: null,
   conversations: [],
+  conversationId: undefined,
   messages: [],
   isListOpen: true,
 };
@@ -57,6 +59,9 @@ const slice = createSlice({
         state.conversations = update;
       }
     },
+    getConversationId: (state, action) => {
+      state.conversationId = action.payload;
+    },
 
     getInitialMessages: (state, action) => {
       state.messages = action.payload;
@@ -83,6 +88,7 @@ export default slice.reducer;
 export const {
   setListOpen,
   updateConversations,
+  getConversationId,
   getConversations,
   getSubscribedMessages,
   getInitialMessages,
@@ -92,6 +98,7 @@ export const {
 } = slice.actions;
 
 export const selectConversations = (state: RootState) => state.messages.conversations;
+export const selectConversationId = (state: RootState) => state.messages.conversationId;
 export const selectMessages = (state: RootState) => state.messages.messages;
 export const selectIsListOpen = (state: RootState) => state.messages.isListOpen;
 
@@ -151,6 +158,26 @@ export const fetchConversations = (userId?: string) => async (dispatch: AppDispa
   }
 };
 
+export const fetchConversationId =
+  (userId: string, paramsId: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data, error } = await supabase
+        .from('conversations')
+        .select('id')
+        .or(
+          `and(user_one.eq.${userId}, user_two.eq.${paramsId}), and(user_two.eq.${userId}, user_one.eq.${paramsId})`,
+        )
+        .maybeSingle();
+
+      dispatch(getConversationId(data?.id));
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 export async function updateConversationStatus(userId: string, chatId: number) {
   try {
     const { error } = await supabase
@@ -189,6 +216,13 @@ export async function onSendMessage(value: SendMessage) {
   } catch (error) {
     console.error(error);
   }
+}
+export async function upsertConversation(userId: string, id: string) {
+  return await supabase
+    .from('conversations')
+    .upsert({ user_one: userId, user_two: id })
+    .select()
+    .maybeSingle();
 }
 
 // UPDATE LAST MESSAGE IN CONVERSATION
