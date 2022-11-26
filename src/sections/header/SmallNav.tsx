@@ -24,26 +24,32 @@ function SmallNav() {
   return (
     <>
       <IconButton onClick={() => navigate('/')} color='primary'>
-        <StyledBadge color='primary' badgeContent={newDiscussions}>
-          <Iconify icon='ic:baseline-people-outline' sx={{ width: 21, height: 21 }} />
+        <StyledBadge color='primary'>
+          <Iconify
+            icon='ic:baseline-people-outline'
+            sx={{ color: 'text.primary', width: 21, height: 21 }}
+          />
         </StyledBadge>
       </IconButton>
 
       <IconButton onClick={() => navigate('/discussions')} color='primary'>
         <StyledBadge color='primary' badgeContent={newDiscussions}>
-          <Iconify icon='bx:bx-chat' sx={{ width: 21, height: 21 }} />
+          <Iconify icon='bx:bx-chat' sx={{ color: 'text.primary', width: 21, height: 21 }} />
         </StyledBadge>
       </IconButton>
 
       <IconButton onClick={() => navigate('/statistics')} color='primary'>
         <StyledBadge color='primary' badgeContent={statistics}>
-          <Iconify icon='eva:eye-outline' sx={{ width: 21, height: 21 }} />
+          <Iconify icon='eva:eye-outline' sx={{ color: 'text.primary', width: 21, height: 21 }} />
         </StyledBadge>
       </IconButton>
 
       <IconButton sx={{ mr: 2 }} onClick={handleMessages} color='primary'>
         <StyledBadge color='primary' badgeContent={newMessages}>
-          <Iconify icon='fluent:mail-28-regular' sx={{ width: 21, height: 21 }} />
+          <Iconify
+            icon='fluent:mail-28-regular'
+            sx={{ color: 'text.primary', width: 21, height: 21 }}
+          />
         </StyledBadge>
       </IconButton>
     </>

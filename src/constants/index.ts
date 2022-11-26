@@ -27,6 +27,7 @@ export const EDUCATION_SEARCH = ['pamata', 'vidējā', 'augstākā', 'šobrīd s
 export const LANGUAGE_SEARCH = ['Latviešu', 'Krievu', 'Angļu', 'cita'];
 
 export const PAGIN_SIZE = 19;
+export const GALLERY_SIZE = 5;
 
 export const TEST_QUESTIONS = [
   {

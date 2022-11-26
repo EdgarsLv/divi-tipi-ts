@@ -29,7 +29,8 @@ function Statistics() {
         updateStatistics(user?.id);
       }
     };
-  }, [data, dispatch, statistics, user?.id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, statistics, user?.id]);
 
   return (
     <Page title='Statistics'>

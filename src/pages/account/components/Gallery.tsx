@@ -7,6 +7,7 @@ import { styled } from '@mui/material/styles';
 import { removeAccountImages, selectAccountImages } from '@/redux/slices/accountSlice';
 import { useImageUpload } from '@/hooks';
 import { useAuth } from '@/contexts/AuthContext';
+import { GALLERY_SIZE } from '@/constants';
 
 function Gallery() {
   const { user } = useAuth();
@@ -45,7 +46,7 @@ function Gallery() {
 
       <Card sx={{ p: 3, pt: 1, position: 'relative' }}>
         <Box sx={{ height: '50px' }}>
-          {accountImages.length < 5 && (
+          {accountImages.length < GALLERY_SIZE && (
             <label htmlFor='icon-file'>
               <Input
                 disabled={uploading}
@@ -55,7 +56,10 @@ function Gallery() {
                 onChange={(e) => pickImage(e, 'gallery')}
               />
               <IconButton sx={{ mb: 1 }} component='span'>
-                <Iconify icon='iconoir:add-media-image' sx={{ width: 24, height: 24 }} />
+                <Iconify
+                  icon='iconoir:add-media-image'
+                  sx={{ color: 'text.primary', width: 24, height: 24 }}
+                />
               </IconButton>
             </label>
           )}

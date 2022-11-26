@@ -1,6 +1,6 @@
 import { Suspense, lazy, ComponentType } from 'react';
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
-import { AuthGuard, GuestGuard } from '../guards';
+import { GuestGuard, RequireAuth, RequireAvatar, RequireSociotype } from '../guards';
 import { Spinner } from '../components';
 import { personalitiesLoader, personalityLoader } from '@/pages/personalities/Personalities';
 import { relationLoader, relationshipLoader } from '@/pages/relationships/Relationships';
@@ -54,9 +54,9 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <AuthGuard>
+      <RequireAuth>
         <MainLayout />
-      </AuthGuard>
+      </RequireAuth>
     ),
     children: [
       { element: <Search />, index: true },
@@ -73,7 +73,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'statistics',
-        element: <Statistics />,
+        element: (
+          <RequireSociotype>
+            <Statistics />
+          </RequireSociotype>
+        ),
         loader: () => statisticsLoader(),
       },
       {
@@ -89,7 +93,11 @@ export const router = createBrowserRouter([
         children: [
           {
             path: ':id',
-            element: <UserProfile />,
+            element: (
+              <RequireAvatar>
+                <UserProfile />
+              </RequireAvatar>
+            ),
             index: true,
             loader: ({ params }) => {
               return profileLoader(params.id);
@@ -134,10 +142,21 @@ export const router = createBrowserRouter([
       {
         path: 'discussions',
         children: [
-          { element: <Discussions />, index: true },
+          {
+            element: (
+              <RequireSociotype>
+                <Discussions />
+              </RequireSociotype>
+            ),
+            index: true,
+          },
           {
             path: ':id',
-            element: <Discussion />,
+            element: (
+              <RequireSociotype>
+                <Discussion />
+              </RequireSociotype>
+            ),
             loader: ({ params }) => {
               return discussionLoader(params?.id);
             },

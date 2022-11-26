@@ -56,12 +56,17 @@ function Header(): ReactElement {
           <Box>
             <SmallNav />
 
-            <IconButton id='demo-positioned-button' size='large' onClick={handleClick}>
+            <IconButton id='demo-positioned-button' size='small' onClick={handleClick}>
               <Avatar
                 variant='rounded'
                 alt={account.name}
                 src={avatar}
-                sx={{ width: 30, height: 30, bgcolor: (theme) => theme.palette.primary.main }}
+                sx={{
+                  boxShadow: 2,
+                  width: 40,
+                  height: 40,
+                  border: (theme) => `1.5px solid ${theme.palette.text.primary}`,
+                }}
               />
             </IconButton>
           </Box>

@@ -4,16 +4,19 @@ import { fetchUsers } from '@/redux/slices/usersSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { Box, Container, Grid, Pagination, Stack } from '@mui/material';
 import { useSearchParams } from 'react-router-dom';
-import { Page } from '../../components';
+import { EmptySearchAlert, Page, RequireSociotypeAlert } from '../../components';
 import { FilterSidebar, UserCard } from './components';
 import { useAuth } from '@/contexts/AuthContext';
 import { SkeletonUserCard } from '@/components/skeletons';
+import { selectAccountData } from '@/redux/slices/accountSlice';
 
 function Search() {
   const { user } = useAuth();
   const [params, setParams] = useSearchParams({ page: '1' });
-  const { users, filters, paginSize, isLoading } = useAppSelector((state) => state.users);
   const dispatch = useAppDispatch();
+
+  const account = useAppSelector(selectAccountData);
+  const { users, filters, paginSize, isLoading } = useAppSelector((state) => state.users);
 
   useEffect(() => {
     const page = Number(params.get('page'));
@@ -33,6 +36,9 @@ function Search() {
     setParams({ page: value.toString() });
   };
 
+  const showRequireSociotype = !account.has_sociotype;
+  const showNoSearchResult = account.has_sociotype && users?.length <= 0;
+
   return (
     <Page title='Search'>
       <Container>
@@ -47,6 +53,9 @@ function Search() {
             <FilterSidebar setParams={setParams} />
           </Stack>
         </Stack>
+
+        {!isLoading && showRequireSociotype && <RequireSociotypeAlert />}
+        {!isLoading && showNoSearchResult && <EmptySearchAlert />}
 
         <Grid sx={{ minHeight: `${window.innerHeight}px` }} container columns={20} spacing={3}>
           {isLoading && [...Array(20)].map((_, i) => <SkeletonUserCard key={i} />)}

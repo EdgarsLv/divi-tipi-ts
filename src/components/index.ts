@@ -14,3 +14,6 @@ export { default as ReactTimeAgo } from './ReactTimeAgo';
 export { default as Scrollbar } from './Scrollbar';
 export { default as RootSubscriptions } from './RootSubscriptions';
 export { default as PresenceTrack } from './PresenceTrack';
+export { default as RequireSociotypeAlert } from './RequireSociotypeAlert';
+export { default as RequireAvatarAlert } from './RequireAvatarAlert';
+export { default as EmptySearchAlert } from './EmptySearchAlert';

@@ -4,7 +4,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { Spinner } from '../components';
 import Login from '@/auth/login';
 
-export default function AuthGuard({ children }: { children: ReactElement }) {
+export default function RequireAuth({ children }: { children: ReactElement }) {
   const { isAuthenticated, isInitialized } = useAuth();
   const { pathname } = useLocation();
   const [requestedLocation, setRequestedLocation] = useState<any>(null);
