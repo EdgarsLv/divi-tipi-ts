@@ -1,5 +1,14 @@
 import { supabase } from '@/service';
-import { createContext, useEffect, useReducer, useState, useContext } from 'react';
+import { AuthResponse } from '@supabase/supabase-js';
+import { createContext, useEffect, useReducer, useState, useContext, ReactNode } from 'react';
+
+type RegisterUser = {
+  name: string;
+  age: string;
+  gender: string;
+  email: string;
+  password: string;
+};
 
 type AuthUser = {
   email: string;
@@ -33,12 +42,12 @@ const reducer = (state: any, action: any) => {
 
 const AuthContext = createContext({
   ...initialState,
-  login: (_email: string, _password: string) => Promise.resolve(),
-  register: () => Promise.resolve(),
+  login: (_email: string, _password: string) => Promise.resolve<AuthResponse>(null as any),
+  register: (_values: RegisterUser) => Promise.resolve<AuthResponse>(null as any),
   logout: () => Promise.resolve(),
 });
 
-function AuthProvider({ children }: any) {
+function AuthProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const [session, setSession] = useState<any>(null);
@@ -67,13 +76,14 @@ function AuthProvider({ children }: any) {
     }
   }, [session]);
 
-  const login = async (email: string, password: string) => {
-    await supabase.auth.signInWithPassword({ email, password });
-  };
+  const login = (email: string, password: string) =>
+    supabase.auth.signInWithPassword({ email, password });
 
-  const register = async (email: string, password: string) => {
-    await supabase.auth.signUp({ email, password });
-  };
+  // prettier-ignore
+  const register = ({ email, password, name, age, gender }: RegisterUser) =>
+    supabase.auth.signUp({ email, password, options: { 
+      data: { name, age, gender } },
+    });
 
   const logout = async () => {
     await supabase.auth.signOut();

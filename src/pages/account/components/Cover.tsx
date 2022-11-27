@@ -29,7 +29,10 @@ function Cover() {
             onChange={(e) => pickImage(e, 'cover')}
           />
           <IconButton component='span'>
-            <Iconify icon='dashicons:cover-image' sx={{ color: '#000', width: 24, height: 24 }} />
+            <Iconify
+              icon='dashicons:cover-image'
+              sx={{ color: 'primary.main', width: 24, height: 24 }}
+            />
           </IconButton>
         </label>
         {uploading && (
@@ -67,7 +70,13 @@ function Cover() {
       <Image
         alt='account cover'
         src={coverUrl ? coverUrl : cover}
-        sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+        }}
       />
     </Box>
   );

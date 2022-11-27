@@ -1,7 +1,7 @@
 import { Box, Link, Stack, Typography } from '@mui/material';
 import { useTheme, Theme, SxProps } from '@mui/material/styles';
 
-export default function LogoHeartAndText({ sx }: { sx: SxProps<Theme> }) {
+export default function LogoHeartAndText({ sx }: { sx?: SxProps<Theme> }) {
   const theme = useTheme();
 
   const PRIMARY_MAIN = theme.palette.primary.main;
@@ -9,14 +9,14 @@ export default function LogoHeartAndText({ sx }: { sx: SxProps<Theme> }) {
 
   return (
     <Link style={{ textDecoration: 'none' }} href='/'>
-      <Stack direction='row' alignItems='flex-end' spacing={1}>
-        <Box sx={{ ...sx }}>
+      <Stack direction='row' spacing={1}>
+        <Box sx={{ width: 25 }}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             xmlnsXlink='http://www.w3.org/1999/xlink'
             viewBox='0 0 148.0 163.64'
-            // height="163.64"
-            // width="598.11"
+            // height='163.64'
+            // width='598.11'
             id='svg833'
             version='1.1'
           >
@@ -917,7 +917,7 @@ export default function LogoHeartAndText({ sx }: { sx: SxProps<Theme> }) {
             </g>
           </svg>
         </Box>
-        <Typography variant='subtitle2' sx={{ fontSize: '1.1em', pb: 0.5, color: 'text.primary' }}>
+        <Typography variant='subtitle2' sx={{ ...sx, fontSize: '1.1em', color: 'text.primary' }}>
           DiviTipi
         </Typography>
       </Stack>

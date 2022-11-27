@@ -65,7 +65,7 @@ export default function StartDiscussion() {
       <Button
         size='small'
         startIcon={<Iconify icon={'akar-icons:chat-add'} />}
-        variant='outlined'
+        variant='contained'
         onClick={handleClickOpen}
       >
         Izveidot diskusiju

@@ -28,7 +28,7 @@ function LightBox({ isOpen, handleClose, images, photoIndex = 0, setPhotoIndex }
     >
       <>
         <TopToolbar>
-          <Typography variant='subtitle2'>{`${photoIndex + 1} / ${images.length}`}</Typography>
+          <Typography variant='subtitle2'>{`${photoIndex + 1} / ${images?.length}`}</Typography>
           <Stack direction='row' spacing={1}>
             <IconButton onClick={handleClose}>
               <Iconify icon='lucide:zoom-in' sx={{ color: '#fff' }} />
@@ -51,7 +51,7 @@ function LightBox({ isOpen, handleClose, images, photoIndex = 0, setPhotoIndex }
         </NextButton>
 
         <ImageBox>
-          <img style={{ maxHeight: '90%' }} alt='random' src={images[photoIndex]} />
+          <img style={{ maxHeight: '90%' }} alt='random' src={images?.[photoIndex]} />
         </ImageBox>
       </>
     </Modal>

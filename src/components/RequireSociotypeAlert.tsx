@@ -13,9 +13,8 @@ function RequireSociotypeAlert() {
         onClick={() => navigate('/personalities/test')}
         size='small'
         color='info'
-        variant='contained'
       >
-        Uz testu
+        UZ TESTU
       </Button>
     </Alert>
   );

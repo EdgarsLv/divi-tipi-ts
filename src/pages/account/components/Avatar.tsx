@@ -8,7 +8,7 @@ import { selectAccountData } from '@/redux/slices/accountSlice';
 
 function Avatar() {
   const account = useAppSelector(selectAccountData);
-  const { pickImage, avatarUrl } = useImageUpload();
+  const { pickImage, avatarUrl, uploading } = useImageUpload();
   const { avatar, hasAvatar } = useUserImages(account);
 
   return (
@@ -18,7 +18,7 @@ function Avatar() {
         position: 'relative',
         borderWidth: 2,
         borderStyle: 'solid',
-        borderColor: 'common.white',
+        borderColor: 'text.primary',
         width: { xs: 90, md: 120 },
         height: { xs: 90, md: 120 },
       }}
@@ -47,6 +47,7 @@ function Avatar() {
             htmlFor='avatar-file'
           >
             <Input
+              disabled={uploading}
               accept='image/*'
               id='avatar-file'
               type='file'
@@ -55,7 +56,7 @@ function Avatar() {
             <IconButton disableRipple component='span'>
               <Iconify
                 icon='ic:round-add-a-photo'
-                sx={{ color: 'common.white', width: 24, height: 24 }}
+                sx={{ color: 'text.primary', width: 24, height: 24 }}
               />
             </IconButton>
           </label>

@@ -45,21 +45,21 @@ export default function Preferences() {
   });
 
   const defaultValues: UserPrefrences = {
-    minAge: account.search.minAge,
-    maxAge: account.search.maxAge,
-    minLength: account.search.minLength,
-    maxLength: account.search.maxLength,
-    body: account.search.body,
-    alcohol: account.search.alcohol,
-    goals: account.search.goals,
-    smoke: account.search.smoke,
-    about: account.search.about,
-    gender: account.search.gender,
-    horoscope: account.search.horoscope,
-    kids: account.search.kids,
-    education: account.search.education,
-    sociotips: account.search.sociotips,
-    language: account.search.language,
+    minAge: account.search?.minAge ? account.search?.minAge : ('' as any),
+    maxAge: account.search?.maxAge ? account.search?.maxAge : ('' as any),
+    minLength: account.search?.minLength ? account.search?.minLength : ('' as any),
+    maxLength: account.search?.maxLength ? account.search?.maxLength : ('' as any),
+    body: account.search?.body ? account.search?.body : [],
+    alcohol: account.search?.alcohol ? account.search?.alcohol : [],
+    goals: account.search?.goals ? account.search?.goals : [],
+    smoke: account.search?.smoke ? account.search?.smoke : [],
+    about: account.search?.about ? account.search?.about : '',
+    gender: account.search?.gender ? account.search?.gender : [],
+    horoscope: account.search?.horoscope ? account.search?.horoscope : [],
+    kids: account.search?.kids ? account.search?.kids : [],
+    education: account.search?.education ? account.search?.education : [],
+    sociotips: account.search?.sociotips ? account.search?.sociotips : [],
+    language: account.search?.language ? account.search?.language : [],
   };
 
   const methods = useForm<UserPrefrences>({

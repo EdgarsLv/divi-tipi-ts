@@ -19,7 +19,7 @@ function Gallery() {
   const [isOpen, setIsOpen] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
 
-  const images = accountImages.map((img) => `${storageUrl}/${img}`);
+  const images = accountImages?.map((img) => `${storageUrl}/${img}`);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -38,6 +38,8 @@ function Gallery() {
     dispatch(removeAccountImages(accountImages, index, user?.id));
   };
 
+  const showUploadButton = Boolean(!accountImages || accountImages?.length < GALLERY_SIZE);
+
   return (
     <Box>
       <Typography variant='h3' sx={{ mb: 1 }}>
@@ -46,7 +48,7 @@ function Gallery() {
 
       <Card sx={{ p: 3, pt: 1, position: 'relative' }}>
         <Box sx={{ height: '50px' }}>
-          {accountImages.length < GALLERY_SIZE && (
+          {showUploadButton && (
             <label htmlFor='icon-file'>
               <Input
                 disabled={uploading}
@@ -81,7 +83,7 @@ function Gallery() {
             },
           }}
         >
-          {images.map((image, i) => (
+          {images?.map((image, i) => (
             <GalleryItem
               key={i}
               image={image}
@@ -89,14 +91,15 @@ function Gallery() {
               handleOpen={() => handleShow(i)}
             />
           ))}
-
-          <LightBox
-            handleClose={handleClose}
-            isOpen={isOpen}
-            photoIndex={photoIndex}
-            setPhotoIndex={setPhotoIndex}
-            images={images}
-          />
+          {Boolean(images) && (
+            <LightBox
+              handleClose={handleClose}
+              isOpen={isOpen}
+              photoIndex={photoIndex}
+              setPhotoIndex={setPhotoIndex}
+              images={images}
+            />
+          )}
         </Box>
       </Card>
     </Box>

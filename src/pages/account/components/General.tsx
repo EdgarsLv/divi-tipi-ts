@@ -32,20 +32,20 @@ function General() {
   });
 
   const defaultValues: UserInfo = {
-    name: account.user.name,
-    city: account.user.city,
-    age: account.user.age,
-    length: account.user.length,
-    body: account.user.body,
-    alcohol: account.user.alcohol,
-    goals: account.user.goals,
-    smoke: account.user.smoke,
-    about: account.user.about,
-    gender: account.user.gender,
-    horoscope: account.user.horoscope,
-    kids: account.user.kids,
-    education: account.user.education,
-    sociotips: account.user.sociotips,
+    name: account?.name,
+    age: Number(account?.age),
+    gender: account?.gender,
+    city: account.user?.city ? account.user?.city : '',
+    length: account.user?.length ? account.user?.length : '',
+    body: account.user?.body ? account.user?.body : '',
+    alcohol: account.user?.alcohol ? account.user?.alcohol : '',
+    goals: account.user?.goals ? account.user?.goals : [],
+    smoke: account.user?.smoke ? account.user?.smoke : '',
+    about: account.user?.about ? account.user?.about : '',
+    horoscope: account.user?.horoscope ? account.user?.horoscope : '',
+    kids: account.user?.kids ? account.user?.kids : '',
+    education: account.user?.education ? account.user?.education : '',
+    sociotips: account.user?.sociotips ? account.user?.sociotips : '',
   };
 
   const methods = useForm<UserInfo>({

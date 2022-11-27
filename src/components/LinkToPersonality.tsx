@@ -22,7 +22,7 @@ const common = {
   animation: `${spin} 2.5s infinite ease`,
 };
 const styleLight = {
-  backgroundImage: 'linear-gradient(to right, black, #a07d1f 50%, #8e860f 30%, #7b540c   )',
+  backgroundImage: 'linear-gradient(to right, black, #c7a137 50%, #9a9222 30%, #a47a2b   )',
   ...common,
 };
 

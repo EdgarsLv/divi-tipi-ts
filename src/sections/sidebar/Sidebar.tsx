@@ -15,7 +15,7 @@ export default function Sidebar() {
   return (
     <Drawer anchor='left' open={open} onClose={handleToggle}>
       <Paper sx={{ p: 0.5, pt: 1, pl: 2, m: 1 }} variant='outlined'>
-        <LogoWithText sx={{ width: 25 }} />
+        <LogoWithText sx={{ pb: 0.5 }} />
       </Paper>
       <MobileMenu />
     </Drawer>

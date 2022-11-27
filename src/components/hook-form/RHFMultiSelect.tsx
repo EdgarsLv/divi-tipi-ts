@@ -36,7 +36,7 @@ const RHFMultiSelect = <TFormValues extends Record<string, unknown>>({
     <Controller
       name={name}
       control={control}
-      // defaultValue={[]}
+      defaultValue={[] as any}
       render={({ field }) => (
         <FormControl fullWidth>
           <InputLabel>{label}</InputLabel>

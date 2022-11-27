@@ -46,7 +46,7 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
     <>
       <Button
         sx={{ zIndex: 10 }}
-        variant='outlined'
+        variant='contained'
         size='small'
         endIcon={<Iconify icon='ic:round-filter-list' />}
         onClick={() => setIsOpen(true)}
@@ -65,7 +65,7 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
             Filtrs
           </Typography>
           <IconButton onClick={onClose}>
-            <Iconify icon={'eva:close-fill'} sx={{ width: '20px' }} />
+            <Iconify icon={'eva:close-fill'} sx={{ color: 'text.primary', width: '20px' }} />
           </IconButton>
         </Stack>
 

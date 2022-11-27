@@ -24,7 +24,12 @@ export default function LinkToRelations({ personality }: { personality: string }
   const linkTo = `/relationships/${name}`;
 
   return (
-    <LinkStyle href={linkTo} underline='always' variant='subtitle2'>
+    <LinkStyle
+      sx={{ color: 'text.primary', textDecorationColor: 'grey' }}
+      href={linkTo}
+      underline='always'
+      variant='subtitle2'
+    >
       {sign}
     </LinkStyle>
   );

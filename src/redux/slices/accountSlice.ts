@@ -19,22 +19,7 @@ const initialState: AccountState = {
     gender: '',
     age: '',
     interests: [],
-    user: {
-      about: '',
-      age: 18,
-      alcohol: '',
-      body: '',
-      city: '',
-      education: '',
-      gender: '',
-      goals: [],
-      horoscope: '',
-      kids: '',
-      length: '',
-      name: '',
-      smoke: '',
-      sociotips: '',
-    },
+    user: {} as any,
     search: {} as any,
     avatar_image: { avatar: '', updated_at: '' },
     cover_image: { cover: '', updated_at: '' },
@@ -57,7 +42,11 @@ export const accountSlice = createSlice({
       state.account = action.payload;
     },
     loadAccountImages: (state, action) => {
-      state.images = action.payload;
+      if (action.payload) {
+        state.images = action.payload;
+      } else {
+        state.images = [];
+      }
     },
     setSidebarOpen: (state) => {
       state.isSidebarOpen = !state.isSidebarOpen;
@@ -128,7 +117,12 @@ export const updateGeneralInfo =
     try {
       const { data, error } = await supabase
         .from('users')
-        .update({ user: { ...values } })
+        .update({
+          name: values.name,
+          gender: values.gender,
+          age: values.age.toString(),
+          user: { ...values },
+        })
         .eq('id', id)
         .select()
         .maybeSingle();

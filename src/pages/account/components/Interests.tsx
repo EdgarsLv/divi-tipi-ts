@@ -26,7 +26,7 @@ export default function Interests() {
   const dispatch = useAppDispatch();
   const account = useAppSelector(selectAccountData);
 
-  const defaultValues: UserInterests = { interests: account.interests };
+  const defaultValues: UserInterests = { interests: account.interests ? account.interests : [] };
 
   const methods = useForm<UserInterests>({
     defaultValues,

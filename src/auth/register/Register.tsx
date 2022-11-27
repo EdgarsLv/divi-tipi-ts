@@ -1,9 +1,9 @@
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
-import { Link, Typography, Container, Stack, Box, Paper } from '@mui/material';
-
-import { Page } from '../../components';
+import { Link, Typography, Container, Stack, Box } from '@mui/material';
+import { Image, LogoWithText, Page } from '../../components';
 import { ContentStyle, HeaderStyle, RootStyle, SectionStyle } from '../login/Login';
 import { RegisterForm } from './components';
+import registerImg from '../../assets/images/register.svg';
 
 function Register() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -11,12 +11,11 @@ function Register() {
   const mdUp = useResponsive(Responsive.Up, Size.Md);
 
   return (
-    <Page title='Register'>
+    <Page title='Reģistrēties'>
       <RootStyle>
         <HeaderStyle>
-          <Paper elevation={1} sx={{ py: 1, px: 2 }}>
-            <Typography>LOGO</Typography>
-          </Paper>
+          <LogoWithText />
+
           {smUp && (
             <Typography variant='body2' sx={{ mt: { md: -2 } }}>
               Jau esi reģistrējies? {''}
@@ -32,10 +31,7 @@ function Register() {
             <Typography variant='h3' sx={{ px: 5, mt: 10, mb: 5 }}>
               Reģistrējies un atrodi savu saderīgo!
             </Typography>
-            <img
-              alt='login'
-              src='https://artincontext.org/wp-content/uploads/2021/05/Abstract-Art-Examples.jpg'
-            />
+            <Image alt='login' src={registerImg} />
           </SectionStyle>
         )}
 

@@ -1,8 +1,9 @@
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
-import { Link, Typography, Container, Card, Stack, Box, Paper } from '@mui/material';
+import { Link, Typography, Container, Card, Stack, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Page } from '../../components';
+import { Image, LogoWithText, Page } from '../../components';
 import { LoginForm } from './components';
+import loginImg from '../../assets/images/login.svg';
 
 function Login() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -10,12 +11,11 @@ function Login() {
   const mdUp = useResponsive(Responsive.Up, Size.Md);
 
   return (
-    <Page title='Login'>
+    <Page title='Ienākt'>
       <RootStyle>
         <HeaderStyle>
-          <Paper elevation={1} sx={{ py: 1, px: 2 }}>
-            <Typography>LOGO</Typography>
-          </Paper>
+          <LogoWithText />
+
           {smUp && (
             <Typography variant='body2' sx={{ mt: { md: -2 } }}>
               Neesi reģistrējies? {''}
@@ -31,10 +31,7 @@ function Login() {
             <Typography variant='h3' sx={{ px: 5, mt: 10, mb: 5 }}>
               Sveiki, laipni lūgts atpakaļ
             </Typography>
-            <img
-              alt='login'
-              src='https://media.tate.org.uk/aztate-prd-ew-dg-wgtail-st1-ctr-data/images/.width-600_2YYrvS3.jpg'
-            />
+            <Image alt='login' src={loginImg} />
           </SectionStyle>
         )}
 

@@ -11,15 +11,16 @@ function UserCard({ user }: { user: User }) {
   const { avatar } = useUserImages(user);
 
   const isLight = theme.palette.mode === 'light';
+  const height = isLight ? 1 : 0.5;
 
   const lastOnline = () => {
-    let color = isLight ? '#54e744' : '#87e283';
-
-    if (new Date().getTime() - new Date(updated_at).getTime() > 900000) {
-      color = isLight ? '#e4ef1a' : '#e7eea3';
-    }
+    let color = isLight ? '#44eb31' : '#87e283';
 
     if (new Date().getTime() - new Date(updated_at).getTime() > 1800000) {
+      color = isLight ? '#ecf637' : '#e7eea3';
+    }
+
+    if (new Date().getTime() - new Date(updated_at).getTime() > 3600000) {
       color = 'transparent';
     }
 
@@ -34,7 +35,7 @@ function UserCard({ user }: { user: User }) {
         <Link sx={{ textDecoration: 'none' }} href={`/user/${id}`}>
           <Image ratio='1/1' src={avatar} />
         </Link>
-        <Box sx={{ py: 0.5, px: 1, borderBottom: `1px solid ${color}` }}>
+        <Box sx={{ py: 0.5, px: 1, borderBottom: `${height}px solid ${color}` }}>
           <Box>
             <Typography mr={1} variant='subtitle1' component='span'>
               {name}
