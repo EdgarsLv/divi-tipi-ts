@@ -40,7 +40,7 @@ function Search() {
   const showNoSearchResult = account.has_sociotype && users?.length <= 0;
 
   return (
-    <Page title='Search'>
+    <Page title='Meklēt'>
       <Container>
         <Stack
           sx={{ my: 2 }}

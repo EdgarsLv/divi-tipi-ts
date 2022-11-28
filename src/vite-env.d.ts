@@ -6,4 +6,5 @@ interface ImportMetaEnv {
   VITE_SUPABASE_ANON_KEY: string;
   VITE_SUPABASE_SECRET_KEY: string;
   VITE_SUPABASE_STORAGE_URL: string;
+  VITE_ADMIN_ID: string[];
 }

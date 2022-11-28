@@ -122,8 +122,8 @@ function GalleryItem({ image, handleOpen, handleDelete }: ItemProps) {
         <Tooltip title='Dzēst' placement='top'>
           <IconButton onClick={handleDelete}>
             <Iconify
-              icon='ic:twotone-delete-forever'
-              sx={{ color: 'black', width: 30, height: 30 }}
+              icon='mdi:delete-forever-outline'
+              sx={{ color: 'error.main', width: 25, height: 25 }}
             />
           </IconButton>
         </Tooltip>

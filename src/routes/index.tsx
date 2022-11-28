@@ -46,6 +46,10 @@ const Settings = Loadable(lazy(() => import('../pages/settings')));
 // AUTH
 const Login = Loadable(lazy(() => import('../auth/login')));
 const Register = Loadable(lazy(() => import('../auth/register')));
+const ResetPassword = Loadable(lazy(() => import('../auth/reset-password')));
+
+// HOME
+const Home = Loadable(lazy(() => import('../pages/home')));
 
 // REDIRECTS
 const NotFound = Loadable(lazy(() => import('../pages/notFound')));
@@ -167,6 +171,14 @@ export const router = createBrowserRouter([
   },
 
   {
+    path: '/home',
+    element: (
+      <GuestGuard>
+        <Home />
+      </GuestGuard>
+    ),
+  },
+  {
     path: 'login',
     element: (
       <GuestGuard>
@@ -182,6 +194,15 @@ export const router = createBrowserRouter([
       </GuestGuard>
     ),
   },
+  {
+    path: 'reset-password',
+    element: (
+      <GuestGuard>
+        <ResetPassword />
+      </GuestGuard>
+    ),
+  },
+
   {
     path: '404',
     element: <NotFound />,

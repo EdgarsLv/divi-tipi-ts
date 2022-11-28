@@ -17,3 +17,6 @@ export { default as PresenceTrack } from './PresenceTrack';
 export { default as RequireSociotypeAlert } from './RequireSociotypeAlert';
 export { default as RequireAvatarAlert } from './RequireAvatarAlert';
 export { default as EmptySearchAlert } from './EmptySearchAlert';
+export { default as SentIcon } from './SentIcon';
+export { default as Terms } from './Terms';
+export { default as Privacy } from './Privacy';

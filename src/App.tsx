@@ -2,7 +2,7 @@ import { router } from './routes';
 import { HelmetProvider } from 'react-helmet-async';
 import { RouterProvider } from 'react-router-dom';
 import { AuthProvider, ThemeProvider as ThemeModeProvider } from './contexts';
-import { ThemeProvider } from './theme';
+import { ThemeProvider as MuiThemeProvider } from './theme';
 import { Provider as ReduxProvider } from 'react-redux';
 import { store } from './redux/store';
 
@@ -16,11 +16,11 @@ function App() {
       <AuthProvider>
         <HelmetProvider>
           <ThemeModeProvider>
-            <ThemeProvider>
+            <MuiThemeProvider>
               <NotistackProvider>
                 <RouterProvider router={router} />
               </NotistackProvider>
-            </ThemeProvider>
+            </MuiThemeProvider>
           </ThemeModeProvider>
         </HelmetProvider>
       </AuthProvider>

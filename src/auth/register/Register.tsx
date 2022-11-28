@@ -1,9 +1,10 @@
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
-import { Link, Typography, Container, Stack, Box } from '@mui/material';
-import { Image, LogoWithText, Page } from '../../components';
-import { ContentStyle, HeaderStyle, RootStyle, SectionStyle } from '../login/Login';
+import { Link, Typography, Container, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import { Image, Logo, Page } from '../../components';
+import { ContentStyle, HeaderStyle, RootStyle, TypographyStyle } from '../login/Login';
 import { RegisterForm } from './components';
-import registerImg from '../../assets/images/register.svg';
+import loginImg from '../../assets/images/login.svg';
 
 function Register() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -14,13 +15,13 @@ function Register() {
     <Page title='Reģistrēties'>
       <RootStyle>
         <HeaderStyle>
-          <LogoWithText />
+          <Logo sx={{ width: 30 }} />
 
           {smUp && (
             <Typography variant='body2' sx={{ mt: { md: -2 } }}>
               Jau esi reģistrējies? {''}
               <Link variant='subtitle2' href='/login'>
-                Pieslegties
+                Ienākt
               </Link>
             </Typography>
           )}
@@ -28,35 +29,33 @@ function Register() {
 
         {mdUp && (
           <SectionStyle>
-            <Typography variant='h3' sx={{ px: 5, mt: 10, mb: 5 }}>
-              Reģistrējies un atrodi savu saderīgo!
-            </Typography>
-            <Image alt='login' src={registerImg} />
+            <Box>
+              <Typography variant='h1'>
+                Divi
+                <Typography component='span' variant='h1' sx={{ color: 'primary.main' }}>
+                  &nbsp;Tipi
+                </Typography>{' '}
+                <br />
+                jauns veids, kā iepazīties
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 2 }}>
+              <TypographyStyle>Mēs zinām, ka atrast mīlestību var būt grūti,</TypographyStyle>
+              <TypographyStyle>bet tā tam nav jābūt.</TypographyStyle>
+            </Box>
+            <Image sx={{ width: 350 }} alt='login' src={loginImg} />
           </SectionStyle>
         )}
 
         <Container maxWidth='sm'>
           <ContentStyle>
-            <Stack direction='row' alignItems='center' sx={{ mb: 5 }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant='h4'>Reģistrēties</Typography>
-              </Box>
-            </Stack>
-
             <RegisterForm />
-
-            <Typography variant='body2' align='center' sx={{ color: 'text.secondary', mt: 3 }}>
-              Reģistrējoties es piekrītu&nbsp;
-              <Link href='/'>terms of service</Link>
-              un
-              <Link href='/'>privacy police</Link>
-            </Typography>
 
             {!smUp && (
               <Typography variant='body2' align='center' sx={{ mt: 3 }}>
                 Jau esi reģistrējies?{' '}
                 <Link variant='subtitle2' href='/login'>
-                  Pieslēgties
+                  Ienākt
                 </Link>
               </Typography>
             )}
@@ -68,3 +67,11 @@ function Register() {
 }
 
 export default Register;
+
+export const SectionStyle = styled(Box)(({ theme }) => ({
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  margin: theme.spacing(15, 0, 2, 15),
+}));

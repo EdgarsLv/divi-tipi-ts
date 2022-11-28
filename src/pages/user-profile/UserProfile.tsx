@@ -1,4 +1,5 @@
 const storageUrl = import.meta.env.VITE_SUPABASE_STORAGE_URL;
+const ADMIN_ID = import.meta.env.VITE_ADMIN_ID;
 import { useState, useEffect } from 'react';
 import { Iconify, LightBox, Page } from '@/components';
 import { styled } from '@mui/material/styles';
@@ -9,8 +10,11 @@ import { useLoaderData } from 'react-router-dom';
 import { User } from '@/types';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectIsOpen, setIsOpen } from '@/redux/slices/usersSlice';
+import { useAuth } from '@/contexts/AuthContext';
+import { addUserToStatistics } from '@/redux/slices/statisticsSlice';
 
 function UserProfile() {
+  const data = useAuth();
   const [currentTab, setCurrentTab] = useState('Anketa');
   const [images, setImages] = useState<string[]>([]);
 
@@ -35,6 +39,10 @@ function UserProfile() {
 
   useEffect(() => {
     setImages(getMappedImages());
+
+    if (!ADMIN_ID.includes(data.user!.id)) {
+      addUserToStatistics(data.user!.id, user.id);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -75,7 +83,7 @@ function UserProfile() {
   ];
 
   return (
-    <Page title='Profile'>
+    <Page title={user.name}>
       <Container>
         <Card sx={{ my: 2, height: 230, position: 'relative' }}>
           <Cover />

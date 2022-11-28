@@ -1,9 +1,10 @@
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
-import { Link, Typography, Container, Card, Stack, Box } from '@mui/material';
+import { Link, Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Image, LogoWithText, Page } from '../../components';
+import { Image, Logo, Page } from '../../components';
 import { LoginForm } from './components';
 import loginImg from '../../assets/images/login.svg';
+import { FONT_SECONDARY } from '@/theme/typography';
 
 function Login() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -14,7 +15,7 @@ function Login() {
     <Page title='Ienākt'>
       <RootStyle>
         <HeaderStyle>
-          <LogoWithText />
+          <Logo sx={{ width: 30 }} />
 
           {smUp && (
             <Typography variant='body2' sx={{ mt: { md: -2 } }}>
@@ -28,21 +29,26 @@ function Login() {
 
         {mdUp && (
           <SectionStyle>
-            <Typography variant='h3' sx={{ px: 5, mt: 10, mb: 5 }}>
-              Sveiki, laipni lūgts atpakaļ
-            </Typography>
-            <Image alt='login' src={loginImg} />
+            <Box>
+              <Typography variant='h1'>
+                Divi
+                <Typography component='span' variant='h1' sx={{ color: 'primary.main' }}>
+                  &nbsp;Tipi
+                </Typography>{' '}
+                <br />
+                jauns veids, kā iepazīties
+              </Typography>
+            </Box>
+            <Box sx={{ mt: 2 }}>
+              <TypographyStyle>Mēs zinām, ka atrast mīlestību var būt grūti,</TypographyStyle>
+              <TypographyStyle>bet tā tam nav jābūt.</TypographyStyle>
+            </Box>
+            <Image sx={{ width: 350 }} alt='login' src={loginImg} />
           </SectionStyle>
         )}
 
-        <Container maxWidth='sm'>
+        <Container>
           <ContentStyle>
-            <Stack direction='row' alignItems='center' sx={{ mb: 5 }}>
-              <Box sx={{ flexGrow: 1 }}>
-                <Typography variant='h4'>Pieslēgties</Typography>
-              </Box>
-            </Stack>
-
             <LoginForm />
 
             {!smUp && (
@@ -76,29 +82,29 @@ export const HeaderStyle = styled('header')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   position: 'absolute',
-  padding: theme.spacing(3),
+  padding: theme.spacing(2, 5),
   justifyContent: 'space-between',
-  [theme.breakpoints.up('md')]: {
-    alignItems: 'flex-start',
-    padding: theme.spacing(7, 5, 0, 7),
-  },
 }));
 
-export const SectionStyle = styled(Card)(({ theme }) => ({
+export const SectionStyle = styled(Box)(({ theme }) => ({
   width: '100%',
-  maxWidth: 464,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  margin: theme.spacing(2, 0, 2, 2),
+  margin: theme.spacing(15, 0, 2, 15),
 }));
 
-export const ContentStyle = styled('div')(({ theme }) => ({
-  maxWidth: 480,
+export const ContentStyle = styled('div')(() => ({
   margin: 'auto',
   display: 'flex',
   minHeight: '100vh',
   flexDirection: 'column',
   justifyContent: 'center',
-  padding: theme.spacing(12, 0),
+  alignItems: 'center',
+}));
+
+export const TypographyStyle = styled(Typography)(({ theme }) => ({
+  textShadow: `2px 0 0 ${theme.palette.background.default}`,
+  fontFamily: FONT_SECONDARY,
+  fontWeight: 500,
 }));

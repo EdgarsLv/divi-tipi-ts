@@ -33,7 +33,7 @@ function Statistics() {
   }, [dispatch, statistics, user?.id]);
 
   return (
-    <Page title='Statistics'>
+    <Page title='Statistika'>
       <Container maxWidth='lg'>
         <Typography variant='h3' sx={{ my: 2 }}>
           Statistika

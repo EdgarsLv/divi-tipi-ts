@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAuth } from '@/contexts/AuthContext';
 import { FormProvider, RHFTextField } from '@/components/hook-form';
-import { Alert, Button, Link, Stack } from '@mui/material';
+import { Alert, Button, Link, Stack, Typography } from '@mui/material';
+import { Privacy, Terms } from '@/components';
+import { SocialButtons } from '@/auth/components';
 
 type FormValues = {
   email: string;
@@ -44,28 +46,39 @@ function LoginForm() {
   };
 
   return (
-    <FormProvider<FormValues> methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={3}>
-        {error && (
-          <Alert severity='error' variant='outlined'>
-            {error}
-          </Alert>
-        )}
+    <Stack sx={{ maxWidth: 320 }}>
+      <SocialButtons title='Ienākt' />
 
-        <RHFTextField<FormValues> name='email' label='Email' />
-        <RHFTextField<FormValues> name='password' label='Password' type='password' />
-      </Stack>
+      <FormProvider<FormValues> methods={methods} onSubmit={handleSubmit(onSubmit)}>
+        <Stack spacing={3}>
+          {error && (
+            <Alert severity='error' variant='outlined'>
+              {error}
+            </Alert>
+          )}
 
-      <Stack direction='row' alignItems='center' justifyContent='flex-end' sx={{ my: 2 }}>
-        <Link variant='subtitle2' href='/'>
-          Aizmirsi paroli?
-        </Link>
-      </Stack>
+          <RHFTextField<FormValues> size='small' name='email' label='Epasts' />
+          <RHFTextField<FormValues> size='small' name='password' label='Parole' type='password' />
+        </Stack>
 
-      <Button fullWidth variant='contained' type='submit'>
-        Ienākt
-      </Button>
-    </FormProvider>
+        <Stack direction='row' alignItems='center' justifyContent='flex-end' sx={{ my: 2 }}>
+          <Link variant='subtitle2' href='/reset-password'>
+            Aizmirsi paroli?
+          </Link>
+        </Stack>
+
+        <Button fullWidth variant='contained' type='submit'>
+          Ienākt
+        </Button>
+      </FormProvider>
+
+      <Typography variant='caption' align='center' sx={{ color: 'text.secondary', mt: 1 }}>
+        Reģistrējoties es piekrītu&nbsp;
+        <Terms />
+        un
+        <Privacy />
+      </Typography>
+    </Stack>
   );
 }
 

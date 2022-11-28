@@ -62,7 +62,10 @@ export default function ChatHeader({ selected }: { selected: Conversation }) {
       <Box sx={{ flexGrow: 1 }} />
 
       <IconButton onClick={() => setOpen(true)}>
-        <Iconify icon={'ic:outline-delete-forever'} sx={{ width: 20, height: 20 }} />
+        <Iconify
+          icon={'ic:outline-delete-forever'}
+          sx={{ color: 'text.primary', width: 20, height: 20 }}
+        />
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Tiešām vēlies dzēst saraksti?</DialogTitle>

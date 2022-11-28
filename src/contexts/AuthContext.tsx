@@ -2,14 +2,6 @@ import { supabase } from '@/service';
 import { AuthResponse } from '@supabase/supabase-js';
 import { createContext, useEffect, useReducer, useState, useContext, ReactNode } from 'react';
 
-type RegisterUser = {
-  name: string;
-  age: string;
-  gender: string;
-  email: string;
-  password: string;
-};
-
 type AuthUser = {
   email: string;
   id: string;
@@ -43,7 +35,7 @@ const reducer = (state: any, action: any) => {
 const AuthContext = createContext({
   ...initialState,
   login: (_email: string, _password: string) => Promise.resolve<AuthResponse>(null as any),
-  register: (_values: RegisterUser) => Promise.resolve<AuthResponse>(null as any),
+  register: (_email: string, _password: string) => Promise.resolve<AuthResponse>(null as any),
   logout: () => Promise.resolve(),
 });
 
@@ -57,9 +49,19 @@ function AuthProvider({ children }: { children: ReactNode }) {
       setSession(session);
     });
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event == 'PASSWORD_RECOVERY') {
+        const newPassword = prompt('Ievadiet jauno paroli!');
+        const { data, error } = await supabase.auth.updateUser({ password: newPassword! });
+
+        if (data) alert('Parole atjaunote.');
+        if (error) alert('Kļūda, neizdevās atjaunot paroli.');
+
+        // navigate('/enter-new-password', { replace: true });
+      }
       setSession(session);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -80,10 +82,8 @@ function AuthProvider({ children }: { children: ReactNode }) {
     supabase.auth.signInWithPassword({ email, password });
 
   // prettier-ignore
-  const register = ({ email, password, name, age, gender }: RegisterUser) =>
-    supabase.auth.signUp({ email, password, options: { 
-      data: { name, age, gender } },
-    });
+  const register = (email: string, password: string) =>
+    supabase.auth.signUp({ email, password});
 
   const logout = async () => {
     await supabase.auth.signOut();

@@ -89,4 +89,18 @@ export async function updateStatistics(userId?: string) {
   }
 }
 
+export async function addUserToStatistics(userId: string, paramsId: string) {
+  try {
+    const { error } = await supabase
+      .from('seen_statistics')
+      .insert([{ user_id: paramsId, seen_user_id: userId }]);
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export default statisticsSlice.reducer;

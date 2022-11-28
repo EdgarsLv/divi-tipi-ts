@@ -1,8 +1,8 @@
 import { pxToRem } from '../utils/pxToRem';
 import { TypographyVariantsOptions } from '@mui/material/styles';
 
-const FONT_PRIMARY = 'Rokkitt, serif';
-const FONT_SECONDARY = 'Cinzel, serif';
+export const FONT_PRIMARY = 'Rokkitt, serif';
+export const FONT_SECONDARY = 'Cinzel, serif';
 
 const typography: TypographyVariantsOptions = {
   fontFamily: FONT_PRIMARY,

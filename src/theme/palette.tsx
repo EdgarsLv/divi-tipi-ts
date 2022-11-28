@@ -1,10 +1,9 @@
 import { PaletteOptions, PaletteColorOptions } from '@mui/material/styles';
-import { cyan } from '@mui/material/colors';
 
 const PRIMARY_LIGHT: PaletteColorOptions = {
-  light: cyan[400],
-  main: cyan[700],
-  dark: cyan[800],
+  light: '#4b9b75',
+  main: '#16b978',
+  dark: '#0d6a45',
 };
 const SECONDARY_LIGHT: PaletteColorOptions = {
   light: '#84A9FF',
@@ -13,9 +12,9 @@ const SECONDARY_LIGHT: PaletteColorOptions = {
 };
 
 const PRIMARY_DARK: PaletteColorOptions = {
-  light: cyan[500],
-  main: cyan[700],
-  dark: cyan[800],
+  light: '#7fdbaf',
+  main: '#00a160',
+  dark: '#168056',
 };
 const SECONDARY_DARK: PaletteColorOptions = {
   light: '#84A9FF',
@@ -37,17 +36,17 @@ const palette = {
   light: {
     ...COMMON_LIGHT,
     mode: 'light',
-    text: { primary: '#1f5353', secondary: '#266666' },
-    background: { paper: cyan[50], default: cyan[100] },
-    action: { active: cyan[100], hover: '#cbf3f8', selected: '#9ce8f1' },
+    text: { primary: '#084a30', secondary: '#105e3f' },
+    background: { paper: '#fafffc', default: '#e3f3eb' },
+    action: { active: '#d6f2e5', hover: '#e3f1eb', selected: '#d6f2e5' },
   } as PaletteOptions,
 
   dark: {
     ...COMMON_DARK,
     mode: 'dark',
-    text: { primary: '#2ae1e1', secondary: '#8acdcd' },
-    background: { paper: '#343744', default: '#2C2F3C' },
-    action: { active: '#919EAB' },
+    text: { primary: '#e9edf2', secondary: '#a5b2be' },
+    background: { paper: '#131b25', default: '#161C24' },
+    action: { active: '#171f28', hover: '#10141c', selected: '#0d1218' },
   } as PaletteOptions,
 };
 

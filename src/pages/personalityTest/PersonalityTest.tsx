@@ -4,7 +4,7 @@ import { TestForm } from './components';
 
 function PersonalityTest() {
   return (
-    <Page title='Personality-test'>
+    <Page title='Sociotipa tests'>
       <Container maxWidth='lg'>
         <Typography variant='h3' sx={{ my: 2 }}>
           Tests Sociotipa noteikšanai
