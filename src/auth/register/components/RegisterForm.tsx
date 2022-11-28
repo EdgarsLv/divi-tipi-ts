@@ -5,7 +5,6 @@ import { RHFTextField, FormProvider } from '@/components/hook-form';
 import { Alert, Button, Stack, Typography } from '@mui/material';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'react';
-import { supabase } from '@/service';
 import { Privacy, Terms } from '@/components';
 import { SocialButtons } from '@/auth/components';
 
@@ -36,16 +35,7 @@ function RegisterForm() {
 
   const onSubmit: SubmitHandler<FormValues> = async (values) => {
     try {
-      const { data, error } = await register(values.email, values.password);
-
-      if (data) {
-        const content = {
-          id: data.user?.id,
-        };
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        await supabase.from('users').upsert(content);
-      }
+      const { error } = await register(values.email, values.password);
 
       if (error) {
         throw new Error('Lietotājs ar šādu e-pastu jau reģistrēts!');
@@ -56,7 +46,7 @@ function RegisterForm() {
   };
 
   return (
-    <Stack sx={{ maxWidth: 320 }}>
+    <Stack sx={{ width: '100%', maxWidth: 320 }}>
       <SocialButtons title='Reģistrēties' />
 
       <FormProvider<FormValues> methods={methods} onSubmit={handleSubmit(onSubmit)}>

@@ -32,9 +32,9 @@ function General() {
   });
 
   const defaultValues: UserInfo = {
-    name: account?.name,
-    age: Number(account?.age),
-    gender: account?.gender,
+    name: account?.name ? account?.name : '',
+    age: account?.age ? Number(account?.age) : ('' as any),
+    gender: account?.gender ? account?.gender : '',
     city: account.user?.city ? account.user?.city : '',
     length: account.user?.length ? account.user?.length : '',
     body: account.user?.body ? account.user?.body : '',

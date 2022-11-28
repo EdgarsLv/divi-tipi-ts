@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { supabase } from '@/service';
-import { User, UserInfo, UserInterests, UserPrefrences } from '@/types';
+import { MetaInfo, User, UserInfo, UserInterests, UserPrefrences } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { AppDispatch, RootState } from '../store';
@@ -83,6 +83,29 @@ export const fetchAccountImages = (id?: string) => async (dispatch: AppDispatch)
       .maybeSingle();
 
     dispatch(loadAccountImages(data?.images));
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const updateMetaInfo = (values: MetaInfo, id?: string) => async (dispatch: AppDispatch) => {
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .update({
+        name: values.name,
+        gender: values.gender,
+        age: values.age.toString(),
+      })
+      .eq('id', id)
+      .select()
+      .maybeSingle();
+
+    dispatch(loadAccountData(data));
 
     if (error) {
       throw error;

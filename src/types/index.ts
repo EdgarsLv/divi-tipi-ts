@@ -1,4 +1,8 @@
-// import { Json } from 'lib/database.types';
+export type MetaInfo = {
+  name: string;
+  age: string;
+  gender: string;
+};
 
 export type UserInfo = {
   about: string;

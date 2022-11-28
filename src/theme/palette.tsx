@@ -1,14 +1,14 @@
 import { PaletteOptions, PaletteColorOptions } from '@mui/material/styles';
 
 const PRIMARY_LIGHT: PaletteColorOptions = {
-  light: '#4b9b75',
-  main: '#16b978',
-  dark: '#0d6a45',
+  light: '#20cc98',
+  main: '#00c082',
+  dark: '#00b46d',
 };
 const SECONDARY_LIGHT: PaletteColorOptions = {
-  light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
+  light: '#e2406d',
+  main: '#cc2054',
+  dark: '#b71c4f',
 };
 
 const PRIMARY_DARK: PaletteColorOptions = {
@@ -37,7 +37,7 @@ const palette = {
     ...COMMON_LIGHT,
     mode: 'light',
     text: { primary: '#084a30', secondary: '#105e3f' },
-    background: { paper: '#fafffc', default: '#e3f3eb' },
+    background: { paper: '#ffffff', default: '#eceff1' },
     action: { active: '#d6f2e5', hover: '#e3f1eb', selected: '#d6f2e5' },
   } as PaletteOptions,
 

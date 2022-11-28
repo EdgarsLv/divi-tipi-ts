@@ -61,7 +61,13 @@ function Cover() {
               sx={{ color: 'text.primary' }}
               personality={account.sociotype}
             />
-            <Link underline='always' ml={1} variant='overline' href='/personalities/test'>
+            <Link
+              color='text.primary'
+              underline='always'
+              ml={1}
+              variant='overline'
+              href='/personalities/test'
+            >
               Sociotipa tests
             </Link>
           </Box>

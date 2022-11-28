@@ -1,6 +1,6 @@
 import { Suspense, lazy, ComponentType } from 'react';
 import { Navigate, RouteObject, createBrowserRouter } from 'react-router-dom';
-import { GuestGuard, RequireAuth, RequireAvatar, RequireSociotype } from '../guards';
+import { GuestGuard, RequireAuth, RequireAvatar, RequireSociotype, RequireMeta } from '../guards';
 import { Spinner } from '../components';
 import { personalitiesLoader, personalityLoader } from '@/pages/personalities/Personalities';
 import { relationLoader, relationshipLoader } from '@/pages/relationships/Relationships';
@@ -48,9 +48,6 @@ const Login = Loadable(lazy(() => import('../auth/login')));
 const Register = Loadable(lazy(() => import('../auth/register')));
 const ResetPassword = Loadable(lazy(() => import('../auth/reset-password')));
 
-// HOME
-const Home = Loadable(lazy(() => import('../pages/home')));
-
 // REDIRECTS
 const NotFound = Loadable(lazy(() => import('../pages/notFound')));
 
@@ -63,11 +60,25 @@ export const router = createBrowserRouter([
       </RequireAuth>
     ),
     children: [
-      { element: <Search />, index: true },
+      {
+        element: (
+          <RequireMeta>
+            <Search />
+          </RequireMeta>
+        ),
+        index: true,
+      },
       {
         path: 'messages',
         children: [
-          { element: <Messages />, index: true },
+          {
+            element: (
+              <RequireMeta>
+                <Messages />
+              </RequireMeta>
+            ),
+            index: true,
+          },
           {
             path: ':chatId',
             element: <Messages />,
@@ -125,7 +136,14 @@ export const router = createBrowserRouter([
             loader: ({ params }) => personalityLoader(params.name),
             errorElement: <div>here is error</div>,
           },
-          { path: 'test', element: <PersonalityTest /> },
+          {
+            path: 'test',
+            element: (
+              <RequireMeta>
+                <PersonalityTest />
+              </RequireMeta>
+            ),
+          },
         ],
       },
       {
@@ -170,14 +188,6 @@ export const router = createBrowserRouter([
     ],
   },
 
-  {
-    path: '/home',
-    element: (
-      <GuestGuard>
-        <Home />
-      </GuestGuard>
-    ),
-  },
   {
     path: 'login',
     element: (

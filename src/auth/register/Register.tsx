@@ -1,10 +1,10 @@
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
 import { Link, Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Image, Logo, Page } from '../../components';
-import { ContentStyle, HeaderStyle, RootStyle, TypographyStyle } from '../login/Login';
+import { Logo, Page } from '../../components';
+import { ContentStyle, HeaderStyle, RootStyle } from '../login/Login';
 import { RegisterForm } from './components';
-import loginImg from '../../assets/images/login.svg';
+import { SectionImage } from '../components';
 
 function Register() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -27,27 +27,9 @@ function Register() {
           )}
         </HeaderStyle>
 
-        {mdUp && (
-          <SectionStyle>
-            <Box>
-              <Typography variant='h1'>
-                Divi
-                <Typography component='span' variant='h1' sx={{ color: 'primary.main' }}>
-                  &nbsp;Tipi
-                </Typography>{' '}
-                <br />
-                jauns veids, kā iepazīties
-              </Typography>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <TypographyStyle>Mēs zinām, ka atrast mīlestību var būt grūti,</TypographyStyle>
-              <TypographyStyle>bet tā tam nav jābūt.</TypographyStyle>
-            </Box>
-            <Image sx={{ width: 350 }} alt='login' src={loginImg} />
-          </SectionStyle>
-        )}
+        {mdUp && <SectionImage />}
 
-        <Container maxWidth='sm'>
+        <Container>
           <ContentStyle>
             <RegisterForm />
 

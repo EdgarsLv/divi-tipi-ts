@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAuth } from '@/contexts/AuthContext';
 import { FormProvider, RHFTextField } from '@/components/hook-form';
-import { Alert, Button, Link, Stack, Typography } from '@mui/material';
-import { Privacy, Terms } from '@/components';
+import { Alert, Button, Link, Stack } from '@mui/material';
 import { SocialButtons } from '@/auth/components';
 
 type FormValues = {
@@ -46,7 +45,7 @@ function LoginForm() {
   };
 
   return (
-    <Stack sx={{ maxWidth: 320 }}>
+    <Stack sx={{ width: '100%', maxWidth: 320 }}>
       <SocialButtons title='Ienākt' />
 
       <FormProvider<FormValues> methods={methods} onSubmit={handleSubmit(onSubmit)}>
@@ -71,13 +70,6 @@ function LoginForm() {
           Ienākt
         </Button>
       </FormProvider>
-
-      <Typography variant='caption' align='center' sx={{ color: 'text.secondary', mt: 1 }}>
-        Reģistrējoties es piekrītu&nbsp;
-        <Terms />
-        un
-        <Privacy />
-      </Typography>
     </Stack>
   );
 }

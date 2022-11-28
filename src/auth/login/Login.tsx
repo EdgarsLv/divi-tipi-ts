@@ -1,10 +1,11 @@
 import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
 import { Link, Typography, Container, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { Image, Logo, Page } from '../../components';
+import { Logo, Page } from '../../components';
 import { LoginForm } from './components';
-import loginImg from '../../assets/images/login.svg';
+
 import { FONT_SECONDARY } from '@/theme/typography';
+import { SectionImage } from '../components';
 
 function Login() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -27,25 +28,7 @@ function Login() {
           )}
         </HeaderStyle>
 
-        {mdUp && (
-          <SectionStyle>
-            <Box>
-              <Typography variant='h1'>
-                Divi
-                <Typography component='span' variant='h1' sx={{ color: 'primary.main' }}>
-                  &nbsp;Tipi
-                </Typography>{' '}
-                <br />
-                jauns veids, kā iepazīties
-              </Typography>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <TypographyStyle>Mēs zinām, ka atrast mīlestību var būt grūti,</TypographyStyle>
-              <TypographyStyle>bet tā tam nav jābūt.</TypographyStyle>
-            </Box>
-            <Image sx={{ width: 350 }} alt='login' src={loginImg} />
-          </SectionStyle>
-        )}
+        {mdUp && <SectionImage />}
 
         <Container>
           <ContentStyle>
@@ -82,8 +65,12 @@ export const HeaderStyle = styled('header')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   position: 'absolute',
-  padding: theme.spacing(2, 5),
+  padding: theme.spacing(2, 3),
   justifyContent: 'space-between',
+
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(2, 5),
+  },
 }));
 
 export const SectionStyle = styled(Box)(({ theme }) => ({
@@ -94,13 +81,18 @@ export const SectionStyle = styled(Box)(({ theme }) => ({
   margin: theme.spacing(15, 0, 2, 15),
 }));
 
-export const ContentStyle = styled('div')(() => ({
+export const ContentStyle = styled('div')(({ theme }) => ({
   margin: 'auto',
   display: 'flex',
   minHeight: '100vh',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
+  // paddingBottom: theme.spacing(10),
+
+  [theme.breakpoints.up('md')]: {
+    justifyContent: 'center',
+  },
 }));
 
 export const TypographyStyle = styled(Typography)(({ theme }) => ({
