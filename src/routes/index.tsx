@@ -8,6 +8,7 @@ import { profileLoader } from '@/pages/user-profile/UserProfile';
 import { messagesLoader } from '@/pages/messages/components/ChatMessages';
 import { statisticsLoader } from '@/pages/statistics/Statistics';
 import { discussionLoader } from '@/pages/discussion/Discussion';
+import ErrorPage from '@/pages/error-element';
 
 type AnyProps = {
   [key: string]: any;
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
         <MainLayout />
       </RequireAuth>
     ),
+    errorElement: <ErrorPage />,
     children: [
       {
         element: (
@@ -134,7 +136,6 @@ export const router = createBrowserRouter([
             path: ':name',
             element: <Personality />,
             loader: ({ params }) => personalityLoader(params.name),
-            errorElement: <div>here is error</div>,
           },
           {
             path: 'test',

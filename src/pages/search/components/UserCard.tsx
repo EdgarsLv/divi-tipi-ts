@@ -31,7 +31,12 @@ function UserCard({ user }: { user: User }) {
 
   return (
     <Grid sx={{ position: 'relative' }} item xs={10} sm={5} md={4}>
-      <Card sx={{ transition: 'ease .2s', '&:hover': { backgroundColor: 'action.hover' } }}>
+      <Card
+        sx={{
+          transition: 'ease .2s',
+          '&:hover': { backgroundColor: 'action.hover' },
+        }}
+      >
         <Link sx={{ textDecoration: 'none' }} href={`/user/${id}`}>
           <Image ratio='1/1' src={avatar} />
         </Link>

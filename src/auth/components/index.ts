@@ -1,2 +1,2 @@
-export { default as SocialButtons } from './SocialButtons';
-export { default as SectionImage } from './SectionImage';
+export { default as SocialAuth } from './SocialAuth';
+export { default as SectionText } from './SectionText';

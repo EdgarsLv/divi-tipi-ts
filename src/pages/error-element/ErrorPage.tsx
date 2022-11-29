@@ -1,9 +1,9 @@
 import { Image, Logo, Page } from '../../components';
 import { styled } from '@mui/material/styles';
 import { Box, Typography, Link, Container } from '@mui/material';
-import notFoundImg from '../../assets/images/notfound.svg';
+import errorImg from '../../assets/images/error.svg';
 
-function NotFound() {
+function ErrorPage() {
   return (
     <Page title='404'>
       <RootStyle>
@@ -14,15 +14,14 @@ function NotFound() {
           <Box sx={{ maxWidth: 480, margin: 'auto', textAlign: 'center' }}>
             <Box>
               <Typography variant='h3' paragraph>
-                Norādītā adrese netika atrasta!
+                Kaut kas nogāja greizi!
               </Typography>
             </Box>
             <Typography sx={{ color: 'text.secondary' }}>
-              Izskatās, ka jūsu meklētā adrese nav atrasta. Atgriezieties{' '}
-              <Link href='/'>divitipi.lv</Link>
+              Izskatās, ka lapā notikusi kļūda. Atgriezieties <Link href='/'>divitipi.lv</Link>
             </Typography>
             <Box sx={{ mt: 5 }}>
-              <Image alt='not found' src={notFoundImg} />
+              <Image alt='not found' src={errorImg} />
             </Box>
           </Box>
         </Container>
@@ -31,7 +30,7 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+export default ErrorPage;
 
 const RootStyle = styled('div')(({ theme }) => ({
   display: 'flex',

@@ -7,6 +7,8 @@ type AuthUser = {
   id: string;
 } | null;
 
+type AuthProviders = 'google' | 'facebook';
+
 type RootState = {
   isAuthenticated: boolean;
   isInitialized: boolean;
@@ -36,6 +38,7 @@ const AuthContext = createContext({
   ...initialState,
   login: (_email: string, _password: string) => Promise.resolve<AuthResponse>(null as any),
   register: (_email: string, _password: string) => Promise.resolve<AuthResponse>(null as any),
+  signInWithProvider: (_provider: AuthProviders) => Promise.resolve(),
   logout: () => Promise.resolve(),
 });
 
@@ -85,6 +88,10 @@ function AuthProvider({ children }: { children: ReactNode }) {
   const register = (email: string, password: string) =>
     supabase.auth.signUp({ email, password});
 
+  const signInWithProvider = async (provider: AuthProviders) => {
+    await supabase.auth.signInWithOAuth({ provider });
+  };
+
   const logout = async () => {
     await supabase.auth.signOut();
   };
@@ -96,6 +103,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
         login,
         register,
         logout,
+        signInWithProvider,
       }}
     >
       {children}

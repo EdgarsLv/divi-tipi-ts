@@ -1,11 +1,10 @@
-import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
-import { Link, Typography, Container, Box } from '@mui/material';
+import { Logo, Page } from '@/components';
 import { styled } from '@mui/material/styles';
-import { Logo, Page } from '../../components';
-import { LoginForm } from './components';
-
-import { FONT_SECONDARY } from '@/theme/typography';
-import { SectionImage } from '../components';
+import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
+import { Box, Link, Paper, Typography } from '@mui/material';
+import { LoginForm } from '../login/components';
+import loginImg from '../../assets/images/login.svg';
+import { SectionText } from '../components';
 
 function Login() {
   const smUp = useResponsive(Responsive.Up, Size.Sm);
@@ -14,46 +13,80 @@ function Login() {
 
   return (
     <Page title='Ienākt'>
-      <RootStyle>
+      <RootBox>
         <HeaderStyle>
           <Logo sx={{ width: 30 }} />
 
           {smUp && (
-            <Typography variant='body2' sx={{ mt: { md: -2 } }}>
-              Neesi reģistrējies? {''}
-              <Link variant='subtitle2' href='/register'>
+            <Typography variant='body2'>
+              Neesi reģistrējies?
+              <Link sx={{ ml: 1 }} variant='subtitle2' href='/register'>
                 Reģistrēties
               </Link>
             </Typography>
           )}
         </HeaderStyle>
 
-        {mdUp && <SectionImage />}
+        <InfoBox>
+          <SectionText />
 
-        <Container>
-          <ContentStyle>
-            <LoginForm />
+          {mdUp && (
+            <Box>
+              <img style={{ width: 350 }} src={loginImg} alt='login' />
+            </Box>
+          )}
+        </InfoBox>
 
-            {!smUp && (
-              <Typography variant='body2' align='center' sx={{ mt: 3 }}>
-                Neesi reģistrējies?{' '}
-                <Link variant='subtitle2' href='/register'>
-                  Reģistrēties
-                </Link>
-              </Typography>
-            )}
-          </ContentStyle>
-        </Container>
-      </RootStyle>
+        <FormBox sx={{ boxShadow: 5 }}>
+          <LoginForm />
+
+          {!smUp && (
+            <Typography variant='body2' align='center' sx={{ mt: 3 }}>
+              Neesi reģistrējies?{' '}
+              <Link variant='subtitle2' href='/register'>
+                Reģistrēties
+              </Link>
+            </Typography>
+          )}
+        </FormBox>
+
+        {!smUp && <Box sx={{ height: 10 }} />}
+      </RootBox>
     </Page>
   );
 }
 
 export default Login;
 
-export const RootStyle = styled('div')(({ theme }) => ({
+export const RootBox = styled(Box)(({ theme }) => ({
+  paddingTop: theme.spacing(10),
+
   [theme.breakpoints.up('md')]: {
+    paddingTop: theme.spacing(15),
     display: 'flex',
+  },
+}));
+
+export const InfoBox = styled(Box)(({ theme }) => ({
+  padding: theme.spacing(3, 2),
+  alignItems: 'center',
+  display: 'grid',
+
+  [theme.breakpoints.up('md')]: {
+    width: 'calc(55% - 120px)',
+    marginLeft: theme.spacing(15),
+  },
+}));
+
+export const FormBox = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(3, 0),
+  margin: theme.spacing(2, 2),
+  alignItems: 'center',
+  display: 'grid',
+
+  [theme.breakpoints.up('md')]: {
+    width: 'calc(45% - 120px)',
+    marginRight: theme.spacing(15),
   },
 }));
 
@@ -69,34 +102,6 @@ export const HeaderStyle = styled('header')(({ theme }) => ({
   justifyContent: 'space-between',
 
   [theme.breakpoints.up('md')]: {
-    padding: theme.spacing(2, 5),
+    padding: theme.spacing(2, 15),
   },
-}));
-
-export const SectionStyle = styled(Box)(({ theme }) => ({
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  margin: theme.spacing(15, 0, 2, 15),
-}));
-
-export const ContentStyle = styled('div')(({ theme }) => ({
-  margin: 'auto',
-  display: 'flex',
-  minHeight: '100vh',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  // paddingBottom: theme.spacing(10),
-
-  [theme.breakpoints.up('md')]: {
-    justifyContent: 'center',
-  },
-}));
-
-export const TypographyStyle = styled(Typography)(({ theme }) => ({
-  textShadow: `2px 0 0 ${theme.palette.background.default}`,
-  fontFamily: FONT_SECONDARY,
-  fontWeight: 500,
 }));

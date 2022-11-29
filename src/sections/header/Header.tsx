@@ -41,6 +41,9 @@ function Header(): ReactElement {
   return (
     <Box>
       <AppBar elevation={3} color='inherit' position='fixed'>
+        <Box
+          sx={{ position: 'absolute', top: 0, width: '100%', borderTop: 'solid 2px #63944A' }}
+        ></Box>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <IconButton
             onClick={handleOpen}

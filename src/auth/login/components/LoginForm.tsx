@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useAuth } from '@/contexts/AuthContext';
 import { FormProvider, RHFTextField } from '@/components/hook-form';
 import { Alert, Button, Link, Stack } from '@mui/material';
-import { SocialButtons } from '@/auth/components';
+import { SocialAuth } from '@/auth/components';
 
 type FormValues = {
   email: string;
@@ -45,8 +45,8 @@ function LoginForm() {
   };
 
   return (
-    <Stack sx={{ width: '100%', maxWidth: 320 }}>
-      <SocialButtons title='Ienākt' />
+    <Stack sx={{ width: '100%', maxWidth: 320, mx: 'auto' }}>
+      <SocialAuth />
 
       <FormProvider<FormValues> methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>

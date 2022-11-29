@@ -6,7 +6,7 @@ import { Alert, Button, Stack, Typography } from '@mui/material';
 import { useAuth } from '@/contexts/AuthContext';
 import { useState } from 'react';
 import { Privacy, Terms } from '@/components';
-import { SocialButtons } from '@/auth/components';
+import { SocialAuth } from '@/auth/components';
 
 type FormValues = {
   email: string;
@@ -46,8 +46,8 @@ function RegisterForm() {
   };
 
   return (
-    <Stack sx={{ width: '100%', maxWidth: 320 }}>
-      <SocialButtons title='Reģistrēties' />
+    <Stack sx={{ width: '100%', maxWidth: 320, mx: 'auto' }}>
+      <SocialAuth />
 
       <FormProvider<FormValues> methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
