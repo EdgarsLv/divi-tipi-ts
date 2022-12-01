@@ -38,7 +38,7 @@ const palette = {
     mode: 'light',
     text: { primary: '#080b06', secondary: '#2e4422' },
     background: { paper: '#ffffff', default: '#f1f8e8' },
-    action: { active: '#d6f2e5', hover: '#e3f1eb', selected: '#d6f2e5' },
+    action: { active: '#ddf3d2', hover: '#e5f3de', selected: '#e5f4de' },
   } as PaletteOptions,
 
   dark: {

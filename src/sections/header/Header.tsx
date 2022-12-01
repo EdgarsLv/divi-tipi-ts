@@ -12,6 +12,7 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import { useUserImages } from '@/hooks';
 import { selectAccountData, setSidebarOpen } from '@/redux/slices/accountSlice';
 import SmallNav from './SmallNav';
+// import LinkNav from './LinkNav';
 
 function Header(): ReactElement {
   const { logout } = useAuth();
@@ -56,6 +57,7 @@ function Header(): ReactElement {
             <Iconify icon='bx:menu' />
           </IconButton>
 
+          {/* <LinkNav /> */}
           <Box>
             <SmallNav />
 

@@ -78,8 +78,8 @@ export default function DiscussionBlock({ discussion }: { discussion: Discussion
             justifyContent='space-between'
             alignItems='center'
           >
-            <TextOneLine sx={{ ml: 2, mr: 1 }} variant='body2'>
-              {discussion.last_comment ? discussion.last_comment : ''}
+            <TextOneLine sx={{ ml: 2, mr: 1, maxWidth: '65%' }} variant='body2'>
+              {discussion?.last_comment ? discussion.last_comment : ''}
             </TextOneLine>
             <Typography variant='caption' color='text.secondary'>
               <ReactTimeAgo date={discussion.updated_at} />

@@ -15,7 +15,7 @@ export type Navigation = {
 
 export const navConfig: Navigation[] = [
   {
-    subheader: 'Main',
+    // subheader: 'Main',
     items: [
       { title: 'Meklēt', path: '/', icon: 'ic:baseline-people-outline' },
       { title: 'Vēstules', path: 'messages', icon: 'fluent:mail-28-regular' },
@@ -31,14 +31,6 @@ export const navConfig: Navigation[] = [
           { title: 'Saderības', path: 'relationships' },
         ],
       },
-    ],
-  },
-
-  {
-    subheader: 'Secondary',
-    items: [
-      { title: 'Izklaide', path: '/', icon: 'fe:smile-alt' },
-      { title: 'Atsauksmes', path: 'page2', icon: 'uil:feedback' },
     ],
   },
 ];
