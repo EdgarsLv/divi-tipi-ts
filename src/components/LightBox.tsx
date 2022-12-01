@@ -30,12 +30,12 @@ function LightBox({ isOpen, handleClose, images, photoIndex = 0, setPhotoIndex }
         <TopToolbar>
           <Typography variant='subtitle2'>{`${photoIndex + 1} / ${images?.length}`}</Typography>
           <Stack direction='row' spacing={1}>
-            <IconButton onClick={handleClose}>
+            {/* <IconButton onClick={handleClose}>
               <Iconify icon='lucide:zoom-in' sx={{ color: '#fff' }} />
             </IconButton>
             <IconButton onClick={handleClose}>
               <Iconify icon='lucide:zoom-out' sx={{ color: '#fff' }} />
-            </IconButton>
+            </IconButton> */}
             <IconButton onClick={handleClose}>
               <Iconify icon='ri:close-circle-line' sx={{ color: '#fff' }} />
             </IconButton>

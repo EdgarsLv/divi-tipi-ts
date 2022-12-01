@@ -1,7 +1,7 @@
 const storageUrl = import.meta.env.VITE_SUPABASE_STORAGE_URL;
 import femaleAvatar from '../assets/images/womenavatar.jpg';
 import maleAvatar from '../assets/images/manavatar.jpg';
-import fakeCover from '../assets/images/abstract.jpg';
+import fakeCover from '../assets/images/profile.svg';
 import { User } from '@/types';
 
 function getFakeAvatar(user: Partial<User>) {

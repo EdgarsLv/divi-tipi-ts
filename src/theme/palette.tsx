@@ -12,14 +12,14 @@ const SECONDARY_LIGHT: PaletteColorOptions = {
 };
 
 const PRIMARY_DARK: PaletteColorOptions = {
-  light: '#7fdbaf',
+  light: '#7ac952',
   main: '#63944a',
   dark: '#336A25',
 };
 const SECONDARY_DARK: PaletteColorOptions = {
-  light: '#84A9FF',
-  main: '#3366FF',
-  dark: '#1939B7',
+  light: '#e2406d',
+  main: '#cc2054',
+  dark: '#b71c4f',
 };
 
 const COMMON_LIGHT: PaletteOptions = {
@@ -44,7 +44,7 @@ const palette = {
   dark: {
     ...COMMON_DARK,
     mode: 'dark',
-    text: { primary: '#e9edf2', secondary: '#a5b2be' },
+    text: { primary: '#5e9940', secondary: '#cee2c4' },
     background: { paper: '#131b25', default: '#161C24' },
     action: { active: '#171f28', hover: '#10141c', selected: '#0d1218' },
   } as PaletteOptions,

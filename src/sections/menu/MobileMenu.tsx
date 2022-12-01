@@ -50,7 +50,7 @@ function NavItemRoot({ item }: { item: Items }) {
 
   const renderContent = (
     <>
-      <ListItemIcon sx={{ color: active ? (theme) => theme.palette.primary.main : 'inherit' }}>
+      <ListItemIcon sx={{ color: active ? (theme) => theme.palette.primary.light : 'inherit' }}>
         <Iconify sx={{ width: 20, height: 20 }} icon={icon} />
       </ListItemIcon>
       <ListItemText sx={{ textTransform: 'capitalize' }} primary={title} />
@@ -75,7 +75,7 @@ function NavItemRoot({ item }: { item: Items }) {
 
   return (
     <ListItemButton
-      sx={{ '&.active': { color: (theme) => theme.palette.primary.main } }}
+      sx={{ '&.active': { color: (theme) => theme.palette.primary.light } }}
       onClick={handleMenu}
       component={RouterLink}
       to={path}

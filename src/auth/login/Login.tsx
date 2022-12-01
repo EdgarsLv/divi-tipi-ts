@@ -18,7 +18,7 @@ function Login() {
           <Logo sx={{ width: 30 }} />
 
           {smUp && (
-            <Typography variant='body2'>
+            <Typography color='text.secondary' variant='body2'>
               Neesi reģistrējies?
               <Link sx={{ ml: 1 }} variant='subtitle2' href='/register'>
                 Reģistrēties
@@ -28,6 +28,11 @@ function Login() {
         </HeaderStyle>
 
         <InfoBox>
+          {!mdUp && (
+            <ImageBox>
+              <img style={{ width: 150 }} src={loginImg} alt='login' />
+            </ImageBox>
+          )}
           <SectionText />
 
           {mdUp && (
@@ -41,7 +46,7 @@ function Login() {
           <LoginForm />
 
           {!smUp && (
-            <Typography variant='body2' align='center' sx={{ mt: 3 }}>
+            <Typography color='text.secondary' variant='body2' align='center' sx={{ mt: 3 }}>
               Neesi reģistrējies?{' '}
               <Link variant='subtitle2' href='/register'>
                 Reģistrēties
@@ -68,6 +73,7 @@ export const RootBox = styled(Box)(({ theme }) => ({
 }));
 
 export const InfoBox = styled(Box)(({ theme }) => ({
+  position: 'relative',
   padding: theme.spacing(3, 2),
   alignItems: 'center',
   display: 'grid',
@@ -76,6 +82,13 @@ export const InfoBox = styled(Box)(({ theme }) => ({
     width: 'calc(55% - 120px)',
     marginLeft: theme.spacing(15),
   },
+}));
+
+export const ImageBox = styled(Box)(() => ({
+  position: 'absolute',
+  right: 10,
+  bottom: 0,
+  zIndex: -1,
 }));
 
 export const FormBox = styled(Paper)(({ theme }) => ({

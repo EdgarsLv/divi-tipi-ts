@@ -1,4 +1,4 @@
-import { Paper, Drawer } from '@mui/material';
+import { Paper, Drawer, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { MobileMenu } from '../menu';
 import { LogoWithText } from '@/components';
@@ -14,10 +14,16 @@ export default function Sidebar() {
 
   return (
     <Drawer anchor='left' open={open} onClose={handleToggle}>
-      <Paper sx={{ p: 0.5, pt: 1, pl: 2, m: 1 }} variant='outlined'>
+      <Paper sx={{ pb: 1, pt: 2, px: 4, mb: 2 }}>
         <LogoWithText sx={{ pb: 0.5 }} />
       </Paper>
       <MobileMenu />
+      <Paper elevation={5} sx={{ mt: 'auto', display: 'grid', p: 2 }}>
+        <Typography variant='caption'>Ir jautājumi, ieteikumi, pamanīji kļūdu?</Typography>
+        <Typography sx={{ color: 'text.primary' }} component='a' href='mailto: info@divitipi.lv'>
+          info@divitipi.lv
+        </Typography>
+      </Paper>
     </Drawer>
   );
 }

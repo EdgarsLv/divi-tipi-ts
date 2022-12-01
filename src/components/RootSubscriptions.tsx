@@ -23,7 +23,7 @@ function RootSubscriptions() {
       .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'conversations' }, () => {
         dispatch(fetchConversations(user?.id));
       })
-      .subscribe((status) => console.log(status, 'conversations'));
+      .subscribe();
 
     return () => {
       supabase.removeChannel(conversations);
@@ -51,7 +51,7 @@ function RootSubscriptions() {
           dispatch(fetchSeenUsers());
         },
       )
-      .subscribe((status) => console.log(status, 'statistics'));
+      .subscribe();
 
     return () => {
       supabase.removeChannel(statistics);

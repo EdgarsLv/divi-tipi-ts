@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Header } from '../sections/header';
 import { Sidebar } from '../sections/sidebar';
-import { PresenceTrack, RootSubscriptions, RouteProgress } from '@/components';
+import { RootSubscriptions, RouteProgress } from '@/components';
 import { useAppDispatch } from '@/redux/store';
 import { fetchAccountData } from '@/redux/slices/accountSlice';
 import { useAuth } from '@/contexts/AuthContext';
@@ -28,9 +28,9 @@ function MainLayout(): ReactElement {
     }
   }, [user?.id, dispatch]);
 
-  // useEffect(() => {
-  //   updateUserStatus(focused, user?.id);
-  // }, [focused, user?.id]);
+  useEffect(() => {
+    updateUserStatus(focused, user?.id);
+  }, [focused, user?.id]);
 
   return (
     <Box sx={{ minHeight: '100vh' }}>
@@ -45,7 +45,7 @@ function MainLayout(): ReactElement {
       <ScrollRestoration />
 
       {/* <PresenceTrack /> */}
-      {/* <RootSubscriptions /> */}
+      <RootSubscriptions />
       <RouteProgress />
     </Box>
   );

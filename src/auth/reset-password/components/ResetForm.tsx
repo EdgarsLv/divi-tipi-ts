@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Alert, Stack, Button } from '@mui/material';
@@ -19,15 +19,7 @@ const ResetPasswordSchema = Yup.object().shape({
 });
 
 function ResetForm({ onSent, onGetEmail }: Reset) {
-  const isMounted = useRef(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(
-    () => () => {
-      isMounted.current = false;
-    },
-    [],
-  );
 
   const methods = useForm({
     resolver: yupResolver(ResetPasswordSchema),
@@ -41,10 +33,8 @@ function ResetForm({ onSent, onGetEmail }: Reset) {
       const { data, error } = await supabase.auth.resetPasswordForEmail(value.email);
 
       if (data) {
-        if (isMounted.current) {
-          onSent();
-          onGetEmail(value.email);
-        }
+        onSent();
+        onGetEmail(value.email);
       }
 
       if (error) {

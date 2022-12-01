@@ -3,7 +3,7 @@ import useResponsive, { Responsive, Size } from '@/hooks/useResponsive';
 import { Box, Link, Typography } from '@mui/material';
 import loginImg from '../../assets/images/login.svg';
 import { SectionText } from '../components';
-import { FormBox, HeaderStyle, InfoBox, RootBox } from '../login/Login';
+import { FormBox, HeaderStyle, ImageBox, InfoBox, RootBox } from '../login/Login';
 import { RegisterForm } from './components';
 
 function Register() {
@@ -18,7 +18,7 @@ function Register() {
           <Logo sx={{ width: 30 }} />
 
           {smUp && (
-            <Typography variant='body2'>
+            <Typography color='text.secondary' variant='body2'>
               Jau esi reģistrējies? {''}
               <Link variant='subtitle2' href='/login'>
                 Ienākt
@@ -28,6 +28,11 @@ function Register() {
         </HeaderStyle>
 
         <InfoBox>
+          {!mdUp && (
+            <ImageBox>
+              <img style={{ width: 150 }} src={loginImg} alt='login' />
+            </ImageBox>
+          )}
           <SectionText />
 
           {mdUp && (
@@ -41,7 +46,7 @@ function Register() {
           <RegisterForm />
 
           {!smUp && (
-            <Typography variant='body2' align='center' sx={{ mt: 3 }}>
+            <Typography color='text.secondary' variant='body2' align='center' sx={{ mt: 3 }}>
               Jau esi reģistrējies?{' '}
               <Link variant='subtitle2' href='/login'>
                 Ienākt
