@@ -46,7 +46,7 @@ const palette = {
     mode: 'dark',
     text: { primary: '#5e9940', secondary: '#cee2c4' },
     background: { paper: '#131b25', default: '#161C24' },
-    action: { active: '#171f28', hover: '#10141c', selected: '#0d1218' },
+    action: { active: '#171f28', hover: '#181e2b', selected: '#0d1218' },
   } as PaletteOptions,
 };
 

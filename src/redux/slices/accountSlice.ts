@@ -9,9 +9,11 @@ interface AccountState {
   account: User;
   images: string[];
   isSidebarOpen: boolean;
+  isLoading: boolean;
 }
 
 const initialState: AccountState = {
+  isLoading: true,
   account: {
     id: '',
     created_at: '',
@@ -38,7 +40,11 @@ export const accountSlice = createSlice({
   name: 'account',
   initialState,
   reducers: {
+    startLoading: (state) => {
+      state.isLoading = true;
+    },
     loadAccountData: (state, action) => {
+      state.isLoading = false;
       state.account = action.payload;
     },
     loadAccountImages: (state, action) => {
@@ -54,13 +60,17 @@ export const accountSlice = createSlice({
   },
 });
 
-export const { setSidebarOpen, loadAccountData, loadAccountImages } = accountSlice.actions;
+export const { startLoading, setSidebarOpen, loadAccountData, loadAccountImages } =
+  accountSlice.actions;
 
 export const selectAccountData = (state: RootState) => state.account.account;
 export const selectAccountImages = (state: RootState) => state.account.images;
 export const selectIsSidebarOpen = (state: RootState) => state.account.isSidebarOpen;
+export const selectIsLoading = (state: RootState) => state.account.isLoading;
 
 export const fetchAccountData = (id?: string) => async (dispatch: AppDispatch) => {
+  dispatch(startLoading());
+
   try {
     const { data, error } = await supabase.from('users').select('*').eq('id', id).maybeSingle();
 

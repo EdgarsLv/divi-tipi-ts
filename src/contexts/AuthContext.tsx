@@ -54,13 +54,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
     supabase.auth.onAuthStateChange(async (event, session) => {
       if (event == 'PASSWORD_RECOVERY') {
-        const newPassword = prompt('Ievadiet jauno paroli!');
-        const { data, error } = await supabase.auth.updateUser({ password: newPassword! });
-
-        if (data) alert('Parole atjaunote.');
-        if (error) alert('Kļūda, neizdevās atjaunot paroli.');
-
-        // navigate('/enter-new-password', { replace: true });
+        window.location.replace('https://divitipi.lv/password-recovery');
       }
       setSession(session);
     });

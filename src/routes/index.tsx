@@ -48,6 +48,7 @@ const Settings = Loadable(lazy(() => import('../pages/settings')));
 const Login = Loadable(lazy(() => import('../auth/login')));
 const Register = Loadable(lazy(() => import('../auth/register')));
 const ResetPassword = Loadable(lazy(() => import('../auth/reset-password')));
+const PasswordRecovery = Loadable(lazy(() => import('../auth/password-recovery')));
 
 // REDIRECTS
 const NotFound = Loadable(lazy(() => import('../pages/notFound')));
@@ -185,6 +186,10 @@ export const router = createBrowserRouter([
             },
           },
         ],
+      },
+      {
+        path: 'password-recovery',
+        element: <PasswordRecovery />,
       },
     ],
   },

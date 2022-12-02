@@ -51,7 +51,7 @@ export default function ChatsListItem({ chatId, isSelected, conversation }: Prop
       <>
         <ListItemText
           sx={{ '&.MuiListItemText-root': { margin: 0 } }}
-          primary={`${conversation.user.name || 'Aizpildiet testu'}, ${
+          primary={`${conversation?.user?.name || 'Aizpildiet testu'}, ${
             conversation.user.age || ''
           }`}
           primaryTypographyProps={{
@@ -83,7 +83,7 @@ export default function ChatsListItem({ chatId, isSelected, conversation }: Prop
 const RootStyle = styled(ListItemButton)(({ theme }) => ({
   padding: theme.spacing(1, 3),
   transition: theme.transitions.create('all'),
-  borderBottom: '1px solid #e0dddd',
+  borderBottom: `1px solid ${theme.palette.divider}`,
 }));
 
 const StatusBox = styled(Box)(() => ({
