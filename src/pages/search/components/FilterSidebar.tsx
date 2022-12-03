@@ -9,6 +9,7 @@ import { PERSONALITIES } from '@/constants';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { selectFilters, setFilters } from '@/redux/slices/usersSlice';
 import { FilterForm } from '@/types';
+import RHFSCheckbox from '@/components/hook-form/RHFSCheckbox';
 
 declare type SetURLSearchParams = (
   nextInit?: URLSearchParamsInit | ((prev: URLSearchParams) => URLSearchParamsInit),
@@ -16,14 +17,13 @@ declare type SetURLSearchParams = (
 ) => void;
 
 export default function FilterSidebar({ setParams }: { setParams: SetURLSearchParams }) {
-  const { minAge, maxAge, gender, sociotypes } = useAppSelector(selectFilters);
+  const { minAge, maxAge, gender, sociotypes, foto } = useAppSelector(selectFilters);
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-
   // prettier-ignore
   const defaultValues: FilterForm = {
-    minAge, maxAge, gender, sociotypes
+    minAge, maxAge, gender, sociotypes, foto
   };
 
   const methods = useForm<FilterForm>({
@@ -75,6 +75,11 @@ export default function FilterSidebar({ setParams }: { setParams: SetURLSearchPa
             <Stack spacing={1}>
               <Typography variant='subtitle1'>Dzimums</Typography>
               <RHFMultiCheckbox<FilterForm> name='gender' options={['vīrietis', 'sieviete']} />
+            </Stack>
+
+            <Stack>
+              <Typography variant='subtitle1'>Lietotāji</Typography>
+              <RHFSCheckbox<FilterForm> name='foto' label='Ar foto' />
             </Stack>
 
             <Stack spacing={1}>

@@ -16,6 +16,7 @@ interface UsersState {
     maxAge: number;
     gender: string[];
     sociotypes: string[];
+    foto: boolean;
   };
 }
 
@@ -30,6 +31,7 @@ const initialState: UsersState = {
     maxAge: 99,
     gender: ['vīrietis', 'sieviete'],
     sociotypes: [],
+    foto: true,
   },
 };
 
@@ -64,8 +66,9 @@ export const selectFilters = (state: RootState) => state.users.filters;
 export const fetchUsers = (values: FilterWithPagin) => async (dispatch: AppDispatch) => {
   dispatch(startLoading());
 
-  const { start, end, minAge, maxAge, gender, sociotypes, id } = values;
+  const { start, end, minAge, maxAge, gender, sociotypes, foto, id } = values;
   const personalities = sociotypes.length > 0 ? sociotypes : PERSONALITIES;
+  const avatar = foto ? [true] : [true, false];
 
   try {
     const { data, error, count } = await supabase
@@ -75,6 +78,7 @@ export const fetchUsers = (values: FilterWithPagin) => async (dispatch: AppDispa
       .lte('age', maxAge)
       .in('gender', gender)
       .in('sociotype', personalities)
+      .in('has_avatar', avatar)
       .neq('id', id)
       .order('updated_at', { ascending: false })
       .range(start, end);

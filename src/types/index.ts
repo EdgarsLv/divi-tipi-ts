@@ -78,6 +78,7 @@ export type FilterWithPagin = {
   maxAge: number;
   gender: string[];
   sociotypes: string[];
+  foto: boolean;
 };
 
 export type FilterForm = {
@@ -85,6 +86,7 @@ export type FilterForm = {
   maxAge: number;
   gender: string[];
   sociotypes: string[];
+  foto: boolean;
 };
 
 export type UserInterests = {
