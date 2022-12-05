@@ -11,7 +11,7 @@ function SocialAuth() {
   return (
     <Stack sx={{ mb: 2 }}>
       <Stack direction='row' justifyContent='flex-end' alignItems='center'>
-        <Typography variant='h6' sx={{ mr: 'auto' }}>
+        <Typography variant='body1' sx={{ mr: 'auto' }}>
           Izmanto:
         </Typography>
         <Button

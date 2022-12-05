@@ -20,7 +20,7 @@ function Register() {
           {smUp && (
             <Typography color='text.secondary' variant='body2'>
               Jau esi reģistrējies? {''}
-              <Link variant='subtitle2' href='/login'>
+              <Link sx={{ color: 'secondary.main' }} variant='subtitle2' href='/login'>
                 Ienākt
               </Link>
             </Typography>
@@ -48,7 +48,7 @@ function Register() {
           {!smUp && (
             <Typography color='text.secondary' variant='body2' align='center' sx={{ mt: 3 }}>
               Jau esi reģistrējies?{' '}
-              <Link variant='subtitle2' href='/login'>
+              <Link sx={{ color: 'secondary.main' }} variant='subtitle2' href='/login'>
                 Ienākt
               </Link>
             </Typography>

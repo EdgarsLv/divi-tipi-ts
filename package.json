@@ -54,6 +54,7 @@
     "supabase": "^1.11.3",
     "typescript": "^4.8.4",
     "vite": "^3.1.1",
+    "vite-plugin-pwa": "^0.13.3",
     "vite-tsconfig-paths": "^3.5.2"
   }
 }

@@ -20,7 +20,7 @@ function Login() {
           {smUp && (
             <Typography color='text.secondary' variant='body2'>
               Neesi reģistrējies?
-              <Link sx={{ ml: 1 }} variant='subtitle2' href='/register'>
+              <Link sx={{ ml: 1, color: 'secondary.main' }} variant='subtitle2' href='/register'>
                 Reģistrēties
               </Link>
             </Typography>
@@ -48,7 +48,7 @@ function Login() {
           {!smUp && (
             <Typography color='text.secondary' variant='body2' align='center' sx={{ mt: 3 }}>
               Neesi reģistrējies?{' '}
-              <Link variant='subtitle2' href='/register'>
+              <Link sx={{ color: 'secondary.main' }} variant='subtitle2' href='/register'>
                 Reģistrēties
               </Link>
             </Typography>

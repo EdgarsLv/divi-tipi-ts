@@ -61,7 +61,7 @@ function LoginForm() {
         </Stack>
 
         <Stack direction='row' alignItems='center' justifyContent='flex-end' sx={{ my: 2 }}>
-          <Link variant='subtitle2' href='/reset-password'>
+          <Link sx={{ color: 'secondary.main' }} variant='subtitle2' href='/reset-password'>
             Aizmirsi paroli?
           </Link>
         </Stack>
