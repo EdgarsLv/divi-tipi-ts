@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Iconify, Image } from '@/components';
-import { Card, IconButton } from '@mui/material';
+import { Card, IconButton, CircularProgress, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useImageUpload, useUserImages } from '@/hooks';
 import { useAppSelector } from '@/redux/store';
@@ -24,6 +24,12 @@ function Avatar() {
       }}
     >
       <DropZoneStyle>
+        {uploading && (
+          <UploadBox>
+            <CircularProgress />
+          </UploadBox>
+        )}
+
         {hasAvatar && (
           <Image alt='avatar' src={avatarUrl ? avatarUrl : avatar} sx={{ zIndex: 8 }} />
         )}
@@ -105,4 +111,13 @@ const PlaceholderStyle = styled('div')(({ theme }) => ({
     duration: theme.transitions.duration.shorter,
   }),
   '&:hover': { opacity: 0.72 },
+}));
+
+const UploadBox = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'absolute',
+  inset: 0,
+  zIndex: 10,
 }));

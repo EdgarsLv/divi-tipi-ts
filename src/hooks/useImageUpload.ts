@@ -7,7 +7,8 @@ import {
 } from '@/redux/slices/accountSlice';
 import { useAppDispatch, useAppSelector } from '@/redux/store';
 import { supabase } from '@/service';
-import { imageResizer } from '@/utils/imageResizer';
+// import { imageResizer } from '@/utils/imageResizer';
+import { imageResize } from '@/utils/imageResize';
 import { useState } from 'react';
 
 const storageUrl = import.meta.env.VITE_SUPABASE_STORAGE_URL;
@@ -26,7 +27,7 @@ export default function useImageUpload() {
   const pickImage = async (event: any, path: 'cover' | 'avatar' | 'gallery') => {
     const selected = event.target.files[0];
     if (selected && mimeTypes.includes(selected.type)) {
-      const image = (await imageResizer(selected, 70)) as File;
+      const image = (await imageResize(selected)) as File;
 
       handleImagePicked(image, path);
     }
