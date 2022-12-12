@@ -23,13 +23,18 @@ function SmallNav() {
 
   return (
     <>
+      <IconButton onClick={() => navigate('/iq-test')}>
+        <Iconify
+          icon='icon-park-outline:thinking-problem'
+          sx={{ color: 'text.primary', width: 20, height: 20 }}
+        />
+      </IconButton>
+
       <IconButton onClick={() => navigate('/')}>
-        <StyledBadge color='primary'>
-          <Iconify
-            icon='ic:baseline-people-outline'
-            sx={{ color: 'text.primary', width: 21, height: 21 }}
-          />
-        </StyledBadge>
+        <Iconify
+          icon='ic:baseline-people-outline'
+          sx={{ color: 'text.primary', width: 21, height: 21 }}
+        />
       </IconButton>
 
       <IconButton onClick={() => navigate('/discussions')}>

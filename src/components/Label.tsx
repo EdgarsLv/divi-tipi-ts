@@ -26,6 +26,6 @@ const StyledBox = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   padding: theme.spacing(0, 0.8),
-  borderRadius: '4px',
+  borderRadius: '2px',
   fontSize: '12px',
 }));

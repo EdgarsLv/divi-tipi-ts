@@ -43,7 +43,7 @@ export default function ChatWindow() {
         },
         (payload) => dispatch(getSubscribedMessages(payload.new)),
       )
-      .subscribe((status) => console.log(status, 'messages'));
+      .subscribe();
 
     return () => {
       supabase.removeChannel(messageChannel);

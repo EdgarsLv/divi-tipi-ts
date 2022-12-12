@@ -9,6 +9,7 @@ import { messagesLoader } from '@/pages/messages/components/ChatMessages';
 import { statisticsLoader } from '@/pages/statistics/Statistics';
 import { discussionLoader } from '@/pages/discussion/Discussion';
 import ErrorPage from '@/pages/error-element';
+import { exerciseLoader } from '@/pages/iq-test/IqTest';
 
 type AnyProps = {
   [key: string]: any;
@@ -43,6 +44,8 @@ const Relation = Loadable(lazy(() => import('../pages/relation')));
 // ACCOUNT
 const Account = Loadable(lazy(() => import('../pages/account')));
 const Settings = Loadable(lazy(() => import('../pages/settings')));
+const IqTest = Loadable(lazy(() => import('../pages/iq-test')));
+const IqResult = Loadable(lazy(() => import('../pages/iq-test-result')));
 
 // AUTH
 const Login = Loadable(lazy(() => import('../auth/login')));
@@ -190,6 +193,15 @@ export const router = createBrowserRouter([
       {
         path: 'password-recovery',
         element: <PasswordRecovery />,
+      },
+      {
+        path: 'iq-test',
+        element: <IqTest />,
+        loader: () => exerciseLoader(),
+      },
+      {
+        path: 'iq-test-result',
+        element: <IqResult />,
       },
     ],
   },

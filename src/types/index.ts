@@ -55,6 +55,9 @@ export type User = {
   has_avatar: boolean;
   confirmed_sociotype: boolean;
   user_images?: { [key: number]: { images: string[] } };
+  iq_value: number | null;
+  iq_public: boolean;
+  iq_completed_at: string;
 };
 
 export type SeenUser = {
@@ -191,6 +194,17 @@ export type CommentAuthor = {
     avatar: string;
     updated_at: string;
   };
+};
+
+export type Pick = {
+  img: string;
+  value: number;
+  selected?: boolean;
+};
+
+export type IQData = {
+  exercise_img: string;
+  picking_img: Pick[];
 };
 
 export type PersonalityTestQuestions = {

@@ -2,11 +2,12 @@
 import { Image, LinkToPersonality, LinkToRelations } from '@/components';
 import { useUserImages } from '@/hooks';
 import { User } from '@/types';
-import { Box, Card, Grid, Link, Typography, useTheme } from '@mui/material';
+import { Box, Card, Grid, Link, Typography, Paper, useTheme } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 function UserCard({ user }: { user: User }) {
   const theme = useTheme();
-  const { name, age, sociotype, id, confirmed_sociotype, updated_at } = user;
+  const { iq_public, iq_value, name, age, sociotype, id, confirmed_sociotype, updated_at } = user;
 
   const { avatar } = useUserImages(user);
 
@@ -56,9 +57,36 @@ function UserCard({ user }: { user: User }) {
             <LinkToRelations personality={sociotype} />
           </Box>
         </Box>
+        {iq_value && (
+          <IQBox>
+            <Typography sx={{ fontWeight: 'bold', px: 0.5, fontSize: '12px' }}>
+              IQ:
+              {iq_public ? <IQShow>{iq_value}</IQShow> : <IQHide>oIo</IQHide>}
+            </Typography>
+          </IQBox>
+        )}
       </Card>
     </Grid>
   );
 }
 
 export default UserCard;
+
+const IQBox = styled(Paper)(() => ({
+  position: 'absolute',
+  top: 0,
+  margin: '4px',
+}));
+
+const IQShow = styled('span')(() => ({
+  marginLeft: '4px',
+  fontSize: '12px',
+  fontWeight: 'bold',
+}));
+
+const IQHide = styled('span')(() => ({
+  filter: 'blur(3px)',
+  marginLeft: '4px',
+  fontSize: '12px',
+  fontWeight: 'bold',
+}));

@@ -31,6 +31,9 @@ const initialState: AccountState = {
     has_avatar: false,
     confirmed_sociotype: false,
     user_images: undefined,
+    iq_value: null,
+    iq_public: false,
+    iq_completed_at: '',
   },
   images: [],
   isSidebarOpen: false,
@@ -124,6 +127,51 @@ export const updateMetaInfo = (values: MetaInfo, id?: string) => async (dispatch
     console.error(error);
   }
 };
+
+export const updateIQValue = (result: number, id?: string) => async (dispatch: AppDispatch) => {
+  const timeNow = new Date().toISOString();
+  try {
+    const { data, error } = await supabase
+      .from('users')
+      .update({
+        iq_value: result,
+        iq_public: true,
+        iq_completed_at: timeNow,
+      })
+      .eq('id', id)
+      .select()
+      .maybeSingle();
+
+    dispatch(loadAccountData(data));
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+export const updateIQVisibility =
+  (visible: boolean, id?: string) => async (dispatch: AppDispatch) => {
+    try {
+      const { data, error } = await supabase
+        .from('users')
+        .update({
+          iq_public: visible,
+        })
+        .eq('id', id)
+        .select()
+        .maybeSingle();
+
+      dispatch(loadAccountData(data));
+
+      if (error) {
+        throw error;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 export const updatePreferencesInfo =
   (values: UserPrefrences, id?: string) => async (dispatch: AppDispatch) => {

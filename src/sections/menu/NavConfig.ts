@@ -33,4 +33,15 @@ export const navConfig: Navigation[] = [
       },
     ],
   },
+  {
+    subheader: 'Izklaidei',
+    items: [
+      { title: 'IQ-tests', path: '/iq-test', icon: 'icon-park-outline:thinking-problem' },
+      {
+        title: 'IQ-rezultāts',
+        path: '/iq-test-result',
+        icon: 'iconoir:brain',
+      },
+    ],
+  },
 ];
