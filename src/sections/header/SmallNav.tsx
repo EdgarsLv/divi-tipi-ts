@@ -23,13 +23,6 @@ function SmallNav() {
 
   return (
     <>
-      <IconButton onClick={() => navigate('/iq-test')}>
-        <Iconify
-          icon='icon-park-outline:thinking-problem'
-          sx={{ color: 'text.primary', width: 20, height: 20 }}
-        />
-      </IconButton>
-
       <IconButton onClick={() => navigate('/')}>
         <Iconify
           icon='ic:baseline-people-outline'
@@ -49,13 +42,20 @@ function SmallNav() {
         </StyledBadge>
       </IconButton>
 
-      <IconButton sx={{ mr: 2 }} onClick={handleMessages}>
+      <IconButton onClick={handleMessages}>
         <StyledBadge color='primary' badgeContent={newMessages}>
           <Iconify
             icon='ic:round-mail-outline'
             sx={{ color: 'text.primary', width: 21, height: 21 }}
           />
         </StyledBadge>
+      </IconButton>
+
+      <IconButton sx={{ mr: 2 }} onClick={() => navigate('/iq-test')}>
+        <Iconify
+          icon='icon-park-outline:thinking-problem'
+          sx={{ color: 'text.primary', width: 20, height: 20 }}
+        />
       </IconButton>
     </>
   );
