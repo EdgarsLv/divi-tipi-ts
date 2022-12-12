@@ -1,9 +1,16 @@
 import { Image, Logo, Page } from '../../components';
 import { styled } from '@mui/material/styles';
-import { Box, Typography, Link, Container } from '@mui/material';
+import { Box, Typography, Container, Button } from '@mui/material';
 import errorImg from '../../assets/images/error.svg';
+import { useNavigate } from 'react-router-dom';
 
 function ErrorPage() {
+  const navigate = useNavigate();
+
+  const handleHome = () => {
+    navigate('/');
+    window.location.reload();
+  };
   return (
     <Page title='404'>
       <RootStyle>
@@ -18,7 +25,10 @@ function ErrorPage() {
               </Typography>
             </Box>
             <Typography sx={{ color: 'text.secondary' }}>
-              Izskatās, ka lapā notikusi kļūda. Atgriezieties <Link href='/'>divitipi.lv</Link>
+              Izskatās, ka lapā notikusi kļūda. Atgriezieties{' '}
+              <Button sx={{ textTransform: 'lowercase' }} onClick={handleHome}>
+                divitipi.lv
+              </Button>
             </Typography>
             <Box sx={{ mt: 5 }}>
               <Image alt='not found' src={errorImg} />

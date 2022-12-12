@@ -49,7 +49,7 @@ function IqResult() {
         </Paper>
 
         <Paper sx={{ mt: 2, p: 2 }}>
-          <Typography>Drīzumā būs pieejama statistika par portālu kopumā!</Typography>
+          <Typography>Drīzumā statistika par portālu kopumā!</Typography>
         </Paper>
       </Container>
     </Page>
