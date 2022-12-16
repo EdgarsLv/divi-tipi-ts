@@ -27,6 +27,7 @@ export default function DeleteAccount() {
       // eslint-disable-next-line camelcase
       await supabase.from('user_images').delete().match({ user_id: user?.id });
       const { error } = await supabaseAdmin.auth.admin.deleteUser(user!.id);
+      window.localStorage.clear();
 
       if (error) {
         throw new Error('Kļūda. Neizdevās izdzēst!');

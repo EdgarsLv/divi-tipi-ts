@@ -48,7 +48,7 @@ export default function DiscussionBlock({ discussion }: { discussion: Discussion
             sx={isMe || isDeleted ? style : {}}
             href={`/user/${discussion.author_id}`}
           >
-            {discussion?.author?.name}, {discussion?.author?.age}
+            {discussion?.author?.name || 'Dzēsts lietotājs'}, {discussion?.author?.age}
           </Link>
         }
         subheader={
